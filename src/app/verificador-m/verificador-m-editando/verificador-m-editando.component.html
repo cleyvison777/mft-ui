@@ -1,0 +1,102 @@
+<div class="container">
+    <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+     <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+          <div class="ui-g-12">
+            <h2>Verificadores {{ editando ? ' - Editando - ' : '' }}</h2>
+          </div>
+          <div class="ui-g-12 ui-fluid">
+              <label style="display: block">Tipo de Verificador: </label>
+                    <p-dropdown name="tipodeverificador" [options]="cadtipodeverificador" [(ngModel)]="verificadorMSalvar.cdTipoDeVerificador">  </p-dropdown>
+
+            </div>
+
+
+
+                <!--<div class="ui-g-4 ">
+                    <br />
+                    <h3><strong><a *ngIf="verificadorMSalvar.cadTipodeverificador.cdTipoVerificador == 1" routerLink="/verificador_m">Sair da edição</a></strong></h3>
+                  <button *ngIf="verificadorMSalvar.cadTipodeverificador.cdTipoVerificador == 2" type="button" pButton label="Buscar Verificadores" (click)="pesquisarImp()"></button>
+                  <button *ngIf="verificadorMSalvar.cadTipodeverificador.cdTipoVerificador == 3" type="button" pButton label="Buscar Verificadores" (click)="pesquisarPMFS()"></button>
+                  <button *ngIf="verificadorMSalvar.cadTipodeverificador.cdTipoVerificador == 4" type="button" pButton label="Buscar Verificadores" (click)="pesquisarCerti()"></button>
+                  <button *ngIf="verificadorMSalvar.cadTipodeverificador.cdTipoVerificador == 5" type="button" pButton label="Buscar Verificadores" (click)="pesquisarSuste()"></button>
+                </div>-->
+
+
+
+                <div class="ui-g-1 ui-fluid">
+                    <label style="display: block">Código: </label>
+                    <input name="codigo" type="text" [(ngModel)]="verificadorMSalvar.cdVerificador" pInputText  />
+                  </div>
+                  <div class="ui-g-3 ui-fluid">
+                    <label style="display: block">Código Alfanumérico: </label>
+                    <input name="codalfa" type="text" [(ngModel)]="verificadorMSalvar.codalfa" pInputText  />
+                  </div>
+                  <div class="ui-g-4 ui-fluid">
+                      <label style="display: block">Grau de Conformidade: </label>
+                      <input name="p01_graco" type="text" [(ngModel)]="verificadorMSalvar.p01_graco" pInputText  />
+                  </div>
+                  <div class="ui-g-4 ui-fluid">
+                      <label style="display: block">Categoria de Avaliação: </label>
+                      <input name="nmNivelAvaliacao" type="text" [(ngModel)]="verificadorMSalvar.cadNivelDeAvaliacao.nmNivelDeAvaliacao" pInputText  />
+                  </div>
+                  <div class="ui-g-6 ui-fluid">
+                      <label style="display: block">Verificador: </label>
+                      <textarea name="nmverificador" autoResize="autoResize" pInputTextarea [(ngModel)]="verificadorMSalvar.nmverificador"></textarea>
+                  </div>
+                  <div class="ui-g-6 ui-fluid">
+                      <label style="display: block">Limiar: </label>
+                      <textarea name="limiar" autoResize="autoResize" pInputTextarea [(ngModel)]="verificadorMSalvar.limiar"></textarea>
+                  </div>
+
+
+
+
+                <div class="ui-g-2 ui-fluid">
+                  <br />
+                <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"></button>
+                </div>
+                <div class="ui-g-3 ui-fluid">
+                  <br />
+                <button pButton type="button" [routerLink]="['/verificador_m/associar', verificadorMSalvar.id]" label="Associar Verificador por Local" class="ui-button-raised ui-button-primary"></button>
+                </div>
+                <div class="ui-g-2 ui-fluid">
+                  <br />
+                  <h3><strong><a routerLink="/verificador_m">Sair da edição</a></strong></h3>
+                </div>
+            </div>
+            </form>
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+
+                    <p-table [value]="verificadorm" [paginator]="true" [rows]="5"  [responsive]="true">
+
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th style="width: 70px">Codigo</th>
+                            <th style="width: 70px">Cód. Alf.</th>
+                            <th style="width: 70px">Graco. co. </th>
+                            <th>Verificador</th>
+                            <th style=" width: 140px"></th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-verificador>
+                          <tr>
+                            <th>{{verificador.cdVerificador}}</th>
+                          <th>{{verificador.codalfa}}</th>
+                          <th>{{verificador.p01_graco}}</th>
+                          <th style="text-align: left">{{verificador.nmverificador}}</th>
+                          <th>
+                              <a pButton icon="pi pi-pencil" pTooltip="Editar Verificador" tooltipPosition="top"  [routerLink]="['/verificador_m', verificador.cdVerificador]"></a>
+                              <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Verificador" tooltipPosition="top"></button>
+                          </th>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+
+                </div>
+            </div>
+   </p-card>
+    </div>
+

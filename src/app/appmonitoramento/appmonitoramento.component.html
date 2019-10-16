@@ -1,0 +1,96 @@
+<div class="container">
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Geração de Aplicação a partir de Modelo de Monitoramento</h2>
+        </div>
+        <div class="ui-g-4 ui-fluid">
+          <label style="display: block">Escolha um modelo de Monitoramento: </label>
+          <p-dropdown [options]="MonitoramentoTemplate" name="MonitoramentoTemplate" placeholder="Selecione" [(ngModel)]="appmonitoramentoSalvar.cdTemplate.cdTemplate" [style]="{'width':'370px'}"></p-dropdown>
+        </div>
+        <div class="ui-g-4 ui-fluid">
+          <label style="display: block">Tipo de Verificador: </label>
+          <p-dropdown [options]="cadtipodeverificador" name="cadtipodeverificador" placeholder="Selecione" [(ngModel)]="appmonitoramentoSalvar.cdTipoDeVerificador.cdTipoDeVerificador" [style]="{'width':'370px'}"></p-dropdown>
+        </div>
+        <div class="ui-g-4 ui-fluid">
+          <label style="display: block">Quantidade de Verificadores: </label>
+          <input type="text" name="qtdVerificadores" pInputText readonly />
+        </div>
+
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Defina o nome do Monitoramento: </label>
+          <input type="text" name="nmmonitoramento" pInputText [(ngModel)]="appmonitoramentoSalvar.nmMonitoramento"  />
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Local onde será aplicado o Monitoramento: </label>
+          <input type="text" name="txlocal" pInputText [(ngModel)]="appmonitoramentoSalvar.txLocal"/>
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <label style="display: block">Data de Criação: </label>
+          <p-calendar name="dtcriacao" [(ngModel)]="appmonitoramentoSalvar.dtCriacao" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="ui-g-3 ui-fluid">
+            <label>Empresa</label>
+            <!--<p-dropdown name="empresa" [options]="empresas" [autoWidth]="false"  [(ngModel)]="amostragemSalvar.cdEmpresa.cdEmpresa" required></p-dropdown>-->
+
+            <p-selectButton name="empresa" [options]="empresas" [(ngModel)]="appmonitoramentoSalvar.cdEmpresa.cdEmpresa">
+            </p-selectButton>
+          </div>
+        <div class="ui-g-5 ui-fluid">
+        </div>
+        <div class="ui-g-2 ui-fluid">
+            <br>
+            <button pButton type="submit" label="Gerar nova Aplicação" class="ui-button-raised ui-button-success" [disabled]="!appmonitoramentoSalvar.nmMonitoramento"></button>
+
+        </div>
+    </div>
+    </form>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <form autocomplete="off" (ngSubmit)="pesquisar()">
+          <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Pesquisar Monitoramento: </label>
+            <input type="text" pInputText name="nmmaterial" [(ngModel)]="filtro.nmMaterial">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="appmonitoramento" [paginator]="true" [rows]="filtro.size" [responsive]="true" [lazy]="true"
+          [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Modelo de Monitoramento</th>
+              <th>Tipo de Verificador</th>
+              <th>Nome do Monitoramento</th>
+              <th>Localidade</th>
+              <th>Data de Criação</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-appmonitoramento>
+            <tr>
+              
+              <th>{{appmonitoramento.nmMonitoramento}}</th>
+              <th>{{appmonitoramento.txLocal}}</th>
+              <th>{{appmonitoramento.dtCriacao}}</th>
+              <!--<th style="text-align: left">{{material.nmMaterial}}</th>-->
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Material" tooltipPosition="top"
+                  [routerLink]="['/appmonitoramento', appmonitoramento.cdMonitoramento]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Monitoramento"
+                  tooltipPosition="top" (click)="confirmarExclusao(appmonitoramento)"></button>
+              </th>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+  </p-card>
+</div>

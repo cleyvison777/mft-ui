@@ -1,0 +1,70 @@
+<div class="container">
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+   <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Modelo de Monitoramento Template {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" pInputText style="width: 50px" [(ngModel)]="modmonitoramentotemplateSalvar.cdTemplate"/>
+        </div>
+        <div class="ui-g-8 ui-fluid">
+          <label style="display: block">Modelo de Monitoramento: </label>
+          <input type="text" name="nmTemplate" pInputText [(ngModel)]="modmonitoramentotemplateSalvar.nmTemplate" />
+        </div>
+        <div class="ui-g-4 ui-fluid">
+            <label>Usar Verificadores do Tipo:</label>
+            <p-dropdown name="tipdeverificador" [options]="tipodeverificador" placeholder="Selecione"
+              [autoWidth]="false" [(ngModel)]="modmonitoramentotemplateSalvar.cdTipoDeVerificador.cdTipoDeVerificador" required></p-dropdown>
+      </div>
+      <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success" [disabled]="!modmonitoramentotemplateSalvar.nmTemplate"></button>
+        </div>
+
+      <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+        <br />
+        <h3><strong><a routerLink="/modmonitoramentotemplate">Sair da edição</a></strong></h3>
+      </div>
+    </div>
+
+    </form>
+
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <p-table [value]="Modmonitoramentotemplate" [paginator]="true" [rows]="filtro.size"  [responsive]="true"
+          [lazy]="true" [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 70px">Codigo</th>
+                <th>Modelo de Monitoramento</th>
+                <th>Usar Verificador do Tipo</th>
+                <th style=" width: 140px"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-modmonitoramentotemplate>
+              <tr>
+                <th>{{modmonitoramentotemplate.cdTemplate}}</th>
+                <th style="text-align: left">{{modmonitoramentotemplate.nmTemplate}}</th>
+                <th style="text-align: left">{{modmonitoramentotemplate.cdTipoDeVerificador.nmTipoDeVerificador}}</th>
+                <th>
+                  <a pButton icon="pi pi-pencil" pTooltip="Editar Modelo de Monitoramento" tooltipPosition="top" [routerLink]="['/modmonitoramentotemplate', modmonitoramentotemplate.cdTemplate]" ></a>
+                  <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Modelo de Monitoramento" tooltipPosition="top" (click)="confirmarExclusao(modmonitoramentotemplate)"></button>
+                </th>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+    </div>
+
+
+  </p-card>
+  </div>
+
+
+
+
+

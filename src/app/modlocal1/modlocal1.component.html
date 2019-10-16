@@ -1,0 +1,78 @@
+<div class="container">
+  <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Unidade de Avaliação {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" pInputText style="width: 50px" [(ngModel)]="modLocal1Salvar.cdLocal1" />
+        </div>
+
+        <div class="ui-g-3 ui-fluid">
+          <label>Empresa</label>
+          <!--<p-dropdown name="empresa" [options]="empresas" [autoWidth]="false"  [(ngModel)]="amostragemSalvar.cdEmpresa.cdEmpresa" required></p-dropdown>-->
+
+          <p-selectButton name="empresa" [options]="empresas"
+            [(ngModel)]="modLocal1Salvar.cdEmpresa.cdEmpresa">
+          </p-selectButton>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Unidade de Avaliação: </label>
+          <input type="text" name="nmlocal1" pInputText [(ngModel)]="modLocal1Salvar.nmlocal1" />
+        </div>
+
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"
+            [disabled]="!modLocal1Salvar.nmlocal1"></button>
+        </div>
+
+        <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+          <br />
+          <h3><strong><a routerLink="/modlocal1">Sair da edição</a></strong></h3>
+        </div>
+      </div>
+    </form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <form autocomplete="off" (ngSubmit)="pesquisar()">
+          <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Pesquisar Unidade de Avaliação: </label>
+            <input type="text" pInputText name="nmlocal1" [(ngModel)]="filtro.nmlocal1">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="modlocal1" [paginator]="true" [rows]="filtro.size" [responsive]="true" [lazy]="true"
+          [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px">Codigo</th>
+              <th>Unidade de Avaliação</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-modlocal1>
+            <tr>
+              <th>{{modlocal1.cdLocal1}}</th>
+              <th style="text-align: left">{{modlocal1.nmlocal1}}</th>
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Local de Avaliação" tooltipPosition="top" [routerLink]="['/modlocal1', modlocal1.cdLocal1]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Local de Avaliação"
+                  tooltipPosition="top" (click)="confirmarExclusao(modlocal1)" ></button>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+
+  </p-card>
+</div>

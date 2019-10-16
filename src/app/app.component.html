@@ -1,0 +1,13 @@
+<app-menu></app-menu>
+<router-outlet></router-outlet>
+<ng2-toasty></ng2-toasty>
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
+    <p-footer>
+        <button type="button" (click)="confirmacao.accept()" pButton icon="pi pi-check" label="Sim"></button>
+        <button type="button" (click)="confirmacao.reject()" pButton icon="pi pi-times" label="Não"></button>
+    </p-footer>
+</p-confirmDialog>
+
+
+
+

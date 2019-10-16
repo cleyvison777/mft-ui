@@ -1,0 +1,111 @@
+<div class="container">
+  <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+
+          <div class="ui-g-12">
+              <h2>Avaliação {{ editando ? ' - Editando - ' : '' }}</h2>
+            </div>
+        <div class="ui-g-4">
+          <label style="display: block">Monitoramento: </label>
+          <p-dropdown [options]="appmonitoramento" name="appmonitoramento" placeholder="Selecione"
+            [style]="{'width':'320px'}" [(ngModel)]="cdMonitoramento"></p-dropdown>
+
+        </div>
+        <div class="ui-g-8 ">
+          <br />
+          <button type="button" style="width: 200px" (click)="pesquisarMon()" 
+          pButton label="Escolher Monitoramento" ></button>
+        </div>
+       
+
+        <div class="ui-g-1 ui-fluid">
+
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" [readonly]="true" [(ngModel)]="appavaliacaoSalvar.cdAvalacao" pInputText style="width: 75px" />
+        </div>
+        <div class="ui-g-1 ui-fluid">
+
+            <label style="display: block">Monitora. </label>
+            <input type="text" name="codigo" [(ngModel)]="appavaliacaoSalvar.cdMonitoramento.cdMonitoramento" pInputText style="width: 75px" />
+          </div>
+        <div class="ui-g-6 ui-fluid">
+          <label style="display: block">Avaliação: </label>
+          <input type="text" name="nmAvaliacao" [(ngModel)]="appavaliacaoSalvar.nmAvaliacao" pInputText />
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <label style="display: block">Data Início </label>
+          <p-calendar name="dtInicio" [(ngModel)]="appavaliacaoSalvar.dtInicio"
+            dateFormat="dd.mm.yy" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <label style="display: block">Data Fim </label>
+          <p-calendar name="dtFim" [(ngModel)]="appavaliacaoSalvar.dtFim" dateFormat="dd.mm.yy"
+            [showIcon]="true"></p-calendar>
+        </div>
+        <div class="ui-g-3 ui-fluid">
+            <label>Empresa</label>
+            <!--<p-dropdown name="empresa" [options]="empresas" [autoWidth]="false"  [(ngModel)]="amostragemSalvar.cdEmpresa.cdEmpresa" required></p-dropdown>-->
+  
+            <p-selectButton name="empresa" [options]="empresas" [(ngModel)]="appavaliacaoSalvar.cdEmpresa.cdEmpresa">
+            </p-selectButton>
+        </div>   
+        
+        
+                
+        <div class="ui-g-2 ui-fluid">
+          <br>
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"
+            [disabled]="!appavaliacaoSalvar.nmAvaliacao"></button>
+
+        </div>
+        <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+            <br />
+            <h3><strong><a routerLink="/appavaliacao">Sair da edição</a></strong></h3>
+  
+          </div>
+        
+
+      </div>
+
+    </form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="appavaliacao" [paginator]="true" [rows]="10" [responsive]="true"
+          [totalRecords]="totalRecords">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px">Codigo</th>
+              <th>Cod. Monitoramento</th>
+              <th>Avaliação</th>
+              <th>Início</th>
+              <th>Fim</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-appavaliacao>
+            <tr>
+              <th>{{appavaliacao.cdAvaliacao}}</th>
+              <th>{{appavaliacao.cdMonitoramento.cdMonitoramento}}</th>
+              <th>{{appavaliacao.nmAvaliacao}}</th>
+              <th>{{appavaliacao.dtInicio}}</th>
+              <th>{{appavaliacao.dtFim}}</th>
+              <!--<th style="text-align: left">{{material.nmMaterial}}</th>-->
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Material" tooltipPosition="top"
+                  [routerLink]="['/appavaliacao', appavaliacao.cdAvaliacao]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Avaliação"
+                  tooltipPosition="top" (click)="confirmarExclusao(appavaliacao)"></button>
+              </th>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+
+  </p-card>
+</div>

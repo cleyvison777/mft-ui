@@ -1,0 +1,474 @@
+<div class="container">
+  <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Associar Verificadores a locais {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+
+        <div class="ui-g-4 ">
+          <label style="display: block">Listar Verificadores do Tipo: </label>
+          <p-dropdown name="cadtipodeverificador" [style]="{'width':'320px'}" [options]="cadtipodeverificador"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdTipoDeVerificador">
+          </p-dropdown>
+        </div>
+       <div class="ui-g-8 ">
+          <br />
+
+          <button *ngIf="associarVerificadorSalvar.cdTipoDeVerificador == 1" type="button" style="width: 200px" pButton
+            label="Buscar Verificadores" (click)="pesquisarMon()"></button>
+
+          <button *ngIf="associarVerificadorSalvar.cdTipoDeVerificador == 2" type="button" pButton label="Buscar Verificadores"
+            (click)="pesquisarImp()"></button>
+
+          <button *ngIf="associarVerificadorSalvar.cdTipoDeVerificador == 3" type="button" pButton label="Buscar Verificadores"
+            (click)="pesquisarPMFS()"></button>
+
+          <button *ngIf="associarVerificadorSalvar.cdTipoDeVerificador == 4" type="button" pButton label="Buscar Verificadores"
+            (click)="pesquisarCerti()"></button>
+
+          <button *ngIf="associarVerificadorSalvar.cdTipoDeVerificador == 5" type="button" pButton label="Buscar Verificadores"
+            (click)="pesquisarSuste()"></button>
+        </div>
+
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Metodologia: </label>
+          <textarea name="nmverificador" pInputTextarea autoResize="autoResize" ></textarea>
+        </div>
+        <div class="ui-g-3 ui-fluid" style="margin-left: 50px">
+          <label style="display: block">Tipo de Metodo: </label>
+          <p-dropdown name="cadtipodemetodo" [style]="{'width':'300px'}" [options]="cadtipodemetodo"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdTipoDeMetodo">
+          </p-dropdown>
+        </div>
+        <div class="ui-g-3 ui-fluid" style="margin-left: 50px">
+          <label style="display: block">Frequência: </label>
+          <p-dropdown name="cadfrequencia" [style]="{'width':'300px'}" [options]="cadfrequencia"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdFrequencia">
+          </p-dropdown>
+        </div>
+        <div class="ui-g-3 ui-fluid" style="margin-left: 50px">
+          <label style="display: block">Amostragem: </label>
+          <p-dropdown name="cadamostragem" [style]="{'width':'300px'}" [options]="cadamostragem"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdAmostragem">
+          </p-dropdown>
+        </div>
+
+        <div class="ui-g-4 ui-fluid" style="padding-top:10px ">
+          <label>Unidade de Avaliação</label>
+          <p-dropdown name="modlocal1" [options]="modlocal1" placeholder="Selecione" [autoWidth]="false"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal1.cdLocal1" [showClear]="true" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 1" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalFOD" [options]="modlocalFOD" placeholder="Selecione" [autoWidth]="false"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [showClear]="true" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 2" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalFOA" [options]="modlocalFOA" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 3" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalPEO" [options]="modlocalPEO" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 4" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalPATRANS" [options]="modlocalPATRANS" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 5" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalINFRA" [options]="modlocalINFRA" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 6" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalMON" [options]="modlocalMON" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 7" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalACAM" [options]="modlocalACAM" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 8" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalESCRI" [options]="modlocalESCRI" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+        <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 9" class="ui-g-4 ui-fluid"
+          style="padding-top:10px ">
+          <label style="display: block">Local de Avaliação: </label>
+          <p-dropdown name="modlocalENTOR" [options]="modlocalENTOR" placeholder="Selecione" [showClear]="true"
+            [(ngModel)]="associarVerificadorSalvar.cdLocal2.cdLocal2" [autoWidth]="false" required></p-dropdown>
+        </div>
+
+
+        <!-- MODLOCAL3-->
+
+        <!--Local1 = 1-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 1 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 1" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_1_cdLocal2_1" [options]="modlocal3_cdLocal1_1_cdLocal2_1" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 1 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 2" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_1_cdLocal2_2" [options]="modlocal3_cdLocal1_1_cdLocal2_2" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <!-- Local 1 = 2 -->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 2 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 4" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_2_cdLocal2_4" [options]="modlocal3_cdLocal1_2_cdLocal2_4" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 2 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 5" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_2_cdLocal2_5" [options]="modlocal3_cdLocal1_2_cdLocal2_5" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+
+
+      <!-- Local 1 = 3-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 3 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 6" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_3_cdLocal2_6" [options]="modlocal3_cdLocal1_3_cdLocal2_6" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 3 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 7" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_3_cdLocal2_7" [options]="modlocal3_cdLocal1_3_cdLocal2_7" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 3 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 8" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_3_cdLocal2_8" [options]="modlocal3_cdLocal1_3_cdLocal2_8" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 3 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 9" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_3_cdLocal2_9" [options]="modlocal3_cdLocal1_3_cdLocal2_9" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+
+      <!-- Local 1 = 4-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 4 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 10" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_4_cdLocal2_10" [options]="modlocal3_cdLocal1_4_cdLocal2_10" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 4 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 11" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_4_cdLocal2_11" [options]="modlocal3_cdLocal1_4_cdLocal2_11" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <!-- Local 1 = 5-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 5 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 12" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_5_cdLocal2_12" [options]="modlocal3_cdLocal1_5_cdLocal2_12" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 5 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 13" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_5_cdLocal2_13" [options]="modlocal3_cdLocal1_5_cdLocal2_13" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 5 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 14" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_5_cdLocal2_14" [options]="modlocal3_cdLocal1_5_cdLocal2_14" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 5 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 15" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_5_cdLocal2_15" [options]="modlocal3_cdLocal1_5_cdLocal2_15" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <!-- Local 1 = 6-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 6 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 16" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_6_cdLocal2_16" [options]="modlocal3_cdLocal1_6_cdLocal2_16" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 6 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 17" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_6_cdLocal2_17" [options]="modlocal3_cdLocal1_6_cdLocal2_17" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 6 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 18" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_6_cdLocal2_18" [options]="modlocal3_cdLocal1_6_cdLocal2_18" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <!-- Local 1 = 7-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 7 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 19" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_7_cdLocal2_19" [options]="modlocal3_cdLocal1_7_cdLocal2_19" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 7 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 20" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_7_cdLocal2_20" [options]="modlocal3_cdLocal1_7_cdLocal2_20" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 7 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 21" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_7_cdLocal2_21" [options]="modlocal3_cdLocal1_7_cdLocal2_21" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+      <!-- Local 1 = 8-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 8 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 22" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_8_cdLocal2_22" [options]="modlocal3_cdLocal1_8_cdLocal2_22" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 8 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 22" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_8_cdLocal2_22" [options]="modlocal3_cdLocal1_8_cdLocal2_22" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 8 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 23" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_8_cdLocal2_23" [options]="modlocal3_cdLocal1_8_cdLocal2_23" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 8 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 24" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_8_cdLocal2_24" [options]="modlocal3_cdLocal1_8_cdLocal2_24" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <!-- Local 1 = 9-->
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 9 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 25" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_9_cdLocal2_25" [options]="modlocal3_cdLocal1_9_cdLocal2_25" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+
+      <div *ngIf="associarVerificadorSalvar.cdLocal1.cdLocal1 == 9 &&
+        associarVerificadorSalvar.cdLocal2.cdLocal2 == 26" class="ui-g-3 ui-fluid" style="padding-top:10px ">
+        <label style="display: block">Sublocal: <strong><a routerLink="/modnivel3">Editar</a></strong></label>
+        <p-dropdown name="modlocal3_cdLocal1_9_cdLocal2_26" [options]="modlocal3_cdLocal1_9_cdLocal2_26" placeholder="Selecione"
+          [autoWidth]="false" [(ngModel)]="associarVerificadorSalvar.cdLocal3.cdLocal3" [showClear]="true" required>
+        </p-dropdown>
+      </div>
+      <div class="ui-g-12 ui-fluid">
+        <div class="ui-g-3 ui-fluid" style="margin-left: 50px">
+          <label style="display: block">Material 1: </label>
+          <p-dropdown name="cadmaterial" [style]="{'width':'300px'}" [options]="cadmaterial"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdMaterial">
+          </p-dropdown>
+        </div>
+
+        <div class="ui-g-3 ui-fluid" style="margin-left: 50px">
+          <label style="display: block">Material 2: </label>
+          <p-dropdown name="cadmaterial2" [style]="{'width':'300px'}" [options]="cadmaterial2"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdMaterial2">
+          </p-dropdown>
+        </div>
+
+        <div class="ui-g-3 ui-fluid" style="margin-left: 50px">
+          <label style="display: block">Material 3: </label>
+          <p-dropdown name="cadmaterial3" [style]="{'width':'300px'}" [options]="cadmaterial3"
+            placeholder="Selecione" [showClear]="true" [(ngModel)]="associarVerificadorSalvar.cdMaterial3">
+          </p-dropdown>
+        </div>
+
+      </div>
+
+
+
+
+<!--
+
+        /// <div class="ui-g-4 ">
+                  <br />
+                  <h3><strong><a *ngIf="associarVerificadorSalvar.cadTipodeverificador.cdTipoVerificador == 1" routerLink="/verificador_m">Sair da edição</a></strong></h3>
+                <button *ngIf="associarVerificadorSalvar.cadTipodeverificador.cdTipoVerificador == 2" type="button" pButton label="Buscar Ve rificadores" (click)="pesquisarImp()"></button>
+                <button *ngIf="associarVerificadorSalvar.cadTipodeverificador.cdTipoVerificador == 3" type="button" pButton label="Buscar Verificadores" (click)="pesquisarPMFS()"></button>
+                <button *ngIf="associarVerificadorSalvar.cadTipodeverificador.cdTipoVerificador == 4" type="button" pButton label="Buscar Verificadores" (click)="pesquisarCerti()"></button>
+                <button *ngIf="associarVerificadorSalvar.cadTipodeverificador.cdTipoVerificador == 5" type="button" pButton label="Buscar Verificadores" (click)="pesquisarSuste()"></button>
+              </div> ///
+
+
+
+
+        <div class="ui-g-1 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input name="codigo" type="text" [(ngModel)]="associarVerificadorSalvar.cdVerificador" pInputText />
+        </div>
+        <div class="ui-g-3 ui-fluid">
+          <label style="display: block">Código Alfanumérico: </label>
+          <input name="codalfa" type="text" [(ngModel)]="associarVerificadorSalvar.codalfa" pInputText />
+        </div>
+        <div class="ui-g-4 ui-fluid">
+          <label style="display: block">Grau de Conformidade: </label>
+          <input name="p01_graco" type="text" [(ngModel)]="associarVerificadorSalvar.p01_graco" pInputText />
+        </div>
+        <div class="ui-g-4 ui-fluid">
+          <label style="display: block">Categoria de Avaliação: </label>
+          <input name="nmNivelAvaliacao" type="text"
+            [(ngModel)]="associarVerificadorSalvar.cadNivelDeAvaliacao.nmNivelDeAvaliacao" pInputText />
+        </div>
+        <div class="ui-g-6 ui-fluid">
+          <label style="display: block">Verificador: </label>
+          <textarea name="nmverificador" pInputTextarea autoResize="autoResize" [(ngModel)]="associarVerificadorSalvar.nmverificador"></textarea>
+        </div>
+        <div class="ui-g-6 ui-fluid">
+          <label style="display: block">Limiar: </label>
+          <textarea name="limiar" pInputTextarea [(ngModel)]="associarVerificadorSalvar.limiar"></textarea>
+        </div>
+
+
+
+
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="button" label="Salvar"
+            class="ui-button-raised ui-button-success"></button>
+        </div>
+
+        <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+          <br />
+          <h3><strong><a routerLink="/verificador_m">Sair da edição</a></strong></h3>
+        </div> -->
+      </div>
+    </form>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+
+        <p-table [value]="verificadorm" [paginator]="true" [rows]="10" [responsive]="true"
+          [totalRecords]="totalRecords">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px">Cód. Ver.</th>
+              <th style="width: 70px">Cód. Alf.</th>
+              <th style="width: 70px">Graco. co. </th>
+              <th>Verificador</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-verificador>
+            <tr>
+              <th>{{verificador.cdVerificador}}</th>
+              <th>{{verificador.codalfa}}</th>
+              <th>{{verificador.p01_graco}}</th>
+              <th style="text-align: left">{{verificador.nmverificador}}</th>
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Verificador" tooltipPosition="top"
+                  [routerLink]="['/associarverificador', verificador.codigo]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Verificador"
+                  tooltipPosition="top"></button>
+              </th>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+  </p-card>
+</div>
+

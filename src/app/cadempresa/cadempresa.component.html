@@ -1,0 +1,112 @@
+<div class="container">
+    <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+      <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+          <div class="ui-g-12">
+              <h2>Dados Cadastrais / Empresa {{ editando ? ' - Editando - ' : '' }}</h2>
+          </div>
+          <div class="ui-g-12 ui-fluid">
+              <label style="display: block">Código: </label>
+              <input type="text" name="codigo" [readonly]="true" pInputText style="width: 50px" [(ngModel)]="empresasSalvar.cdEmpresa" />
+          </div>
+          <div class="ui-g-7 ui-fluid">
+              <label style="display: block">Nome da Empresa: </label>
+              <input type="text" name="nmEmpresa" pInputText [(ngModel)]="empresasSalvar.nmEmpresa" />
+            </div>
+            <div class="ui-g-5 ui-fluid">
+              <label style="display: block">Nome Abreviado: </label>
+              <input type="text" name="nmAbreviado" pInputText [(ngModel)]="empresasSalvar.nmAbreviado" />
+          </div>
+          <div class="ui-g-3 ui-fluid">
+            <label style="display: block">CNPJ: </label>
+            <p-inputMask name="cnpjEmpresa" mask="99.999.999/9999.99" [(ngModel)]="empresasSalvar.cnpjEmpresa" ></p-inputMask>
+          </div>
+          <div class="ui-g-6 ui-fluid ">
+            <label style="display: block">Pessoa de Contato: </label>
+            <input type="text" name="pessoContato" pInputText [(ngModel)]="empresasSalvar.pessoContato" />
+          </div>
+          <div class="ui-g-3 ui-fluid">
+            <label style="display: block">Telefone: </label>
+            <p-inputMask mask="(99)99999-9999" name="nrTelefone" [(ngModel)]="empresasSalvar.nrTelefone"></p-inputMask>
+          </div>
+
+          <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Endereço Completo </label>
+            <input type="text" name="enderecoCompleto" pInputText [(ngModel)]="empresasSalvar.enderecoCompleto"/>
+          </div>
+
+
+          <div class="ui-g-2 ui-fluid">
+              <br />
+              <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success" [disabled]="!empresasSalvar.nmEmpresa"></button>
+            </div>
+
+          <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+            <br />
+            <h3><strong><a routerLink="/cadempresa">Sair da edição</a></strong></h3>
+          </div>
+
+    </div>
+    </form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+          <form  autocomplete="off" (ngSubmit)="pesquisar()">
+              <div class="ui-g-12 ui-fluid">
+                  <label style="display: block">Pesquisar por Nome: </label>
+                  <input type="text" pInputText name="nmEmpresa" [(ngModel)]="filtro.nmEmpresa">
+              </div>
+          </form>
+      </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-12">
+
+            <p-table [value]="empresas" [paginator]="true" [rows]="filtro.size"  [responsive]="true"
+              [lazy]="true" [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style=" width: 40px">Id</th>
+                    <th style=" width: 150px">Empresa</th>
+                    <th style=" width: 90px">Abreviado</th>
+                    <th style=" width: 110px">Telefone</th>
+                    <th>Endereço</th>
+                    <th style=" width: 100px">Contato</th>
+                    <th style=" width: 140px">CNPJ</th>
+                    <th style=" width: 100px">Diretório</th>
+                    <th style=" width: 100px"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-empresa>
+                  <tr>
+                    <th>{{empresa.cdEmpresa}}</th>
+                    <th style="text-align: left">{{empresa.nmEmpresa}}</th>
+                    <th style="text-align: left">{{empresa.nmAbreviado}}</th>
+                    <th style="text-align: left">{{empresa.nrTelefone}}</th>
+                    <th style="text-align: left">{{empresa.enderecoCompleto}}</th>
+                    <th style="text-align: left">{{empresa.pessoContato}}</th>
+                    <th style="text-align: left">{{empresa.cnpjEmpresa}}</th>
+                    <th style="text-align: left">{{empresa.diretorioArquivos}}</th>
+                    <th>
+
+                        <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top" [routerLink]="['/cadempresa', empresa.cdEmpresa]"></a>
+                        <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Empresa" tooltipPosition="top" (click)="confirmarExclusao(empresa)"></button>
+
+                    </th>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+
+            </div>
+
+          </div>
+
+
+  </p-card>
+  </div>
+
+
+
+
+

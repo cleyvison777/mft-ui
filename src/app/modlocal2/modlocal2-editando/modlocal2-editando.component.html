@@ -1,0 +1,76 @@
+<div class="container">
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+   <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Local de Avaliação {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" pInputText style="width: 50px" [(ngModel)]="modLocal2Salvar.cdLocal2" />
+        </div>
+
+        <div class="ui-g-8 ui-fluid">
+          <label>Empresa</label>
+          <p-dropdown name="empresa" [options]="empresas" placeholder="Selecione"
+            [autoWidth]="false" [(ngModel)]="modLocal2Salvar.cdEmpresa.cdEmpresa" required></p-dropdown>
+      </div>
+        <div class="ui-g-4 ui-fluid">
+          <label>Unidade de Avaliação</label>
+          <p-dropdown name="modlocal1" [options]="modlocal1" placeholder="Selecione"
+            [autoWidth]="false" [(ngModel)]="filtro.nmlocal1" required></p-dropdown>
+      </div>
+      <div class="ui-g-2 ui-fluid">
+        <br />
+        <button  type="button"  pButton label="Buscar" (click)="pesquisar()"></button>
+      </div>
+
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Local de Avaliação: </label>
+          <input type="text" name="local2" pInputText [(ngModel)]="modLocal2Salvar.nmLocal2" />
+        </div>
+
+
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success" [disabled]="!modLocal2Salvar.nmLocal2"></button>
+        </div>
+
+      <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+        <br />
+        <h3><strong><a routerLink="/modlocal2">Sair da edição</a></strong></h3>
+      </div>
+    </div>
+    </form>
+
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <p-table [value]="modlocal2" [paginator]="true" [rows]="filtro.size"  [responsive]="true"
+            [lazy]="true" [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 70px">Codigo</th>
+                    <th>Unidade de Avaliação</th>
+                    <th style=" width: 140px"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-modlocal2>
+                  <tr>
+                    <th>{{modlocal2.cdLocal2}}</th>
+                    <th style="text-align: left">{{modlocal2.nmLocal2}}</th>
+                    <th>
+                        <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top" [routerLink]="['/modlocal2', modlocal2.cdLocal2]" ></a>
+                        <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Unidade de Avaliação" tooltipPosition="top" (click)="confirmarExclusao(modlocal2)"></button>
+                    </th>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+        </div>
+    </div>
+
+
+  </p-card>
+  </div>

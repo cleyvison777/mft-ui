@@ -1,0 +1,56 @@
+<div class="container">
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Níveis Hierárquicos  {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+
+        </div>
+        <div class="ui-g-7 ui-fluid" style="padding-top:10px ">
+          <div class="ui-g-12 ui-fluid" style="padding-top:10px ">
+              <p-dropdown name="modnivel1" [options]="modnivel1" placeholder="Selecione"
+              [autoWidth]="false" [(ngModel)]="niveishierarquicos.cdNivel1.cdNivel1"  [showClear]="true"  required></p-dropdown>
+          </div>
+          <div class="ui-g-12 ui-fluid" style="padding-top:10px ">
+            <label style="display: block">Etapa: </label>
+            <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown>
+          </div>
+          <div class="ui-g-12 ui-fluid" style="padding-top:10px ">
+            <label style="display: block">Item: </label>
+            <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown>
+          </div>
+          <div class="ui-g-12 ui-fluid" style="padding-top:10px ">
+            <label style="display: block">Subitem: </label>
+          </div>
+          <div class="ui-g-2 ui-fluid" style="padding-top:10px ">
+            <label style="display: block">Código: </label>
+            <input type="text" pInputText />
+          </div>
+          <div class="ui-g-10 ui-fluid" style="padding-top:10px ">
+            <label style="display: block">Descrição: </label>
+            <input type="text" pInputText />
+          </div>
+        </div>
+
+        <div class="ui-g-8">
+
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <br />
+        <button pButton type="button" label="Salvar" class="ui-button-raised ui-button-success"></button>
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <br />
+        <button pButton type="button" label="Excluir" class="ui-button-raised ui-button-danger"></button>
+        </div>
+    </div>
+
+
+
+
+  </p-card>
+  </div>
+
+
+

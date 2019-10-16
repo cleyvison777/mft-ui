@@ -1,0 +1,78 @@
+<div class="container">
+  <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Frequência {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" [readonly]="true" pInputText style="width: 50px" [(ngModel)]="frequenciaSalvar.cdFrequencia" />
+        </div>
+        <div class="ui-g-3 ui-fluid">
+          <label>Empresa</label>
+          <!--<p-dropdown name="empresa" [options]="empresas" [autoWidth]="false"  [(ngModel)]="amostragemSalvar.cdEmpresa.cdEmpresa" required></p-dropdown>-->
+
+          <p-selectButton name="empresa" [options]="empresas" [(ngModel)]="frequenciaSalvar.cdEmpresa.cdEmpresa">
+          </p-selectButton>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Frequência: </label>
+          <input type="text" name="nmamostragem" pInputText [(ngModel)]="frequenciaSalvar.nmFrequencia" />
+        </div>
+
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"
+            [disabled]="!frequenciaSalvar.nmFrequencia"></button>
+        </div>
+
+        <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+          <br />
+          <h3><strong><a routerLink="/cadamostragem">Sair da edição</a></strong></h3>
+        </div>
+      </div>
+    </form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <form autocomplete="off" (ngSubmit)="pesquisar()">
+          <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Pesquisar Frequência: </label>
+            <input type="text" pInputText name="nmFrequencia" [(ngModel)]="filtro.nmFrequencia">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="cadfrequencia" [paginator]="true" [rows]="filtro.size" [responsive]="true" [lazy]="true"
+          [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px">Codigo</th>
+              <th>Frequência</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-frequencia>
+            <tr>
+              <th>{{frequencia.cdFrequencia}}</th>
+              <th style="text-align: left">{{frequencia.nmFrequencia}}</th>
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top"
+                  [routerLink]="['/cadfrequencia', frequencia.cdFrequencia]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Empresa"
+                  tooltipPosition="top" (click)="confirmarExclusao(frequencia)"></button>
+              </th>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+
+  </p-card>
+</div>

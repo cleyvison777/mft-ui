@@ -1,0 +1,100 @@
+<div class="container">
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+     <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Tipo de Verificador {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" [readonly]="true" name="cdTipoVerificador" pInputText style="width: 50px" [(ngModel)]="tipodeverificadoraSalvar.cdTipoDeVerificador"/>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Tipo de Verificador: </label>
+          <input type="text" name="nmTipoVerificador" pInputText  [(ngModel)]="tipodeverificadoraSalvar.nmTipoDeVerificador"/>
+        </div>
+
+        <div class="ui-g-12 ui-fluid">
+
+          <label style="display: block">Nível 1: </label>
+          <input type="text" name="rotulonivel1" pInputText  [(ngModel)]="tipodeverificadoraSalvar.rotuloNivel1" />
+          <label style="display: block">Nível 2: </label>
+          <input type="text" name="rotulonivel2" pInputText  [(ngModel)]="tipodeverificadoraSalvar.rotuloNivel2" />
+          <label style="display: block">Nível 3:</label>
+          <input type="text" name="rotulonivel3" pInputText  [(ngModel)]="tipodeverificadoraSalvar.rotuloNivel3" />
+          <label style="display: block">Nível 4:</label>
+          <input type="text"name="rotulonivel4" pInputText  [(ngModel)]="tipodeverificadoraSalvar.rotuloNivel4" />
+          <label style="display: block">Nível 5:</label>
+          <input type="text" name="rotulonivel5" pInputText  [(ngModel)]="tipodeverificadoraSalvar.rotuloNivel5" />
+        </div>
+        <div  class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success" [disabled]="!editando"></button>
+        </div>
+
+      <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+        <br />
+        <h3><strong><a routerLink="/cadtipodeverificador">Sair da edição</a></strong></h3>
+      </div>
+    </div>
+    </form>
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <form  autocomplete="off" (ngSubmit)="pesquisar()">
+            <div class="ui-g-12 ui-fluid">
+                <label style="display: block">Pesquisar Tipo de Verificador: </label>
+                <input type="text" pInputText name="nmTipoVerificador" [(ngModel)]="filtro.nmTipoDeVerificador">
+              </div>
+        </form>
+        </div>
+      </div>
+
+    <div class="ui-g">
+        <div class="ui-g-12">
+
+
+                <p-table [value]="cadtipodeverificador" [paginator]="true" [rows]="filtro.size"  [responsive]="true"
+                [lazy]="true" [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style=" width: 70px">Código</th>
+                    <th>Tipo Verificador</th>
+                    <th style=" width: 100px">Qtd. Níveis</th>
+                    <th style=" width: 100px"> Nível 1</th>
+                    <th style=" width: 100px">Nível 2</th>
+                    <th style=" width: 100px">Nível 3</th>
+                    <th style=" width: 100px">Nível 4</th>
+                    <th style=" width: 100px">Nível 5</th>
+                    <th style=" width: 140px"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-tipodeverificador>
+                  <tr>
+                    <th>{{tipodeverificador.cdTipoDeVerificador}}</th>
+                    <th style="text-align: left">{{tipodeverificador.nmTipoDeVerificador}}</th>
+                    <th>{{tipodeverificador.nrNiveis}}</th>
+                    <th>{{tipodeverificador.rotuloNivel1}}</th>
+                    <th>{{tipodeverificador.rotuloNivel2}}</th>
+                    <th>{{tipodeverificador.rotuloNivel3}}</th>
+                    <th>{{tipodeverificador.rotuloNivel4}}</th>
+                    <th>{{tipodeverificador.rotuloNivel5}}</th>
+                    <th>
+                        <a pButton icon="pi pi-pencil" pTooltip="Editar Tipo de Verificador" tooltipPosition="top" [routerLink]="['/cadtipodeverificador', tipodeverificador.cdTipoDeVerificador]"></a>
+                        <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Tipo de Verificador" tooltipPosition="top"></button>
+                    </th>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+        </div>
+    </div>
+
+
+  </p-card>
+  </div>
+
+
+
+
+

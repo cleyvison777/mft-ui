@@ -1,0 +1,59 @@
+<div class="container">
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+   <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+    <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Associar Verificadores por Local de Avaliação</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Tipo de Verificador: </label>
+                  <p-dropdown name="tipodeverificador" [options]="cadtipodeverificador" [(ngModel)]="verificadorMSalvar.cadTipoDeVerificador.cdTipoVerificador">  </p-dropdown>
+
+        </div>
+        <div class="ui-g-12 ui-fluid">
+                    <label style="display: block">Verificador: </label>
+                    <textarea name="nmverificador" autoResize="autoResize" pInputTextarea [(ngModel)]="verificadorMSalvar.nmverificador"></textarea>
+        </div>
+        <div class="ui-g" >
+         <div class="ui-g-5 ui-fluid">
+            <label style="display: block">Unidade de Avaliação / Local / Sublocal: </label>
+            <label style="display: block">Selecione um Sublocal: </label>
+
+        </div>
+        <div class="ui-g-7 ui-fluid" style="padding-top:10px ">
+            <br /> <br />
+            <label style="display: block">Tipo de Método: </label>
+            <p-dropdown name="tipometodo" [options]="cities1" placeholder="Tipo de Metodo" [(ngModel)]="selectedCity1"></p-dropdown>
+            <br />
+            <label style="display: block">Frequência: </label>
+            <p-dropdown name="frequencia" [options]="cities1" placeholder="Tipo de Frequência" [(ngModel)]="selectedCity1"></p-dropdown>
+            <br>
+            <label style="display: block">Amostragem: </label>
+            <p-dropdown name="amostragem" [options]="cities1" placeholder="Tipo de Amostragem" [(ngModel)]="selectedCity1"></p-dropdown>
+
+
+        </div>
+      </div>
+
+
+
+
+
+              <div class="ui-g-2 ui-fluid">
+                <br />
+              <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"></button>
+              </div>
+              <div class="ui-g-3 ui-fluid">
+                <br />
+              <button pButton type="button" label="Associar Verificador por Local" class="ui-button-raised ui-button-primary"></button>
+              </div>
+              <div class="ui-g-2 ui-fluid">
+                <br />
+                <h3><strong><a routerLink="/verificador_m">Sair da edição</a></strong></h3>
+              </div>
+          </div>
+          </form>
+
+ </p-card>
+  </div>
+

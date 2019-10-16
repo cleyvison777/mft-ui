@@ -1,0 +1,120 @@
+<div class="container">
+
+  <p-card  [style]="{width: 'px'}" styleClass="ui-card-shadow">
+       <p-tabView>
+        <p-tabPanel header="Modelo de Monitoramento">
+          <div class="ui-g">
+
+            <div class="ui-g-12 ui-fluid">
+              <label style="display: block">Código: </label>
+              <input type="text" pInputText style="width: 50px" />
+            </div>
+            <div class="ui-g-12 ui-fluid">
+              <label style="display: block">Modelo de Monitoramento: </label>
+              <input type="text" pInputText  />
+            </div>
+            <div class="ui-g-12 ui-fluid">
+              <label style="display: block">Usar Verificadores do Tipo: </label>
+              <p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown>
+          </div>
+
+          <div class="ui-g-12">
+
+            <p-table [value]="modmonitoramento" [paginator]="true" [rows]="5"  [responsive]="true">
+
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 70px">Codigo</th>
+                    <th>Modelo de Monitoramento</th>
+                    <th>Usar Verificador do Tipo</th>
+                    <th style=" width: 140px"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-monitoramento>
+                  <tr>
+                    <th>{{monitoramento.codigo}}</th>
+                    <th>{{monitoramento.modmonitoramento}}</th>
+                    <th>{{monitoramento.modmonitoramento}}</th>
+                    <th>
+                        <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top"></a>
+                        <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Empresa" tooltipPosition="top"></button>
+                    </th>
+                  </tr>
+                </ng-template>
+              </p-table>
+
+        </div>
+
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Verificadores deste Modelo">
+          <div class="ui-g">
+
+            <div class="ui-g-3 ui-fluid">
+              <div class="ui-g-3 ui-fluid">
+                  <label style="display: block">Código: </label>
+                  <input type="text" pInputText  />
+              </div>
+              <div class="ui-g-9 ui-fluid">
+                  <label style="display: block">Alfanumérico: </label>
+                  <input type="text" pInputText  />
+              </div>
+              <div class="ui-g-12 ui-fluid">
+                  <label style="display: block">Categoria de Avaliação: </label>
+                  <input type="text" pInputText  />
+              </div>
+            </div>
+            <div class="ui-g-6 ui-fluid">
+              <div class="ui-g-12 ui-fluid">
+                <label style="display: block">Verificador: </label>
+                <textarea pInputTextarea [rows]="4"></textarea>
+              </div>
+            </div>
+            <div class="ui-g-3 ui-fluid">
+                <div class="ui-g-12 ui-fluid">
+                </div>
+                <div class="ui-g-12 ui-fluid">
+                    <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" label="Coleta de dados Analíticos"> eee </p-checkbox>
+                  </div>
+                  <div class="ui-g-12 ui-fluid">
+                      <p-checkbox name="groupname" value="val1" [(ngModel)]="selectedValues" label="Coleta de dados Agrupados"></p-checkbox>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-fluid">
+                <p-table [value]="modmonitoramento" [paginator]="true" [rows]="5"  [responsive]="true">
+
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th style="width: 70px">Codigo</th>
+                        <th style="width: 120px">Alfanumérico</th>
+                        <th style="width: 110px">Categoria de Avaliação</th>
+                        <th>Verificador</th>
+                        <th style=" width: 140px"></th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-monitoramento>
+                      <tr>
+                        <th>{{monitoramento.codigo}}</th>
+                        <th>{{monitoramento.modmonitoramento}}</th>
+                        <th>{{monitoramento.modmonitoramento}}</th>
+                        <th>
+                            <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top"></a>
+                            <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Empresa" tooltipPosition="top"></button>
+                        </th>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                   </div>
+                  </div>
+        </p-tabPanel>
+        <p-tabPanel header="Visão Hierárquica">
+
+                <app-arvorelocais></app-arvorelocais>
+
+        </p-tabPanel>
+      </p-tabView>
+
+  </p-card>
+</div>
+
+

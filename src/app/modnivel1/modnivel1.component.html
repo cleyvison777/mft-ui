@@ -1,0 +1,88 @@
+<div class="container">
+  <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Assunto {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" pInputText style="width: 50px" [(ngModel)]="modNivel1Salvar.cdNivel1" />
+        </div>
+        <!--<div class="ui-g-8 ui-fluid">
+          <label>Empresa</label>
+          <p-dropdown name="empresa" [options]="empresas" placeholder="Selecione" [autoWidth]="false"
+            [(ngModel)]="modNivel1Salvar.cdEmpresa.cdEmpresa" required></p-dropdown>
+        </div> -->
+
+        <div class="ui-g-3 ui-fluid">
+          <label>Empresa</label>
+          <!--<p-dropdown name="empresa" [options]="empresas" [autoWidth]="false"  [(ngModel)]="amostragemSalvar.cdEmpresa.cdEmpresa" required></p-dropdown>-->
+
+          <p-selectButton name="empresa" [options]="empresas" [(ngModel)]="modNivel1Salvar.cdEmpresa.cdEmpresa">
+          </p-selectButton>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Assunto: </label>
+          <input type="text" name="nmnivel1" pInputText [(ngModel)]="modNivel1Salvar.nmNivel1" />
+        </div>
+
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"
+            [disabled]="!modNivel1Salvar.nmNivel1"></button>
+        </div>
+        <div class="ui-g-2 ui-fluid ">
+          <br /><br />
+          <label style="display: block"> <strong><a routerLink="/modnivel4">Voltar</a></strong></label>
+        </div>
+
+
+        <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+          <br />
+          <h3><strong><a routerLink="/modnivel1">Sair da edição</a></strong></h3>
+        </div>
+      </div>
+    </form>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <form autocomplete="off" (ngSubmit)="pesquisar()">
+          <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Pesquisar Unidade de Avaliação: </label>
+            <input type="text" pInputText name="nmnivel1" [(ngModel)]="filtro.nmNivel1">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="modnivel1" [paginator]="true" [rows]="filtro.size" [responsive]="true" [lazy]="true"
+          [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px">Codigo</th>
+              <th>Assunto</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-modnivel1>
+            <tr>
+              <th>{{modnivel1.cdNivel1}}</th>
+              <th style="text-align: left">{{modnivel1.nmNivel1}}</th>
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top"
+                  [routerLink]="['/modnivel1', modnivel1.cdNivel1]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Empresa"
+                  tooltipPosition="top" (click)="confirmarExclusao(modnivel1)"></button>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+
+  </p-card>
+</div>

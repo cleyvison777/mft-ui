@@ -1,0 +1,109 @@
+<div class="container">
+  <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h2>Etapa {{ editando ? ' - Editando - ' : '' }}</h2>
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <label style="display: block">Código: </label>
+          <input type="text" name="codigo" pInputText style="width: 50px" [(ngModel)]="modNivel2Salvar.cdNivel2" />
+        </div>
+        <div class="ui-g-8 ui-fluid">
+
+        </div>
+      <div class="ui-g-3 ui-fluid">
+        <label>Empresa</label>
+
+        <p-selectButton name="empresa" [options]="empresas" [(ngModel)]="modNivel2Salvar.cdEmpresa.cdEmpresa">
+        </p-selectButton>
+      </div>
+      <div class="ui-g-7 ui-fluid"></div>
+        <div class="ui-g-4 ui-fluid">
+
+          <label>Assunto: <strong><a routerLink="/modnivel1"> Editar</a></strong></label>
+          <p-dropdown name="modnivel1" [options]="modnivel1" placeholder="Selecione" [autoWidth]="false"
+            [(ngModel)]="modNivel2Salvar.cdNivel1.cdNivel1" required></p-dropdown>
+        </div>
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button *ngIf="modNivel2Salvar.cdNivel1.cdNivel1 == 1" type="button" style="width: 200px" pButton
+            label="Buscar Etapa" (click)="pesquisarModNivel2_cdNivel1_1()">
+          </button>
+          <button *ngIf="modNivel2Salvar.cdNivel1.cdNivel1 == 2" type="button" style="width: 200px" pButton
+            label="Buscar Etapa" (click)="pesquisarModNivel2_cdNivel1_2()">
+          </button>
+          <button *ngIf="modNivel2Salvar.cdNivel1.cdNivel1 == 3" type="button" style="width: 200px" pButton
+            label="Buscar Etapa" (click)="pesquisarModNivel2_cdNivel1_3()">
+          </button>
+          <button *ngIf="modNivel2Salvar.cdNivel1.cdNivel1 == 4" type="button" style="width: 200px" pButton
+            label="Buscar Etapa" (click)="pesquisarModNivel2_cdNivel1_4()">
+          </button>
+          <button *ngIf="modNivel2Salvar.cdNivel1.cdNivel1 == 5" type="button" style="width: 200px" pButton
+            label="Buscar Etapa" (click)="pesquisarModNivel2_cdNivel1_5()">
+          </button>
+          <button *ngIf="modNivel2Salvar.cdNivel1.cdNivel1 == 6" type="button" style="width: 200px" pButton
+            label="Buscar Etapa" (click)="pesquisarModNivel2_cdNivel1_6()">
+          </button>
+
+
+        </div>
+
+        <div class="ui-g-12 ui-fluid">
+          <label style="display: block">Etapa: </label>
+          <input type="text" name="local2" pInputText [(ngModel)]="modNivel2Salvar.nmNivel2" />
+        </div>
+
+
+        <div class="ui-g-2 ui-fluid">
+          <br />
+          <button pButton type="submit" label="Salvar" class="ui-button-raised ui-button-success"
+            [disabled]="!modNivel2Salvar.nmNivel2"></button>
+        </div>
+        <div class="ui-g-2 ui-fluid ">
+            <br /><br />
+          <label style="display: block"> <strong><a routerLink="/modnivel4">Voltar</a></strong></label>
+        </div>
+
+
+
+        <div *ngIf="editando" class="ui-g-2 ui-fluid ">
+          <br />
+          <h3><strong><a routerLink="/modnivel2">Sair da edição</a></strong></h3>
+        </div>
+      </div>
+    </form>
+
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="modnivel2" [paginator]="true" [rows]="filtro.size" [responsive]="true" [lazy]="true"
+          [totalRecords]="tatalRegistros" (onLazyLoad)="aoMudarPagina($event)" #tabela>
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px">Codigo</th>
+              <th>Etapa</th>
+              <th style=" width: 140px"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-modnivel2>
+            <tr>
+              <th>{{modnivel2.cdNivel2}}</th>
+              <th style="text-align: left">{{modnivel2.nmNivel2}}</th>
+              <th>
+                <a pButton icon="pi pi-pencil" pTooltip="Editar Etapa" tooltipPosition="top"
+                  [routerLink]="['/modnivel2', modnivel2.cdNivel2]"></a>
+                <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Etapa"
+                  tooltipPosition="top" (click)="confirmarExclusao(modnivel2)"></button>
+              </th>
+            </tr>
+          </ng-template>
+        </p-table>
+
+      </div>
+    </div>
+
+
+  </p-card>
+</div>
