@@ -2,9 +2,11 @@
     <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
       <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
       <div class="ui-g">
+
           <div class="ui-g-12">
               <h2>Dados Cadastrais / Empresa {{ editando ? ' - Editando - ' : '' }}</h2>
           </div>
+    <p-fieldset legend="Dados Cadastrais" [toggleable]="bool">
           <div class="ui-g-12 ui-fluid">
               <label style="display: block">Código: </label>
               <input type="text" name="codigo" [readonly]="true" pInputText style="width: 50px" [(ngModel)]="empresasSalvar.cdEmpresa" />
@@ -45,7 +47,7 @@
             <br />
             <h3><strong><a routerLink="/cadempresa">Sair da edição</a></strong></h3>
           </div>
-
+      </p-fieldset>
     </div>
     </form>
     <div class="ui-g">
@@ -53,7 +55,13 @@
           <form  autocomplete="off" (ngSubmit)="pesquisar()">
               <div class="ui-g-12 ui-fluid">
                   <label style="display: block">Pesquisar por Nome: </label>
-                  <input type="text" pInputText name="nmEmpresa" [(ngModel)]="filtro.nmEmpresa">
+                  <div class="ui-g-12 ui-md-7">
+                      <div class="ui-inputgroup">
+                          <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                          <input type="text" pInputText name="nmEmpresa" [(ngModel)]="filtro.nmEmpresa">
+                      </div>
+                  </div>
+
               </div>
           </form>
       </div>
