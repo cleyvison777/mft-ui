@@ -1,3 +1,4 @@
+import { ArvoreService } from './cadastro-arvore/arvore.service';
 import { AppavaliacaoService } from './appavaliacao/appavaliacao.service';
 import { AppavaliacaoComponent } from './appavaliacao/appavaliacao.component';
 import { AppmonitoramentoComponent } from './appmonitoramento/appmonitoramento.component';
@@ -92,6 +93,10 @@ import {FieldsetModule} from 'primeng/fieldset';
 import {PanelModule} from 'primeng/panel';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { MensagemFormularioComponent } from './mensagem-formulario/mensagem-formulario.component';
+import { CadastroArvoreComponent } from './cadastro-arvore/cadastro-arvore.component';
+import { CadastroAmfComponent } from './cadastro-amf/cadastro-amf.component';
+import { AmfService } from './cadastro-amf/amf.service';
 
 
 
@@ -137,7 +142,7 @@ const routes: Routes = [
   { path: 'appmonitoramento/:codigo', component:AppmonitoramentoComponent},
   { path: 'appavaliacao', component:AppavaliacaoComponent},
   { path: 'appavaliacao/:codigo', component:AppavaliacaoComponent},
-
+  { path: 'cadastro-amf', component: CadastroAmfComponent},
 
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
@@ -172,6 +177,9 @@ const routes: Routes = [
     AppmonitoramentoComponent,
     AppavaliacaoComponent,
     TesteComponent,
+    MensagemFormularioComponent,
+    CadastroArvoreComponent,
+    CadastroAmfComponent,
 
 
   ],
@@ -230,7 +238,9 @@ const routes: Routes = [
     AppmonitoramentoService,
     AppavaliacaoService,
     AssociarverificadorService,
-    ErrorHandlerService
+    ErrorHandlerService,
+    ArvoreService,
+    AmfService
 
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,97 @@
+<div class="container">
+  <p-fieldset legend="Digitação Verificação">
+
+ <div class="ui-g ui-md">
+    <div class="ui-g-12 ui-md-9 ui-fluid">
+      <label>Classe de Tamanho:</label>
+        <input type="text" pInputText  #classeTamanho>
+
+</div>
+  <div class="ui-g-12 ui-md-5 ui-fluid">
+    <label>Area Manejo Florestal:</label>
+      <input type="text" pInputText  #amf>
+</div>
+
+<div class="ui-g-12 ui-md-1 ui-fluid">
+  <label>Medição:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+
+<div class="ui-g-12 ui-md-1 ui-fluid">
+  <label>Parcela:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+
+<div class="ui-g-12 ui-md-1 ui-fluid">
+  <label>SubParcela:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+
+<div class="ui-g-12 ui-md-4 ui-fluid">
+  <label>Classe da Floresta:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+
+<div class="ui-g-12 ui-md-1 ui-fluid">
+  <label>NºRegistros:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+
+<div class="ui-g-12 ui-md-4 ui-fluid">
+  <label>Identificador:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+
+<div class="ui-g-12 ui-md-4 ui-fluid">
+  <label>Responsável:</label>
+    <input type="text" pInputText  #medicao>
+</div>
+<div class="ui-g-12 ui-md-4 ui-fluid">
+ <!---- voce paru aqui!!!-->
+
+</div>
+  <div class="ui-g-12 ui-md-12">
+    <button type="button" pButton label="Adicionar"></button>
+   </div>
+  </div>
+</p-fieldset>
+
+  <div class="ui-g">
+    <div class="ui-g-12">        
+    <p-table [value]="cidades" [paginator]= "true" [rows] = 5 [responsive] = "true">
+        <ng-template pTemplate="header">
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th></th>
+              <th></th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cidade>
+            <tr>
+              <td>{{cidade.id}}</td>
+              <td>{{cidade.nome}}</td>
+              <td>
+                
+
+                <div class="ui-g ui-fluid">
+                  <div class="ui-g-6 ui-md-12">
+                      <div class="ui-inputgroup">
+                          <input type="text" pInputText placeholder="Keyword" [(ngModel)]="cidade.nome"> 
+                          <button pButton (click)="atualizar(cidade)" label="Atualizar"></button>        
+                      </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <button pButton
+                  (click)="excluir(cidade.id)" label="Excluir" class="ui-button-danger"></button>
+              </td>
+        </tr>
+        </ng-template>
+    </p-table>
+
+
+
+    

@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './cadempresa.component.html',
   styleUrls: ['./cadempresa.component.css']
 })
-export class CadempresaComponent implements OnInit{
+export class CadempresaComponent implements OnInit {
 
   tatalRegistros = 0;
   filtro = new CadempresaFiltro();
@@ -145,7 +145,7 @@ export class CadempresaComponent implements OnInit{
       this.empresasSalvar = empresa;
 
       this.toasty.success('Empresa alterada com sucesso!');
-
+      this.pesquisar();
     })
   .catch(erro => this.errorHandler.handle(erro));
   }

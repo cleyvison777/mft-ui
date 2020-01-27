@@ -12,7 +12,7 @@ export class CadfrequenciaFiltro{
 @Injectable()
 export class CadfrequenciaService {
 
-  cadfrequenciaURL = 'http://localhost:8081/cadfrequencia';
+  cadfrequenciaURL = 'http://localhost:8080/cadfrequencia';
 
 
   constructor(private http: Http) { }

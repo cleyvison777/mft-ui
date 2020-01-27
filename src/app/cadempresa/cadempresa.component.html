@@ -6,35 +6,48 @@
           <div class="ui-g-12">
               <h2>Dados Cadastrais / Empresa {{ editando ? ' - Editando - ' : '' }}</h2>
           </div>
-    <p-fieldset legend="Dados Cadastrais" [toggleable]="bool">
+    <p-fieldset legend="Dados Cadastrais">
           <div class="ui-g-12 ui-fluid">
               <label style="display: block">Código: </label>
-              <input type="text" name="codigo" [readonly]="true" pInputText style="width: 50px" [(ngModel)]="empresasSalvar.cdEmpresa" />
+              <input type="text" name="codigo" [readonly]="true" pInputText style="width: 50px" [(ngModel)]="empresasSalvar.cdEmpresa"/>
           </div>
           <div class="ui-g-7 ui-fluid">
               <label style="display: block">Nome da Empresa: </label>
-              <input type="text" name="nmEmpresa" pInputText [(ngModel)]="empresasSalvar.nmEmpresa" />
+              <input type="text" name="nmEmpresa" pInputText [(ngModel)]="empresasSalvar.nmEmpresa" required minlength="7" #nmEmpresa="ngModel" />
+              <app-mensagem-formulario [control]="nmEmpresa"  error="required" text="Informe o nome da empresa"></app-mensagem-formulario>
+              <app-mensagem-formulario [control]="nmEmpresa" error="minlength" text="Informe o nome da empresa completo{{ nmEmpresa.errors?.minlength?.required }}"></app-mensagem-formulario>
+
             </div>
             <div class="ui-g-5 ui-fluid">
               <label style="display: block">Nome Abreviado: </label>
-              <input type="text" name="nmAbreviado" pInputText [(ngModel)]="empresasSalvar.nmAbreviado" />
+              <input type="text" name="nmAbreviado" pInputText [(ngModel)]="empresasSalvar.nmAbreviado" required #nmAbreviado="ngModel"/>
+              <app-mensagem-formulario [control]="nmAbreviado"  error="required" text="Informe a nome abreviado"></app-mensagem-formulario>
+
           </div>
           <div class="ui-g-3 ui-fluid">
             <label style="display: block">CNPJ: </label>
-            <p-inputMask name="cnpjEmpresa" mask="99.999.999/9999.99" [(ngModel)]="empresasSalvar.cnpjEmpresa" ></p-inputMask>
+            <p-inputMask name="cnpjEmpresa" mask="99.999.999/9999.99" [(ngModel)]="empresasSalvar.cnpjEmpresa" #cnpjEmpresa="ngModel" required
+            ></p-inputMask>
+            <app-mensagem-formulario [control]="cnpjEmpresa"  error="required" text="Informe o CNPJ"></app-mensagem-formulario>
+
           </div>
           <div class="ui-g-6 ui-fluid ">
             <label style="display: block">Pessoa de Contato: </label>
-            <input type="text" name="pessoContato" pInputText [(ngModel)]="empresasSalvar.pessoContato" />
+            <input type="text" name="pessoContato" pInputText [(ngModel)]="empresasSalvar.pessoContato"/>
+
           </div>
           <div class="ui-g-3 ui-fluid">
             <label style="display: block">Telefone: </label>
-            <p-inputMask mask="(99)99999-9999" name="nrTelefone" [(ngModel)]="empresasSalvar.nrTelefone"></p-inputMask>
+            <p-inputMask mask="(99)99999-9999" name="nrTelefone" [(ngModel)]="empresasSalvar.nrTelefone" #nrTelefone="ngModel" required></p-inputMask>
+            <app-mensagem-formulario [control]="nrTelefone"  error="required" text="Informe o numero para contato"></app-mensagem-formulario>
+
           </div>
 
           <div class="ui-g-12 ui-fluid">
             <label style="display: block">Endereço Completo </label>
-            <input type="text" name="enderecoCompleto" pInputText [(ngModel)]="empresasSalvar.enderecoCompleto"/>
+            <input type="text" name="enderecoCompleto" pInputText [(ngModel)]="empresasSalvar.enderecoCompleto" #enderecoCompleto="ngModel" required/>
+            <app-mensagem-formulario [control]="enderecoCompleto"  error="required" text="Informe o Endereço"></app-mensagem-formulario>
+
           </div>
 
 
@@ -45,7 +58,7 @@
 
           <div *ngIf="editando" class="ui-g-2 ui-fluid ">
             <br />
-            <h3><strong><a routerLink="/cadempresa">Sair da edição</a></strong></h3>
+            <strong><a routerLink="/cadempresa"><button type="button" pButton label="Sair da edição"></button></a></strong>
           </div>
       </p-fieldset>
     </div>

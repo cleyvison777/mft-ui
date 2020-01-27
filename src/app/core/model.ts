@@ -147,7 +147,7 @@ export class ModMonitoramentoTemplate {
   cdTipoDeVerificador = new Cadtipodeverificador();
 }
 
-export class AppMonitoramento{
+export class AppMonitoramento {
   cdMonitoramento: number;
   cdTemplate = new ModMonitoramentoTemplate();
   cdEmpresa = new Cadempresa();
@@ -157,14 +157,55 @@ export class AppMonitoramento{
   txLocal: string;
 }
 
-export class AppAvaliacao{
+export class AppAvaliacao {
   cdAvaliacao: number;
-  cdMonitoramento= new AppMonitoramento();
+  cdMonitoramento = new AppMonitoramento();
   cdEmpresa = new Cadempresa();
   nmAvaliacao: string;
   dtInicio: Date;
   dtFim: Date;
 }
+
+export class CadAmf {
+  cdarea: number;
+  cdListaEsp: number;
+  cdEmpresa = new Cadempresa();
+  cdEquacaoAreaBasalPadrao: number;
+  cdEquacaovolumeinvtemp: number;
+  nmArea: string;
+  nmEstado: string;
+  nmMunicipio: string;
+  latitude1Grau: number;
+  latitude1Minuto: number;
+  latitude1Orientacao: string;
+  latitude2Grau: number;
+  latitude2Minuto: number;
+  latitude2Orientacao: string;
+  longitude1Grau: number;
+  longitude1Minuto: number;
+  longitude1Orientacao: string;
+  longitude2Grau: number;
+  longitude2Minuto: number;
+  longitude2Orientacao: string;
+  precipMediaAnualmm: number;
+  precipMediaMensalChuvamm: number;
+  precipMediaMensalSecamm: number;
+  mesesSeca: string;
+  mesesChuva: string;
+  tipoLogiaFlorestal: string;
+  tipoSolo: string;
+  Relevo: string;
+  mnResponsavel: string;
+  enderecoResponsavel: string;
+  nrTelefoneResponsavel: string;
+  emailResponsavel: string;
+  txHistoricoArea: string;
+  txObservacaoArea: string;
+  lgMudaContada: number;
+  lgPalmeiraContada: number;
+
+}
+
 
 
 

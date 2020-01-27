@@ -58,7 +58,7 @@ export class CadempresaService {
       .then(() => null);
   }
 
-  adicionar(cadempresa: Cadempresa): Promise<Cadempresa> {
+   adicionar(cadempresa: Cadempresa): Promise<Cadempresa> {
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     headers.append('Content-Type', 'application/json');
