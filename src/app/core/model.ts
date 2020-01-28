@@ -147,7 +147,7 @@ export class ModMonitoramentoTemplate {
   cdTipoDeVerificador = new Cadtipodeverificador();
 }
 
-export class AppMonitoramento {
+export class AppMonitoramento{
   cdMonitoramento: number;
   cdTemplate = new ModMonitoramentoTemplate();
   cdEmpresa = new Cadempresa();
@@ -166,9 +166,15 @@ export class AppAvaliacao {
   dtFim: Date;
 }
 
+export class CadListaEspecie {
+  cdListaEsp: number;
+  cdEmpresa = new Cadempresa();
+  nmListaEsp: string;
+}
+
 export class CadAmf {
   cdarea: number;
-  cdListaEsp: number;
+  cdListaEsp = new CadListaEspecie();
   cdEmpresa = new Cadempresa();
   cdEquacaoAreaBasalPadrao: number;
   cdEquacaovolumeinvtemp: number;

@@ -1,4 +1,5 @@
-import { Http, Headers } from '@angular/http';
+import { CadAmf } from './../core/model';
+import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -19,7 +20,23 @@ export class AmfService {
     .toPromise()
     .then(Response => Response.json().content);
     }
+
+
+
+    adicionar(cadAmf: CadAmf): Promise<CadAmf> {
+    const params = new URLSearchParams;
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(this.cadAmfURL,
+      JSON.stringify(cadAmf), {headers})
+      .toPromise()
+      .then(response => response.json());
+    }
   }
+
+ 
 
 
   // adicionar(cidade: any): Promise<any> {

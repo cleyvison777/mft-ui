@@ -3,65 +3,71 @@
   <p-tabView>
     <p-tabPanel header="Área de Manejo Florestal">
       <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
-        <form autocomplete="off">
+        <form autocomplete="off" #cadamf="ngForm" (ngSubmit)="salvar(cadamf)">
           <div class="ui-g">
             <h2>Area Manejo Florestal</h2>
           </div>
 
           <p-fieldset legend="AMF">
             <div class="ui-g">
+              <div class="ui-g-3 ui-fluid">
+                <label>Empresa</label>
+                <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
+                [(ngModel)]="cadAmf.cdEmpresa.cdEmpresa" required></p-dropdown>
+      
+            
+              </div>
               <div class="ui-g-5 ui-md-5 ui-fluid">
                 <label style=" padding-left: 10px;">Nome: </label>
-                <input type="text" pInputText name="">
+                <input type="text" pInputText name="nmArea" [(ngModel)]="cadAmf.nmArea">
+               
+
               </div>
 
               <div class="ui-g-3 ui-md-4 ui-fluid">
                 <label style="padding-left: 10px;">Munícipio: </label>
-                <input type="text" pInputText>
+                <input type="text" pInputText name="nmMunicipio" [(ngModel)] = "cadAmf.nmMunicipio">
               </div>
               <div class="ui-g-1 ui-md-1 ui-fluid">
                 <label style="padding-left: 10px;">Estado: </label>
-                <input type="text" pInputText>
+                <input type="text" pInputText name="nmMunicipio" [(ngModel)]="cadAmf.nmEstado">
               </div>
-
-
-
 
               <p-fieldset legend="Informações Geograficas">
 
                 <div class="ui-g">
                   <div class="ui-g-4 ui-md-5 ui-fluid">
                     <label>Tipologia Florestal: </label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="tipoLogiaFlorestal" [(ngModel)]="cadAmf.tipoLogiaFlorestal">
                   </div>
 
                   <div class="ui-g-1 ui-md-1 ui-fluid">
                     <label>Latitude:</label>
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="latitude1Grau" [(ngModel)]="cadAmf.latitude1Grau">
                   </div>
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="latitude1Minuto" [(ngModel)]="cadAmf.latitude1Minuto">
                   </div>
                   <span style="margin-top: 30px;">|</span>
 
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="latitude1Orientacao" [(ngModel)]="cadAmf.latitude1Orientacao">
                   </div>
 
                   <span style="margin-top: 40px;">a</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="latitude2Grau" [(ngModel)]="cadAmf.latitude2Grau">
                   </div>
 
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="latitude2Minuto" [(ngModel)]="cadAmf.latitude2Minuto">
                   </div>
                   <span style="margin-top: 30px;">|</span>
 
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="latitude2Orientacao" [(ngModel)]="cadAmf.latitude2Orientacao">
                   </div>
                 </div>
 
@@ -193,21 +199,24 @@
 
               </p-fieldset>
               <div class="ui-g-8">
-                <div class="ui-fluid">
+                <div class="ui-fluid ui-g-4 ui-md-4">
                   <label>Lista de Especie: </label>
-                  <p-dropdown [showClear]="true"></p-dropdown>
-                  <div class="ui-g-8">
+                  <input type="number" pInputText name="cdListaEsp" [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp">
+                </div>
+                  <div>
                     <p-checkbox name="groupname" value="val1" label="Muda contada" >
                     </p-checkbox>
+                  </div>
+                  <div>
                     <p-checkbox name="groupname" value="val2" label="Palmeira contada" >
                     </p-checkbox>
                   </div>
-                </div>
+               
 
               </div>
 
               <div class="ui-g-12">
-                <button pButton type="submit" label="Pesquisar"></button>
+                <button type="submit" pButton  label="Salvar"></button>
               </div>
 
             </div>
