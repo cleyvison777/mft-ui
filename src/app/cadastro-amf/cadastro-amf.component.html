@@ -1,6 +1,7 @@
 <div class="container">
 
   <p-tabView>
+    <!-------------------AMF--------------->
     <p-tabPanel header="Área de Manejo Florestal">
       <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
         <form autocomplete="off" #cadamf="ngForm" (ngSubmit)="salvar(cadamf)">
@@ -14,7 +15,6 @@
                 <label>Empresa</label>
                 <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
                 [(ngModel)]="cadAmf.cdEmpresa.cdEmpresa" required></p-dropdown>
-      
             
               </div>
               <div class="ui-g-5 ui-md-5 ui-fluid">
@@ -74,40 +74,40 @@
                 <div class="ui-g">
                   <div class="ui-g-4 ui-md-5 ui-fluid">
                     <label>Tipo Solo: </label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="tipoSolo" [(ngModel)]="cadAmf.tipoSolo">
                   </div>
 
                   <div class="ui-g-1 ui-md-1 ui-fluid">
                     <label>Longitude:</label>
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="longitude1Grau" [(ngModel)]="cadAmf.longitude1Grau">
                   </div>
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="longitude1Minuto" [(ngModel)]="cadAmf.longitude1Minuto">
                   </div>
 
                   <span style="margin-top: 30px;">|</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="latitude1Orientacao" [(ngModel)]="cadAmf.longitude1Orientacao">
                   </div>
 
                   <span style="margin-top: 40px;">a</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="latitude2Grau" [(ngModel)]="cadAmf.longitude2Grau">
                   </div>
 
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="latitude2Minuto" [(ngModel)]="cadAmf.longitude2Minuto">
                   </div>
 
                   <span style="margin-top: 30px;">|</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="longitude2Orientacao" [(ngModel)]="cadAmf.longitude2Orientacao">
                   </div>
                   <div class="ui-g-5 ui-md-1 ui-fluid">
                     <label>Relevo: </label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="Relevo" [(ngModel)]="cadAmf.Relevo">
                   </div>
                 </div>
               </p-fieldset>
@@ -116,17 +116,17 @@
                 <div class="ui-g-7 ui-g-9">
                   <div class="ui-g-3 ui-md-3 ui-fluid" style="margin-top: 20px;">
                     <label>Anual:</label>
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="precipMediaAnualmm" [(ngModel)]="cadAmf.precipMediaAnualmm">
                   </div>
 
                   <div class="ui-g-3 ui-md-3 ui-fluid">
                     <label style="padding-left: 10px;">Mensal no Período de Chuva:</label>
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="precipMediaMensalChuvamm" [(ngModel)]="cadAmf.precipMediaMensalChuvamm">
                   </div>
 
                   <div class="ui-g-3 ui-md-3 ui-fluid">
                     <label style="padding-left: 10px;">Mensal no Período de Seca:</label>
-                    <input type="text" pInputText>
+                    <input type="number" pInputText name="precipMediaMensalSecamm" [(ngModel)]="cadAmf.precipMediaMensalSecamm">
                   </div>
                 </div>
 
@@ -134,11 +134,11 @@
                 <div class="ui-g-8 ui-g-9">
                   <div class="ui-g-3 ui-g-3 ui-fluid">
                     <label>Meses de Chuva:</label>
-                    <input type="text" pInputText style="width: 10">
+                    <input type="text" pInputText name="mesesChuva" [(ngModel)]="cadAmf.mesesChuva" style="width: 10">
                   </div>
                   <div class="ui-g-3 ui-g-3 ui-fluid">
                     <label style="padding-left: 10px;">Meses de Seca:</label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="mesesSeca" [(ngModel)]="cadAmf.mesesSeca">
                   </div>
 
                 </div>
@@ -156,16 +156,16 @@
                 </div>
               </p-fieldset>
 
-              <p-fieldset legend="Informações Clímaticas">
+              <p-fieldset legend="Informações Responsavel">
                 <div class="ui-g-10">
                   <div class="ui-g-3 ui-fluid">
                     <label>Nome: </label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="mnResponsavel" [(ngModel)]="cadAmf.mnResponsavel"> 
                   </div>
 
                   <div class="ui-g-3 ui-fluid">
                     <label>Endereço:</label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="enderecoResponsavel" [(ngModel)]="cadAmf.enderecoResponsavel">
                   </div>
 
 
@@ -175,11 +175,11 @@
                 <div class="ui-g-10">
                   <div class="ui-g-3 ui-fluid">
                     <label>Telefone: </label>
-                    <input type="text" pInputText style="width: 10">
+                    <p-inputMask mask="(99) 999-999999" [(ngModel)]="cadAmf.nrTelefoneResponsavel" name="nrTelefoneResponsavel" placeholder="(99) 999-9999"></p-inputMask>
                   </div>
                   <div class="ui-g-3 ui-fluid">
                     <label>Email:</label>
-                    <input type="text" pInputText>
+                    <input type="text" pInputText name="emailResponsavel" [(ngModel)]="cadAmf.emailResponsavel" placeholder="@">
                   </div>
                 </div>
 
@@ -199,12 +199,12 @@
 
               </p-fieldset>
               <div class="ui-g-8">
-                <div class="ui-fluid ui-g-4 ui-md-4">
+                <div class="ui-fluid ui-g-5 ui-md-5" style="margin-right: 10px;">
                   <label>Lista de Especie: </label>
                   <input type="number" pInputText name="cdListaEsp" [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp">
                 </div>
-                  <div>
-                    <p-checkbox name="groupname" value="val1" label="Muda contada" >
+                  <div style="padding-bottom: 10px;">
+                    <p-checkbox name="groupname" value="val1" label="Muda contada">
                     </p-checkbox>
                   </div>
                   <div>
@@ -224,9 +224,9 @@
 
         </form>
       </p-card>
-
-
+    <!-------------------AMF-FIM--------------->
     </p-tabPanel>
+    <!--------------Parcela-->
     <p-tabPanel header="Parcela">
       <p-fieldset legend="Codigo do Nome AMF">
         <div class="ui-g">
@@ -404,34 +404,57 @@
       Content 3
     </p-tabPanel>
 
-  </p-tabView>
+    <div class="ui-g">
+      <div class="ui-g-12">
+          <form  autocomplete="off" (ngSubmit)="consultar()">
+              <div class="ui-g-12 ui-fluid">
+                  <label style="display: block">Pesquisar por Nome: </label>
+                  <div class="ui-g-12 ui-md-7">
+                      <div class="ui-inputgroup">
+                          <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                          <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmArea">
+                      </div>
+                  </div>
+  
+              </div>
+          </form>
+      </div>
+    </div>
+    
+    
+     
+    <div class="ui-g">        
+      <p-table [value]="amf" [paginator]= "true" [rows] = 5 [responsive] = "true">
+          <ng-template pTemplate="header">
+              <tr>
+                <th>Empresa</th>
+                <th>Nome da Area</th>
+                <th>Estado</th>
+                <th>Municipio</th>
+                <th></th>
+    
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-area>
+              <tr>
+                <td>{{area.cdEmpresa.nmEmpresa}}</td>
+                <td>{{area.nmArea}}</td>
+                <td>{{area.nmEstado}}</td>
+                <td>{{area.nmMunicipio}}</td>
+              <td><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="top"></button>
+              <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+          </tr>
+         </ng-template>
+      </p-table>
+   </div>
 
-
-
+   </p-tabView>
 </div>
 
 
-<div class="ui-g-12">        
-  <p-table [value]="amf" [paginator]= "true" [rows] = 5 [responsive] = "true">
-      <ng-template pTemplate="header">
-          <tr>
-            <th>Empresa</th>
-            <th>Nome da Area</th>
-            <th>Estado</th>
-            <th>Municipio</th>
 
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-area>
-          <tr>
-            <td>{{area.cdEmpresa.nmEmpresa}}</td>
-            <td>{{area.nmArea}}</td>
-            <td>{{area.nmEstado}}</td>
-            <td>{{area.nmMunicipio}}</td>
-            
-      </tr>
-      </ng-template>
-  </p-table>
- </div>
+
+
+
 
 

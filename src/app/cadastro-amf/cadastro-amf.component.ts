@@ -1,7 +1,8 @@
+import { ToastyService } from 'ng2-toasty';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { FormControl } from '@angular/forms';
 import { CadAmf } from './../core/model';
-import { AmfService } from './amf.service';
+import { AmfService, CadeAmfFiltro } from './amf.service';
 import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
 
@@ -12,16 +13,19 @@ import { ErrorHandlerService } from '../core/error-handler.service';
 })
 export class CadastroAmfComponent implements OnInit {
 
+
 amf = [];
 empresas = [];
-cadAmf = new CadAmf();
 
+filtro = new CadeAmfFiltro();
+cadAmf = new CadAmf();
 
 
   constructor(
     private amfService: AmfService,
     private cadEmpresaService: CadempresaService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private toasty: ToastyService
     ) { }
 
   ngOnInit() {
@@ -29,17 +33,17 @@ cadAmf = new CadAmf();
   }
   consultar() {
     this.carregarEmpresas();
-    this.amfService.consultar()
+    this.amfService.consultar(this.filtro)
     .then(dadosAmf => this.amf = dadosAmf);
   }
 
   salvar(form: FormControl) {
     this.amfService.adicionar(this.cadAmf)
-    .then(()=> {
+    .then(() => {
       form.reset();
       this.cadAmf = new CadAmf();
-    })
-    
+      this.toasty.success('Cadastrado realizado com sucesso');
+    });
   }
 
   carregarEmpresas() {
