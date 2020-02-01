@@ -32,6 +32,7 @@ export class CadempresaComponent implements OnInit {
     private route: ActivatedRoute
     ) {}
 
+    
   ngOnInit() {
    // this.pesquisar();
    const codigoEmpresa = this.route.snapshot.params['codigo'];
@@ -56,7 +57,7 @@ export class CadempresaComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  pesquisar(page = 0){
+  pesquisar(page = 0) {
 
     this.filtro.page = page;
 

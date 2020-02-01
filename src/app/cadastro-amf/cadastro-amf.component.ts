@@ -5,6 +5,7 @@ import { CadAmf } from './../core/model';
 import { AmfService, CadeAmfFiltro } from './amf.service';
 import { Component, OnInit } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro-amf',
@@ -12,11 +13,9 @@ import { ErrorHandlerService } from '../core/error-handler.service';
   styleUrls: ['./cadastro-amf.component.css']
 })
 export class CadastroAmfComponent implements OnInit {
-
-
+tatalRegistros = 0;
 amf = [];
 empresas = [];
-
 filtro = new CadeAmfFiltro();
 cadAmf = new CadAmf();
 
@@ -31,10 +30,13 @@ cadAmf = new CadAmf();
   ngOnInit() {
     this.consultar();
   }
-  consultar() {
+  consultar( page = 0) {
     this.carregarEmpresas();
+    this.filtro.page = page;
     this.amfService.consultar(this.filtro)
-    .then(dadosAmf => this.amf = dadosAmf);
+    .then(resultado => {
+      this.amf = resultado.amf;
+    });
   }
 
   salvar(form: FormControl) {
@@ -45,6 +47,13 @@ cadAmf = new CadAmf();
       this.toasty.success('Cadastrado realizado com sucesso');
     });
   }
+
+  aoMudarPagina(event: LazyLoadEvent) {
+    const page = event.first / event.rows;
+    this.consultar(page);
+  }
+
+
 
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()

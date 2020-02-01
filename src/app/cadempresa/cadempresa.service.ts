@@ -44,9 +44,9 @@ export class CadempresaService {
           total: responseJson.totalElements
         };
         return resultado;
-      })
+      });
 
-  };
+  }
 
 
   excluir(cdEmpresa: number): Promise<void> {
@@ -69,6 +69,7 @@ export class CadempresaService {
   }
 
 
+  
 
   listarTodas(): Promise<any> {
     const headers = new Headers;
