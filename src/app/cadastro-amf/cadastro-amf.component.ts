@@ -13,7 +13,7 @@ import { LazyLoadEvent } from 'primeng/api';
   styleUrls: ['./cadastro-amf.component.css']
 })
 export class CadastroAmfComponent implements OnInit {
-tatalRegistros = 0;
+totalRegistrosAMF = 0;
 amf = [];
 empresas = [];
 filtro = new CadeAmfFiltro();
@@ -28,16 +28,22 @@ cadAmf = new CadAmf();
     ) { }
 
   ngOnInit() {
-    this.consultar();
-  }
-  consultar( page = 0) {
+
     this.carregarEmpresas();
-    this.filtro.page = page;
-    this.amfService.consultar(this.filtro)
-    .then(resultado => {
-      this.amf = resultado.amf;
-    });
+
   }
+  
+  consultar(page = 0) {
+
+    this.filtro.page = page;
+
+    this.amfService.consultar(this.filtro)
+      .then(resultado => {
+        this.totalRegistrosAMF = resultado.total;
+        this.amf = resultado.amf;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+    }
 
   salvar(form: FormControl) {
     this.amfService.adicionar(this.cadAmf)
@@ -48,11 +54,12 @@ cadAmf = new CadAmf();
     });
   }
 
-  aoMudarPagina(event: LazyLoadEvent) {
+  aoMudarPaginaAMF(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.consultar(page);
+  
   }
-
+  
 
 
   carregarEmpresas() {

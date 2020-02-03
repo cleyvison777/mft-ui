@@ -424,7 +424,8 @@
     
      
     <div class="ui-g">        
-      <p-table [value]="amf" [paginator]= "true" [rows] = 5 [responsive] = "true">
+      <p-table [value]="amf"  [paginator]="true"  [rows]="filtro.size" [responsive]="true" [lazy]="true"
+       [totalRecords]="totalRegistrosAMF" (onLazyLoad)="aoMudarPaginaAMF($event)">
           <ng-template pTemplate="header">
               <tr>
                 <th>Empresa</th>

@@ -26,43 +26,43 @@ export class AmfService {
   consultar(filtro: CadeAmfFiltro): Promise<any> {
     const params = new URLSearchParams();
     const headers = new Headers;
-     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-     params.set('page', filtro.page.toString());
-     params.set('size', filtro.size.toString());
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    params.set('page', filtro.page.toString());
+    params.set('size', filtro.size.toString());
 
     if (filtro.nmArea) {
       params.set('nmArea', filtro.nmArea);
     }
-    
-  return  this.http.get(`${this.cadAmfURL}`,
-     { headers, search: params })
-    .toPromise()
-    .then (response => {
-      const responseJson = response.json();
-      const amf = responseJson.content;
 
-      const resultado = {
-        amf,
-        total: responseJson.totalElements
-      };
-      return resultado;
-       });
-    }
+    return this.http.get(`${this.cadAmfURL}`,
+      { headers, search: filtro })
+      .toPromise()
+      .then(response => {
+        const responseJson = response.json();
+        const amf = responseJson.content;
+
+        const resultado = {
+          amf,
+          total: responseJson.totalElements
+        };
+        return resultado;
+      });
+  }
 
 
 
-    adicionar(cadAmf: CadAmf): Promise<CadAmf> {
+  adicionar(cadAmf: CadAmf): Promise<CadAmf> {
     const params = new URLSearchParams;
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     headers.append('Content-Type', 'application/json');
 
     return this.http.post(this.cadAmfURL,
-      JSON.stringify(cadAmf), {headers})
+      JSON.stringify(cadAmf), { headers })
       .toPromise()
       .then(response => response.json());
-    }
   }
+}
 
 
 
