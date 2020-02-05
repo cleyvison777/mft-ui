@@ -62,15 +62,17 @@ export class AmfService {
       .toPromise()
       .then(response => response.json());
   }
+
+   excluir(cdarea: number): Promise<void> {
+   const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    return this.http.delete(`${this.cadAmfURL}/${cdarea}`, { headers })
+    .toPromise()
+    .then(() => null);
+   }
 }
 
 
-
-  // adicionar(cidade: any): Promise<any> {
-  //   return this.http.post('http://localhost:3000/cidades', cidade)
-  //    .toPromise()
-  //    .then(Response => Response.json());
-  //   }
 
 
 

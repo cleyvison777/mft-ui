@@ -3,7 +3,7 @@ import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { FormControl } from '@angular/forms';
 import { CadAmf } from './../core/model';
 import { AmfService, CadeAmfFiltro } from './amf.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { LazyLoadEvent } from 'primeng/api';
 
@@ -18,6 +18,7 @@ amf = [];
 empresas = [];
 filtro = new CadeAmfFiltro();
 cadAmf = new CadAmf();
+@ViewChild('tabela') grid;
 
 
   constructor(
@@ -50,6 +51,7 @@ cadAmf = new CadAmf();
     .then(() => {
       form.reset();
       this.cadAmf = new CadAmf();
+      this.consultar();
       this.toasty.success('Cadastrado realizado com sucesso');
     });
   }
@@ -57,10 +59,22 @@ cadAmf = new CadAmf();
   aoMudarPaginaAMF(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.consultar(page);
-  
   }
-  
 
+  excluir(amf: any) {
+  this.amfService.excluir(amf.cdarea)
+  .then(() => {
+    if (this.grid.first === 0) {
+      this.consultar();
+    } else {
+      this.grid.first = 0;
+      this.consultar();
+    }
+    this.toasty.success('Area excluída com sucesso!');
+  })
+  .catch(erro => this.errorHandler.handle(erro));
+
+}
 
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()
