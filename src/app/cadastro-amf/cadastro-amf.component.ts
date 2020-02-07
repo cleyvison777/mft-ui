@@ -1,8 +1,9 @@
+import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { FormControl } from '@angular/forms';
 import { CadAmf } from './../core/model';
-import { AmfService, CadeAmfFiltro } from './amf.service';
+import { AmfService, CadeAmfFiltro} from './amf.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { LazyLoadEvent } from 'primeng/api';
@@ -25,7 +26,9 @@ cadAmf = new CadAmf();
     private amfService: AmfService,
     private cadEmpresaService: CadempresaService,
     private errorHandler: ErrorHandlerService,
-    private toasty: ToastyService
+    private toasty: ToastyService,
+    private confirmation: ConfirmationService
+
     ) { }
 
   ngOnInit() {
@@ -59,6 +62,15 @@ cadAmf = new CadAmf();
   aoMudarPaginaAMF(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.consultar(page);
+  }
+
+  confirmarExclusao(amf: any) {
+    this.confirmation.confirm( {
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(amf);
+      }
+    });
   }
 
   excluir(amf: any) {

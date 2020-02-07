@@ -212,6 +212,13 @@ export class CadAmf {
 
 }
 
+export class ListaEspecie {
+  cdListaEsp: number;
+  cdEmpresa = new Cadempresa();
+  nmListaEsp: string;
+
+}
+
 
 
 
