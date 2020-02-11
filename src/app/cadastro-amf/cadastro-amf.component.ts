@@ -1,8 +1,9 @@
+import { ListaEspecieService } from './../lista-especie/lista-especie.service';
 import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { FormControl } from '@angular/forms';
-import { CadAmf } from './../core/model';
+import { CadAmf, CadListaEspecie } from './../core/model';
 import { AmfService, CadeAmfFiltro} from './amf.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
@@ -17,6 +18,7 @@ export class CadastroAmfComponent implements OnInit {
 totalRegistrosAMF = 0;
 amf = [];
 empresas = [];
+especies = [];
 filtro = new CadeAmfFiltro();
 cadAmf = new CadAmf();
 @ViewChild('tabela') grid;
@@ -25,6 +27,7 @@ cadAmf = new CadAmf();
   constructor(
     private amfService: AmfService,
     private cadEmpresaService: CadempresaService,
+    private listaEspecieService: ListaEspecieService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService
@@ -34,6 +37,7 @@ cadAmf = new CadAmf();
   ngOnInit() {
 
     this.carregarEmpresas();
+    this.carregarListaEpecie();
 
   }
   
@@ -87,6 +91,17 @@ cadAmf = new CadAmf();
   .catch(erro => this.errorHandler.handle(erro));
 
 }
+
+
+carregarListaEpecie() {
+return this.listaEspecieService.listarTodasEspecie()
+.then( especies => {
+  this.especies = especies.map(e => ({label: e.cdListaEsp + " - " + e.nmListaEsp, value: e.cdListaEsp}));
+})
+
+.catch(erro => this.errorHandler.handle(erro));
+
+ }
 
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()

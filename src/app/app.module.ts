@@ -97,6 +97,7 @@ import { MensagemFormularioComponent } from './mensagem-formulario/mensagem-form
 import { CadastroArvoreComponent } from './cadastro-arvore/cadastro-arvore.component';
 import { CadastroAmfComponent } from './cadastro-amf/cadastro-amf.component';
 import { AmfService } from './cadastro-amf/amf.service';
+import { ListaEspecieComponent } from './lista-especie/lista-especie.component';
 
 
 
@@ -180,6 +181,7 @@ const routes: Routes = [
     MensagemFormularioComponent,
     CadastroArvoreComponent,
     CadastroAmfComponent,
+    ListaEspecieComponent,
 
 
   ],

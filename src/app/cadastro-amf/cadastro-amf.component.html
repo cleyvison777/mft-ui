@@ -195,13 +195,15 @@
                   <button pButton type="button" icon="pi pi-pencil"></button>
                 </div>
 
-
+                
 
               </p-fieldset>
               <div class="ui-g-8">
                 <div class="ui-fluid ui-g-5 ui-md-5" style="margin-right: 10px;">
                   <label>Lista de Especie: </label>
-                  <input type="number" pInputText name="cdListaEsp" [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp">
+                  <!-- <input type="number" pInputText name="cdListaEsp" [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp"> -->
+                  <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie" 
+                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp"></p-dropdown> 
                 </div>
                   <div style="padding-bottom: 10px;">
                     <p-checkbox name="groupname" value="val1" label="Muda contada">
