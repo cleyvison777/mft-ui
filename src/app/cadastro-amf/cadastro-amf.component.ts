@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { ListaEspecieService } from './../lista-especie/lista-especie.service';
 import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
@@ -8,6 +9,7 @@ import { AmfService, CadeAmfFiltro} from './amf.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
 import { LazyLoadEvent } from 'primeng/api';
+import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 
 @Component({
   selector: 'app-cadastro-amf',
@@ -30,15 +32,23 @@ cadAmf = new CadAmf();
     private listaEspecieService: ListaEspecieService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
-    private confirmation: ConfirmationService
-
+    private confirmation: ConfirmationService,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit() {
-
     this.carregarEmpresas();
     this.carregarListaEpecie();
 
+    const codigoAmf = this.route.snapshot.params['codigo'];
+    if (codigoAmf) {
+       this.carregarAmf(codigoAmf);
+    }
+
+  }
+
+  get editando() {
+    return Boolean(this.cadAmf.cdarea);
   }
   
   consultar(page = 0) {
@@ -53,13 +63,42 @@ cadAmf = new CadAmf();
       .catch(erro => this.errorHandler.handle(erro));
     }
 
-  salvar(form: FormControl) {
+    salvar(form: FormControl) {
+       if (this.editando) {
+         this.atualizarAmf(form);
+       } else {
+     this.adicionarAmf(form);
+       }
+
+    }
+
+  adicionarAmf(form: FormControl) {
     this.amfService.adicionar(this.cadAmf)
     .then(() => {
       form.reset();
       this.cadAmf = new CadAmf();
       this.consultar();
-      this.toasty.success('Cadastrado realizado com sucesso');
+      this.toasty.success('Cadastrado realizado com sucesso!');
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  atualizarAmf(form: FormControl) {
+    this.amfService.atualizar(this.cadAmf)
+    .then(amf => {
+      this.cadAmf = amf;
+      this.toasty.success('Atualização realizada com sucesso!');
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  confirmarAlterar(amf: any) {
+    this.confirmation.confirm( {
+      message: 'Tem certeza que deseja alterar?',
+      accept: () => {
+        this.atualizarAmf(amf);
+      }
     });
   }
 
@@ -90,6 +129,16 @@ cadAmf = new CadAmf();
   })
   .catch(erro => this.errorHandler.handle(erro));
 
+}
+
+
+carregarAmf(codigo: number) {
+
+ this.amfService.buscarPeloCodigo(codigo)
+ .then(amf => {
+  this.cadAmf = amf;
+ })
+.catch(erro => this.errorHandler.handle(erro));
 }
 
 

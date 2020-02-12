@@ -1,4 +1,4 @@
-import { Cadamostragem } from './../core/model';
+import { Cadamostragem, CadAmf } from './../core/model';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'src/primeng/components/common/menuitem';
 import { RouterLink } from '@angular/router';
@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
               {separator: true},
               {
                 label: 'Área Manejo Florestal(AMF)',
-                routerLink: '/cadamostragem'
+                routerLink: '/cadastro-amf'
               },
               {separator: true},
               {

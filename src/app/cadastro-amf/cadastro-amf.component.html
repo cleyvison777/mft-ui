@@ -6,7 +6,7 @@
       <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
         <form autocomplete="off" #cadamf="ngForm" (ngSubmit)="salvar(cadamf)">
           <div class="ui-g">
-            <h2>Area Manejo Florestal</h2>
+          <h2>{{editando ? 'Atualizando ': ' '}}Area Manejo Florestal</h2>
           </div>
 
           <p-fieldset legend="AMF">
@@ -30,7 +30,7 @@
               </div>
               <div class="ui-g-1 ui-md-1 ui-fluid">
                 <label style="padding-left: 10px;">Estado: </label>
-                <input type="text" pInputText name="nmMunicipio" [(ngModel)]="cadAmf.nmEstado">
+                <input type="text" pInputText name="nmEstado" [(ngModel)]="cadAmf.nmEstado">
               </div>
 
               <p-fieldset legend="Informações Geograficas">
@@ -201,7 +201,6 @@
               <div class="ui-g-8">
                 <div class="ui-fluid ui-g-5 ui-md-5" style="margin-right: 10px;">
                   <label>Lista de Especie: </label>
-                  <!-- <input type="number" pInputText name="cdListaEsp" [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp"> -->
                   <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie" 
                 [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp"></p-dropdown> 
                 </div>
@@ -217,15 +216,71 @@
 
               </div>
 
-              <div class="ui-g-12">
-                <button type="submit" pButton  label="Salvar"></button>
-              </div>
+             
 
+                
+
+            </div>
+            <div class="ui-g-1  ui-md-1">
+              <button type="submit" pButton  label="Salvar"[disabled]="!cadAmf.nmArea"></button>
+            </div>
+            <div *ngIf="editando" class="ui-g-2 ui-md-2">
+              <strong><a routerLink="/cadastro-amf"><button type="button" pButton label="Sair da edição"></button></a></strong>
             </div>
           </p-fieldset>
 
         </form>
+      <p-fieldset legend="Areas Cadastradas">
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+              <form  autocomplete="off" (ngSubmit)="consultar()">
+                  <div class="ui-g-12 ui-fluid">
+                      <label style="display: block">Pesquisar por Nome: </label>
+                      <div class="ui-g-12 ui-md-7">
+                          <div class="ui-inputgroup">
+                              <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                              <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmArea">
+                          </div>
+                      </div>
+      
+                  </div>
+              </form>
+          </div>
+        </div>
+
+        <div class="ui-g">        
+          <p-table [value]="amf"  [paginator]="true"  [rows]="filtro.size" [responsive]="true" [lazy]="true"
+           [totalRecords]="totalRegistrosAMF" (onLazyLoad)="aoMudarPaginaAMF($event)" #tabela>
+              <ng-template pTemplate="header">
+                  <tr>
+                    <th>Empresa</th>
+                    <th>Nome da Area</th>
+                    <th>Estado</th>
+                    <th>Municipio</th>
+                    <th></th>
+        
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-area>
+                  <tr>
+                    <td>{{area.cdEmpresa.nmEmpresa}}</td>
+                    <td>{{area.nmArea}}</td>
+                    <td>{{area.nmEstado}}</td>
+                    <td>{{area.nmMunicipio}}</td>
+                  <td><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="top"
+                    (click)="confirmarExclusao(area)"></button>
+                  <button pButton icon="pi pi-pencil" pTooltip="editar" [routerLink]="['/cadastro-amf', area.cdarea]"></button></td>
+              </tr>
+             </ng-template>
+          </p-table>
+         
+       </div>
+      </p-fieldset>
+        
+    
       </p-card>
+ 
     <!-------------------AMF-FIM--------------->
     </p-tabPanel>
     <!--------------Parcela-->
@@ -405,52 +460,6 @@
     <p-tabPanel header="Header 3">
       Content 3
     </p-tabPanel>
-
-    <div class="ui-g">
-      <div class="ui-g-12">
-          <form  autocomplete="off" (ngSubmit)="consultar()">
-              <div class="ui-g-12 ui-fluid">
-                  <label style="display: block">Pesquisar por Nome: </label>
-                  <div class="ui-g-12 ui-md-7">
-                      <div class="ui-inputgroup">
-                          <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
-                          <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmArea">
-                      </div>
-                  </div>
-  
-              </div>
-          </form>
-      </div>
-    </div>
-    
-    
-     
-    <div class="ui-g">        
-      <p-table [value]="amf"  [paginator]="true"  [rows]="filtro.size" [responsive]="true" [lazy]="true"
-       [totalRecords]="totalRegistrosAMF" (onLazyLoad)="aoMudarPaginaAMF($event)" #tabela>
-          <ng-template pTemplate="header">
-              <tr>
-                <th>Empresa</th>
-                <th>Nome da Area</th>
-                <th>Estado</th>
-                <th>Municipio</th>
-                <th></th>
-    
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-area>
-              <tr>
-                <td>{{area.cdEmpresa.nmEmpresa}}</td>
-                <td>{{area.nmArea}}</td>
-                <td>{{area.nmEstado}}</td>
-                <td>{{area.nmMunicipio}}</td>
-              <td><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="top"
-                (click)="confirmarExclusao(area)"></button>
-              <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
-          </tr>
-         </ng-template>
-      </p-table>
-   </div>
 
    </p-tabView>
 </div>
