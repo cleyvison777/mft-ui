@@ -6,7 +6,7 @@ import { ToastyService } from 'ng2-toasty/src/toasty.service';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 import { FormControl } from '@angular/forms';
 import { ErrorHandlerService } from '../core/error-handler.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadempresa',
@@ -29,7 +29,8 @@ export class CadempresaComponent implements OnInit {
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
     ) {}
 
     
@@ -123,8 +124,10 @@ export class CadempresaComponent implements OnInit {
         confirmarAlterar(empresa: any) {
           this.confirmation.confirm( {
             message: 'Tem certeza que deseja alterar?',
-            accept: () =>{
+            accept: () => {
               this.atualizarEmpresa(empresa);
+             //REDIRECIONA PARA O ADICIONAR O AMF
+              this.router.navigate(['/cadempresa']);
             }
           });
         }
@@ -140,7 +143,7 @@ export class CadempresaComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  atualizarEmpresa(form: FormControl){
+  atualizarEmpresa(form: FormControl) {
     this.cadempresaService.atualizar(this.empresasSalvar)
     .then(empresa => {
       this.empresasSalvar = empresa;
@@ -152,6 +155,3 @@ export class CadempresaComponent implements OnInit {
   }
 
   }
-
-
-  

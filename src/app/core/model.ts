@@ -4,7 +4,7 @@ export class Cadempresa {
   nmAbreviado: string;
   nrTelefone: string;
   enderecoCompleto: string;
-  pessoContato: string;
+  txPessoacontato: string;
   cnpjEmpresa: string;
   diretorioArquivos: string;
 }
@@ -200,7 +200,7 @@ export class CadAmf {
   mesesChuva: string;
   tipoLogiaFlorestal: string;
   tipoSolo: string;
-  Relevo: string;
+  relevo: string;
   mnResponsavel: string;
   enderecoResponsavel: string;
   nrTelefoneResponsavel: string;

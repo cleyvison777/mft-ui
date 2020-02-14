@@ -6,30 +6,30 @@
       <p-card [style]="{width: 'px'}" styleClass="ui-card-shadow">
         <form autocomplete="off" #cadamf="ngForm" (ngSubmit)="salvar(cadamf)">
           <div class="ui-g">
-          <h2>{{editando ? 'Atualizando ': ' '}}Area Manejo Florestal</h2>
+          <h2>{{editando ? 'EDITANDO ': ' '}}Área Manejo Florestal</h2>
           </div>
 
           <p-fieldset legend="AMF">
             <div class="ui-g">
               <div class="ui-g-3 ui-fluid">
-                <label>Empresa</label>
+                <label>Empresa:</label>
                 <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
                 [(ngModel)]="cadAmf.cdEmpresa.cdEmpresa" required></p-dropdown>
             
               </div>
               <div class="ui-g-5 ui-md-5 ui-fluid">
-                <label style=" padding-left: 10px;">Nome: </label>
+                <label>Nome: </label>
                 <input type="text" pInputText name="nmArea" [(ngModel)]="cadAmf.nmArea">
                
 
               </div>
 
-              <div class="ui-g-3 ui-md-4 ui-fluid">
-                <label style="padding-left: 10px;">Munícipio: </label>
+              <div class="ui-g-3 ui-md-3 ui-fluid">
+                <label>Munícipio: </label>
                 <input type="text" pInputText name="nmMunicipio" [(ngModel)] = "cadAmf.nmMunicipio">
               </div>
               <div class="ui-g-1 ui-md-1 ui-fluid">
-                <label style="padding-left: 10px;">Estado: </label>
+                <label >Estado: </label>
                 <input type="text" pInputText name="nmEstado" [(ngModel)]="cadAmf.nmEstado">
               </div>
 
@@ -43,11 +43,11 @@
 
                   <div class="ui-g-1 ui-md-1 ui-fluid">
                     <label>Latitude:</label>
-                    <input type="number" pInputText name="latitude1Grau" [(ngModel)]="cadAmf.latitude1Grau">
+                    <input type="number" min="0" pInputText name="latitude1Grau" [(ngModel)]="cadAmf.latitude1Grau">
                   </div>
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="number" pInputText name="latitude1Minuto" [(ngModel)]="cadAmf.latitude1Minuto">
+                    <input type="number" min="0" pInputText name="latitude1Minuto" [(ngModel)]="cadAmf.latitude1Minuto">
                   </div>
                   <span style="margin-top: 30px;">|</span>
 
@@ -57,12 +57,12 @@
 
                   <span style="margin-top: 40px;">a</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="number" pInputText name="latitude2Grau" [(ngModel)]="cadAmf.latitude2Grau">
+                    <input type="number" min="0" pInputText name="latitude2Grau" [(ngModel)]="cadAmf.latitude2Grau">
                   </div>
 
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="number" pInputText name="latitude2Minuto" [(ngModel)]="cadAmf.latitude2Minuto">
+                    <input type="number" min="0" pInputText name="latitude2Minuto" [(ngModel)]="cadAmf.latitude2Minuto">
                   </div>
                   <span style="margin-top: 30px;">|</span>
 
@@ -79,11 +79,11 @@
 
                   <div class="ui-g-1 ui-md-1 ui-fluid">
                     <label>Longitude:</label>
-                    <input type="number" pInputText name="longitude1Grau" [(ngModel)]="cadAmf.longitude1Grau">
+                    <input type="number" min="0" pInputText name="longitude1Grau" [(ngModel)]="cadAmf.longitude1Grau">
                   </div>
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="number" pInputText name="longitude1Minuto" [(ngModel)]="cadAmf.longitude1Minuto">
+                    <input type="number" min="0" pInputText name="longitude1Minuto" [(ngModel)]="cadAmf.longitude1Minuto">
                   </div>
 
                   <span style="margin-top: 30px;">|</span>
@@ -93,12 +93,12 @@
 
                   <span style="margin-top: 40px;">a</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="number" pInputText name="latitude2Grau" [(ngModel)]="cadAmf.longitude2Grau">
+                    <input type="number" min="0" pInputText name="latitude2Grau" [(ngModel)]="cadAmf.longitude2Grau">
                   </div>
 
                   <span style="margin-top: 30px;">°</span>
                   <div class="ui-g-1 ui-md-1 ui-fluid" style="margin-top: 18px;">
-                    <input type="number" pInputText name="latitude2Minuto" [(ngModel)]="cadAmf.longitude2Minuto">
+                    <input type="number" min="0" pInputText name="latitude2Minuto" [(ngModel)]="cadAmf.longitude2Minuto">
                   </div>
 
                   <span style="margin-top: 30px;">|</span>
@@ -107,25 +107,25 @@
                   </div>
                   <div class="ui-g-5 ui-md-1 ui-fluid">
                     <label>Relevo: </label>
-                    <input type="text" pInputText name="Relevo" [(ngModel)]="cadAmf.Relevo">
+                    <input type="text" pInputText name="relevo" [(ngModel)]="cadAmf.relevo">
                   </div>
                 </div>
               </p-fieldset>
 
               <p-fieldset legend="Informações Clímaticas">
-                <div class="ui-g-7 ui-g-9">
+                <div class="ui-g-7 ui-md-9">
                   <div class="ui-g-3 ui-md-3 ui-fluid" style="margin-top: 20px;">
                     <label>Anual:</label>
                     <input type="number" pInputText name="precipMediaAnualmm" [(ngModel)]="cadAmf.precipMediaAnualmm">
                   </div>
 
                   <div class="ui-g-3 ui-md-3 ui-fluid">
-                    <label style="padding-left: 10px;">Mensal no Período de Chuva:</label>
+                    <label style="padding-left: 5px;">Mensal no Período de Chuva:</label>
                     <input type="number" pInputText name="precipMediaMensalChuvamm" [(ngModel)]="cadAmf.precipMediaMensalChuvamm">
                   </div>
 
                   <div class="ui-g-3 ui-md-3 ui-fluid">
-                    <label style="padding-left: 10px;">Mensal no Período de Seca:</label>
+                    <label style="padding-left: 5px;">Mensal no Período de Seca:</label>
                     <input type="number" pInputText name="precipMediaMensalSecamm" [(ngModel)]="cadAmf.precipMediaMensalSecamm">
                   </div>
                 </div>
@@ -137,7 +137,7 @@
                     <input type="text" pInputText name="mesesChuva" [(ngModel)]="cadAmf.mesesChuva" style="width: 10">
                   </div>
                   <div class="ui-g-3 ui-g-3 ui-fluid">
-                    <label style="padding-left: 10px;">Meses de Seca:</label>
+                    <label style="padding-left: 5px;">Meses de Seca:</label>
                     <input type="text" pInputText name="mesesSeca" [(ngModel)]="cadAmf.mesesSeca">
                   </div>
 
@@ -179,7 +179,7 @@
                   </div>
                   <div class="ui-g-3 ui-fluid">
                     <label>Email:</label>
-                    <input type="text" pInputText name="emailResponsavel" [(ngModel)]="cadAmf.emailResponsavel" placeholder="@">
+                    <input type="email" pInputText name="emailResponsavel" [(ngModel)]="cadAmf.emailResponsavel" placeholder="@">
                   </div>
                 </div>
 
@@ -195,11 +195,11 @@
                   <button pButton type="button" icon="pi pi-pencil"></button>
                 </div>
 
-                
-
               </p-fieldset>
-              <div class="ui-g-8">
-                <div class="ui-fluid ui-g-5 ui-md-5" style="margin-right: 10px;">
+
+              <div class="ui-g-12">
+                <p-fieldset legend="Lista Especies">
+                <div class="ui-fluid ui-g-4 ui-md-4" style="margin-right:60px;">
                   <label>Lista de Especie: </label>
                   <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie" 
                 [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp"></p-dropdown> 
@@ -212,19 +212,13 @@
                     <p-checkbox name="groupname" value="val2" label="Palmeira contada" >
                     </p-checkbox>
                   </div>
-               
-
+                </p-fieldset>
               </div>
-
-             
-
-                
-
             </div>
-            <div class="ui-g-1  ui-md-1">
-              <button type="submit" pButton  label="Salvar"[disabled]="!cadAmf.nmArea"></button>
+            <div class="ui-g-5  ui-md-1">
+              <button type="submit" pButton  label="Salvar"[disabled]="!cadAmf.nmArea" style="padding-left: 10px;"></button>
             </div>
-            <div *ngIf="editando" class="ui-g-2 ui-md-2">
+            <div *ngIf="editando" class="ui-g-2 ui-md-3">
               <strong><a routerLink="/cadastro-amf"><button type="button" pButton label="Sair da edição"></button></a></strong>
             </div>
           </p-fieldset>
@@ -236,11 +230,11 @@
           <div class="ui-g-12">
               <form  autocomplete="off" (ngSubmit)="consultar()">
                   <div class="ui-g-12 ui-fluid">
-                      <label style="display: block">Pesquisar por Nome: </label>
+                      <label style="display: block">Pesquisar por Nome da Área: </label>
                       <div class="ui-g-12 ui-md-7">
                           <div class="ui-inputgroup">
                               <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
-                              <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmArea">
+                              <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmArea" placeholder="Pesquisar">
                           </div>
                       </div>
       

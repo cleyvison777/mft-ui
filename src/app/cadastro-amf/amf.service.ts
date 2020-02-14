@@ -19,21 +19,21 @@ export class CadeAmfFiltro {
 export class AmfService {
 
 
-
+//localiza o registro
   cadAmfURL = 'http://localhost:8080/cadamf';
   constructor(private http: Http) { }
-
+  //Faz a consulta
   consultar(filtro: CadeAmfFiltro): Promise<any> {
     const params = new URLSearchParams();
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     params.set('page', filtro.page.toString());
     params.set('size', filtro.size.toString());
-
+    //Filtra a consulta(filtro: CadeAmfFiltro) atravez 'nmArea'
     if (filtro.nmArea) {
       params.set('nmArea', filtro.nmArea);
     }
-
+    //retorna a consulta geral
     return this.http.get(`${this.cadAmfURL}`,
       { headers, search: filtro })
       .toPromise()
@@ -50,7 +50,7 @@ export class AmfService {
   }
 
 
-
+  //adiciona registros na tabela
   adicionar(cadAmf: CadAmf): Promise<CadAmf> {
     const params = new URLSearchParams;
     const headers = new Headers();
@@ -62,7 +62,7 @@ export class AmfService {
       .toPromise()
       .then(response => response.json());
   }
-
+  //atualiza registros na tabela
   atualizar(cadAmf: CadAmf): Promise<CadAmf> {
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -76,7 +76,7 @@ export class AmfService {
        return cadamfaltera;
      });
   }
-
+   //busca id para a atualização
   buscarPeloCodigo(cdarea: number): Promise<CadAmf> {
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -88,7 +88,7 @@ export class AmfService {
       return cadAmf;
     });
   }
-
+  //exclui o resgitro da tabela
    excluir(cdarea: number): Promise<void> {
    const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
