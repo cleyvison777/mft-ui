@@ -11,7 +11,6 @@ import { CadtipodeverificadorService } from './cadtipodeverificador/cadtipodever
 import { CadmaterialService } from './cadmaterial/cadmaterial.service';
 import { CadtipodemetodoService } from './cadtipodemetodo/cadtipodemetodo.service';
 import { CadfrequenciaService } from './cadfrequencia/cadfrequencia.service';
-import { CadamostragemService } from './cadamostragem/cadamostragem.service';
 import { CadempresaService } from './cadempresa/cadempresa.service';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,7 +52,6 @@ import { MenuComponent } from './menu/menu.component';
 import { CadempresaComponent } from './cadempresa/cadempresa.component';
 import { CadtipodeverificadorComponent } from './cadtipodeverificador/cadtipodeverificador.component';
 import { CadniveldeavaliacaoComponent } from './cadniveldeavaliacao/cadniveldeavaliacao.component';
-import { CadamostragemComponent } from './cadamostragem/cadamostragem.component';
 import { CadfrequenciaComponent } from './cadfrequencia/cadfrequencia.component';
 import { CadtipodemetodoComponent } from './cadtipodemetodo/cadtipodemetodo.component';
 import { CadmaterialComponent } from './cadmaterial/cadmaterial.component';
@@ -105,8 +103,6 @@ const routes: Routes = [
   { path: 'inicio', component:InicioComponent},
   { path: 'cadempresa', component:CadempresaComponent},
   { path: 'cadempresa/:codigo', component:CadempresaComponent},
-  { path: 'cadamostragem', component:CadamostragemComponent},
-  { path: 'cadamostragem/:codigo', component:CadamostragemComponent},
   { path: 'cadfrequencia', component:CadfrequenciaComponent},
   { path: 'cadfrequencia/:codigo', component:CadfrequenciaComponent},
   { path: 'cadniveldeavaliacao', component:CadniveldeavaliacaoComponent},
@@ -158,7 +154,6 @@ const routes: Routes = [
     CadempresaComponent,
     CadtipodeverificadorComponent,
     CadniveldeavaliacaoComponent,
-    CadamostragemComponent,
     CadfrequenciaComponent,
     CadtipodemetodoComponent,
     CadmaterialComponent,
@@ -220,7 +215,6 @@ const routes: Routes = [
   ],
   providers: [
     NodeService,
-    CadamostragemService,
     CadtipodemetodoService,
     CadfrequenciaService,
     CadempresaService,

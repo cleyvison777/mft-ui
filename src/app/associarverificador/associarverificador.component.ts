@@ -10,7 +10,6 @@ import { ToastyService } from 'ng2-toasty/src/toasty.service';
 import { CadverificadorLocalFiltro, AssociarverificadorService } from './associarverificador.service';
 import { VerificadorMService } from '../verificador-m/verificador-m.service';
 import { CadtipodemetodoService } from '../cadtipodemetodo/cadtipodemetodo.service';
-import { CadamostragemService } from '../cadamostragem/cadamostragem.service';
 import { CadfrequenciaService } from '../cadfrequencia/cadfrequencia.service';
 import { Modlocal1Service } from '../modlocal1/modlocal1.service';
 import { Modlocal2Service } from '../modlocal2/modlocal2.service';
@@ -95,7 +94,6 @@ export class AssociarverificadorComponent implements OnInit {
     private modLocal1Service: Modlocal1Service,
     private modLocal2Service: Modlocal2Service,
     private tipoDeVerificadores: CadtipodeverificadorService,
-    private amostragem: CadamostragemService,
     private frequencia: CadfrequenciaService,
     private tipoDeMetodo: CadtipodemetodoService,
     private errorHandler: ErrorHandlerService,
@@ -108,8 +106,6 @@ export class AssociarverificadorComponent implements OnInit {
 
     this.carregarTipoDeVerificadores();
     this.carregarTipoDeMetodo();
-    this.carregarAmostragem();
-    this.carregarFrequencia();
     this.carregarUnidadeDeAvaliacao();
     this.carregarLocalDeAvaliacaoFOD();
     this.carregarLocalDeAvaliacaoFOA();
@@ -120,7 +116,6 @@ export class AssociarverificadorComponent implements OnInit {
     this.carregarLocalDeAvaliacaoACAM();
     this.carregarLocalDeAvaliacaoESCRI();
     this.carregarLocalDeAvaliacaoENTOR();
-
     this.carregar_modlocal3_cdLocal1_1_cdLocal2_1();
     this.carregar_modlocal3_cdLocal1_1_cdLocal2_2();
     this.carregar_modlocal3_cdLocal1_1_cdLocal2_3();
@@ -224,20 +219,7 @@ export class AssociarverificadorComponent implements OnInit {
         .catch(erro => this.errorHandler.handle(erro));
     }
 
-    carregarAmostragem() {
-      return this.amostragem.listarTodas()
-        .then(amostragem => {
-          this.cadamostragem = amostragem.map(c => ({ label: c.nmAmostragem, value: c.cdAmostragem }));
-        })
-        .catch(erro => this.errorHandler.handle(erro));
-    }
-    carregarFrequencia() {
-      return this.frequencia.listarTodas()
-        .then(frequencia => {
-          this.cadfrequencia = frequencia.map(c => ({ label: c.nmFrequencia, value: c.cdFrequencia }));
-        })
-        .catch(erro => this.errorHandler.handle(erro));
-    }
+   
 
     carregarUnidadeDeAvaliacao() {
       return this.modLocal1Service.listarTodas()
