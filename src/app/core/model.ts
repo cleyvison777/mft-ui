@@ -219,6 +219,10 @@ export class ListaEspecie {
 
 }
 
+export class CadFamilia {
+  cdFamilia: number;
+  nmFamilia: string;
+}
 
 
 

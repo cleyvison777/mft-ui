@@ -42,7 +42,7 @@ export class MenuComponent implements OnInit {
                 {separator: true},
                 {
                   label: 'Familia',
-                  routerLink: '/modverificadoresdomodelo'
+                  routerLink: '/cadastro-familia'
                 },
 
                 {

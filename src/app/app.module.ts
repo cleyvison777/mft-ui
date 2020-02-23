@@ -1,3 +1,4 @@
+import { FamiliaService } from './cadastro-familia/familia.service';
 import { ArvoreService } from './cadastro-arvore/arvore.service';
 import { AppavaliacaoService } from './appavaliacao/appavaliacao.service';
 import { AppavaliacaoComponent } from './appavaliacao/appavaliacao.component';
@@ -96,6 +97,7 @@ import { CadastroArvoreComponent } from './cadastro-arvore/cadastro-arvore.compo
 import { CadastroAmfComponent } from './cadastro-amf/cadastro-amf.component';
 import { AmfService } from './cadastro-amf/amf.service';
 import { ListaEspecieComponent } from './lista-especie/lista-especie.component';
+import { CadastroFamiliaComponent } from './cadastro-familia/cadastro-familia.component';
 
 
 
@@ -138,10 +140,10 @@ const routes: Routes = [
   { path: 'appmonitoramento', component:AppmonitoramentoComponent},
   { path: 'appmonitoramento/:codigo', component:AppmonitoramentoComponent},
   { path: 'appavaliacao', component:AppavaliacaoComponent},
-  { path: 'appavaliacao/:codigo', component:AppavaliacaoComponent},
+  { path: 'appavaliacao/:codigo', component: AppavaliacaoComponent},
   { path: 'cadastro-amf', component: CadastroAmfComponent},
   { path: 'cadastro-amf/:codigo', component: CadastroAmfComponent},
-
+  { path: 'cadastro-familia', component: CadastroFamiliaComponent},
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
@@ -179,6 +181,7 @@ const routes: Routes = [
     CadastroArvoreComponent,
     CadastroAmfComponent,
     ListaEspecieComponent,
+    CadastroFamiliaComponent,
 
 
   ],
@@ -238,7 +241,8 @@ const routes: Routes = [
     AssociarverificadorService,
     ErrorHandlerService,
     ArvoreService,
-    AmfService
+    AmfService,
+    FamiliaService
 
   ],
   bootstrap: [AppComponent]
