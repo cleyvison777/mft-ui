@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
@@ -46,5 +47,42 @@ cadFamilia = new CadFamilia;
     const page = event.first / event.rows;
     this.consultar(page);
   }
+
+  adicionarFamilia(form: FormControl) {
+    this.familiaService.adicionar(this.cadFamilia)
+     .then(() => {
+       this.cadFamilia = new CadFamilia();
+        this.consultar();
+        this.toasty.success('Cadastrado realizado com sucesso!');
+     })
+     .catch(erro => this.errorHandler.handle(erro));
+
+  }
+   //exclui o resgitro da tabela
+   
+   excluir(familia: any) {
+     this.familiaService.excluir(familia.cdFamilia)
+      .then(() => {
+        if(this.grid.first === 0) {
+          this.consultar();
+        } else{
+          this.grid.first = 0;
+          this.consultar();
+        }
+        this.toasty.success('Area excluída com sucesso!');
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+   }
+
+   confirmarExclusao(familia: any){
+     this.confirmation.confirm({
+       message: 'Tem certeza que deseja excluir?',
+       accept: () => {
+         this.excluir(familia);
+       }
+     });
+   }
+
+
 
 }

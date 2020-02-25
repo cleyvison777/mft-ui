@@ -1,3 +1,4 @@
+import { CadFamilia } from './../core/model';
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -39,5 +40,25 @@ consultar(filtro: CadFamiliaFiltro): Promise<any> {
        return resultado;
      });
 }
- 
+
+  //adiciona registros na tabela
+
+adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
+  const params = new URLSearchParams;
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(this.cadFamiliaURL,
+      JSON.stringify(cadFamilia), { headers })
+      .toPromise()
+      .then(response => response.json());
+    }
+      //exclui o resgitro da tabela
+  excluir(cdFamilia: number): Promise<void> {
+   const headers = new Headers;
+   headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+   return this.http.delete(`${this.cadFamiliaURL}/${cdFamilia}`, { headers })
+   .toPromise()
+   .then(() => null);
+  }
 }

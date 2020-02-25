@@ -1,11 +1,14 @@
 <div class="container">
   <p-tabView>
     <p-tabPanel header="Lista de Espécie / FAMILIA">
-        <form action="">
+        <form autocomplete="off" #cadfamilia="ngForm" (ngSubmit)="adicionarFamilia(cadFamilia)">
           <p-fieldset legend="FAMILIA">
             <div class="ui-g-5 ui-md-5 ui-fluid">
               <label>Nome: </label>
-              <input type="text" pInputText name="">
+              <input type="text" pInputText name="nmFamilia" [(ngModel)]="cadFamilia.nmFamilia">
+            </div>
+            <div class="ui-g-12  ui-md-12">
+              <button type="submit" pButton  label="Salvar"[disabled]="!cadFamilia.nmFamilia" class="ui-button-success"></button>
             </div>
           </p-fieldset>
         </form>
@@ -45,7 +48,8 @@
                   <td>{{familia.cdFamilia}}</td>
                   <td>{{familia.nmFamilia}}</td>
 
-                  <td><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="top"></button>
+                  <td><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="top"
+                    (click)="confirmarExclusao(familia)"></button>
                   <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
             </tr>
            </ng-template>
