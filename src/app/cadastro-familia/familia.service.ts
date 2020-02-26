@@ -61,4 +61,32 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
    .toPromise()
    .then(() => null);
   }
+
+
+  atualizar(cadFamilia: CadFamilia): Promise<CadFamilia> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(`${this.cadFamiliaURL}/${cadFamilia.cdFamilia}`,
+    JSON.stringify(cadFamilia), { headers })
+    .toPromise()
+    .then(response => {
+      const cadFamiliaAltera = response.json() as CadFamilia;
+
+      return cadFamiliaAltera;
+    });
+  }
+
+  buscarPeloCodigo(cdFamilia: number): Promise<CadFamilia> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    return this.http.get(`${this.cadFamiliaURL}/${cdFamilia}`, { headers })
+     .toPromise()
+      .then(response => {
+        const cadFamilia = response.json() as CadFamilia;
+         return cadFamilia;
+      })
+
+  }
+
 }

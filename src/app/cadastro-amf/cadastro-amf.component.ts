@@ -95,7 +95,7 @@ cadAmf = new CadAmf();
     })
     .catch(erro => this.errorHandler.handle(erro));
   }
-
+  //confirmação para alterar
   confirmarAlterar(amf: any) {
     this.confirmation.confirm( {
       message: 'Tem certeza que deseja alterar?',

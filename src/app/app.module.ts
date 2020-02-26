@@ -144,6 +144,8 @@ const routes: Routes = [
   { path: 'cadastro-amf', component: CadastroAmfComponent},
   { path: 'cadastro-amf/:codigo', component: CadastroAmfComponent},
   { path: 'cadastro-familia', component: CadastroFamiliaComponent},
+  { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
+
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]

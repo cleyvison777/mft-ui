@@ -1,14 +1,17 @@
 <div class="container">
   <p-tabView>
     <p-tabPanel header="Lista de Espécie / FAMILIA">
-        <form autocomplete="off" #cadfamilia="ngForm" (ngSubmit)="adicionarFamilia(cadFamilia)">
-          <p-fieldset legend="FAMILIA">
-            <div class="ui-g-5 ui-md-5 ui-fluid">
+        <form autocomplete="off" #cadfamilia="ngForm" (ngSubmit)="salva(cadFamilia)">
+          <p-fieldset legend="{{editando ? 'EDITANDO ': ' '}} FAMILIA">
+            <div class="ui-g-12 ui-md-12 ui-fluid">
               <label>Nome: </label>
-              <input type="text" pInputText name="nmFamilia" [(ngModel)]="cadFamilia.nmFamilia">
+              <input type="text" pInputText name="nmFamilia" [(ngModel)]="cadFamilia.nmFamilia" placeholder="Nome Familia">
             </div>
-            <div class="ui-g-12  ui-md-12">
+            <div class="ui-g-1  ui-md-1">
               <button type="submit" pButton  label="Salvar"[disabled]="!cadFamilia.nmFamilia" class="ui-button-success"></button>
+            </div>
+            <div *ngIf="editando" class="ui-g-2 ui-md-3">
+              <strong><a routerLink="/cadastro-familia"><button type="button" pButton label="Sair da edição"></button></a></strong>
             </div>
           </p-fieldset>
         </form>
@@ -32,7 +35,7 @@
       </div>
        
       <div class="ui-g">        
-        <p-table [value]="familia"  [paginator]="true"  [rows]="filtro.size" [responsive]="true" [lazy]="true"
+        <p-table [value]="familia"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
          [totalRecords]="totalRegistrosFamilia" (onLazyLoad)="aoMudarPaginaFamilia($event)" #tabela>
             <ng-template pTemplate="header">
                 <tr>
@@ -48,16 +51,15 @@
                   <td>{{familia.cdFamilia}}</td>
                   <td>{{familia.nmFamilia}}</td>
 
-                  <td><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="top"
+                  <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="left"
                     (click)="confirmarExclusao(familia)"></button>
-                  <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+                  <button pButton icon="pi pi-pencil" pTooltip="editar"  [routerLink]="['/cadastro-familia', familia.cdFamilia]"></button></td>
             </tr>
            </ng-template>
         </p-table>
        
      </div>
-       
-
+      
      </p-fieldset>
     
   </p-tabView>

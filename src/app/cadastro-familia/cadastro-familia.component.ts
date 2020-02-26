@@ -1,9 +1,10 @@
+import { Headers } from '@angular/http';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
 import { ErrorHandlerService } from './../core/error-handler.service';
-import { CadFamilia } from './../core/model';
+import { CadFamilia, CadAmf } from './../core/model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CadFamiliaFiltro, FamiliaService } from './familia.service';
 
@@ -30,8 +31,19 @@ cadFamilia = new CadFamilia;
   ) { }
 
   ngOnInit() {
+    //se houver um id entra no metodo de carregar valores
+const codigoFamilia = this.route.snapshot.params['codigo'];
+ if (codigoFamilia) {
+   this.CarrgarFamilia(codigoFamilia);
+ }
 
   }
+
+     //metodo para identificar se esta atualizando
+
+get editando() {
+ return Boolean(this.cadFamilia.cdFamilia);
+}
 
   consultar(page = 0) {
     this.filtro.page = page;
@@ -59,7 +71,6 @@ cadFamilia = new CadFamilia;
 
   }
    //exclui o resgitro da tabela
-   
    excluir(familia: any) {
      this.familiaService.excluir(familia.cdFamilia)
       .then(() => {
@@ -83,6 +94,44 @@ cadFamilia = new CadFamilia;
      });
    }
 
+      //verifica se e uma atualizção ou um novo cadastro
+     salva(form: FormControl) {
+       if (this.editando) {
+         this.confirmarAlterar(form);
+       } else {
+         this.adicionarFamilia(form);
+       }
+     }
+     //atualiza registros na tabela
+ atualizar(form: FormControl) {
+   this.familiaService.atualizar(this.cadFamilia)
+   .then(familia => {
+     this.cadFamilia = familia;
+     this.toasty.success('Atualização realizada com sucesso!');
+    this.consultar();
+     //REDIRECIONA PARA O ADICIONAR O AMF
+     this.router.navigate(['/cadastro-familia']);
+   })
+   .catch(erro => this.errorHandler.handle(erro));   
 
+ }
+   
+ //carregar valores
+    CarrgarFamilia(codigo: number) {
+      this.familiaService.buscarPeloCodigo(codigo)
+      .then(familia => {
+        this.cadFamilia = familia;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+    }
 
+    //confirmação para alterar
+   confirmarAlterar(familia: any) {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja alterar?',
+      accept: () => {
+        this.atualizar(familia);
+      }
+    });
+  }
 }
