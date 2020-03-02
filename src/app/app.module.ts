@@ -1,3 +1,4 @@
+import { GeneroService } from './cadastro-genero/genero.service';
 import { FamiliaService } from './cadastro-familia/familia.service';
 import { ArvoreService } from './cadastro-arvore/arvore.service';
 import { AppavaliacaoService } from './appavaliacao/appavaliacao.service';
@@ -98,6 +99,7 @@ import { CadastroAmfComponent } from './cadastro-amf/cadastro-amf.component';
 import { AmfService } from './cadastro-amf/amf.service';
 import { ListaEspecieComponent } from './lista-especie/lista-especie.component';
 import { CadastroFamiliaComponent } from './cadastro-familia/cadastro-familia.component';
+import { CadastroGeneroComponent } from './cadastro-genero/cadastro-genero.component';
 
 
 
@@ -141,8 +143,12 @@ const routes: Routes = [
   { path: 'appmonitoramento/:codigo', component:AppmonitoramentoComponent},
   { path: 'appavaliacao', component:AppavaliacaoComponent},
   { path: 'appavaliacao/:codigo', component: AppavaliacaoComponent},
+
+  { path: 'cadastro-genero', component: CadastroGeneroComponent},
+
   { path: 'cadastro-amf', component: CadastroAmfComponent},
   { path: 'cadastro-amf/:codigo', component: CadastroAmfComponent},
+
   { path: 'cadastro-familia', component: CadastroFamiliaComponent},
   { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
 
@@ -184,6 +190,7 @@ const routes: Routes = [
     CadastroAmfComponent,
     ListaEspecieComponent,
     CadastroFamiliaComponent,
+    CadastroGeneroComponent,
 
 
   ],
@@ -244,7 +251,8 @@ const routes: Routes = [
     ErrorHandlerService,
     ArvoreService,
     AmfService,
-    FamiliaService
+    FamiliaService,
+    GeneroService
 
   ],
   bootstrap: [AppComponent]

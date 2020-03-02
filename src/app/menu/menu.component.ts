@@ -47,7 +47,7 @@ export class MenuComponent implements OnInit {
 
                 {
                   label: 'Genero',
-                  routerLink: '/modverificadoresdomodelo'
+                  routerLink: '/cadastro-genero'
                 },
                 {
                   label: 'Grupo Ecologico',

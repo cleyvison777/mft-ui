@@ -1,6 +1,6 @@
 <div class="container">
   <p-tabView>
-    <p-tabPanel header="Lista de Espécie / FAMILIA">
+    <p-tabPanel header="Cadastro Geral / Lista de Espécie / Familía">
         <form autocomplete="off" #cadfamilia="ngForm" (ngSubmit)="salva(cadFamilia)">
           <p-fieldset legend="{{editando ? 'EDITANDO ': ' '}} FAMILIA">
             <div class="ui-g-12 ui-md-12 ui-fluid">
@@ -46,8 +46,8 @@
       
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-familia>
-                <tr>
+            <ng-template pTemplate="body" let-familia >
+                <tr class="hoverfamilia">
                   <td>{{familia.cdFamilia}}</td>
                   <td>{{familia.nmFamilia}}</td>
 

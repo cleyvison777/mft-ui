@@ -202,7 +202,7 @@
                 <div class="ui-fluid ui-g-4 ui-md-4" style="margin-right:60px;">
                   <label>Lista de Especie: </label>
                   <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie" 
-                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp"></p-dropdown> 
+                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp" filter="true"></p-dropdown> 
                 </div>
                   <div style="padding-bottom: 10px;">
                     <p-checkbox name="groupname" value="val1" label="Muda contada">
@@ -257,7 +257,7 @@
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-area>
-                  <tr>
+                  <tr class="hoverAmf">
                     <td>{{area.cdEmpresa.nmEmpresa}}</td>
                     <td>{{area.nmArea}}</td>
                     <td>{{area.nmEstado}}</td>
