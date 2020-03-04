@@ -1,6 +1,7 @@
+import { FormControl } from '@angular/forms';
 import { FamiliaService } from './../cadastro-familia/familia.service';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
-import { CadListaEspecie, Genero, CadFamilia } from './../core/model';
+import { Genero } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
@@ -19,10 +20,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class CadastroGeneroComponent implements OnInit {
   totalRegistrosGenero = 0;
   familia = [];
-  genero = [];
+  listaGenero = [];
 
   filtro = new GeneroFiltro();
-  cadGenero = new Genero;
+  genero = new Genero;
   @ViewChild('tabela') grid;
 
 
@@ -54,7 +55,7 @@ consultar(page = 0) {
  this.generoService.consultar(this.filtro)
   .then(resultado => {
     this.totalRegistrosGenero = resultado.total;
-    this.genero = resultado.genero;
+    this.listaGenero = resultado.listaGenero;
   })
   .catch(erro => this.errorHandler.handle(erro));
 
@@ -63,8 +64,18 @@ consultar(page = 0) {
    const page = event.first / event.rows;
    this.consultar(page);
  }
+//adiconar registro
+adicionarGenero(form: FormControl) {
+  this.generoService.adicionar(this.genero)
+   .then(() => {
+     this.genero = new Genero();
+      this.consultar();
+      this.toasty.success('Cadastrado realizado com sucesso!');
 
+   })
+   .catch(erro => this.errorHandler.handle(erro));
 
+}
 
 
  carregarFamilia() {
