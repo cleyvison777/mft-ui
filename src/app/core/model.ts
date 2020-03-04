@@ -224,6 +224,13 @@ export class CadFamilia {
   nmFamilia: string;
 }
 
+export class Genero {
+  cdGenero: number;
+  cdFamilia = new CadFamilia();
+  nmGenero: string;
+
+}
+
 
 
 

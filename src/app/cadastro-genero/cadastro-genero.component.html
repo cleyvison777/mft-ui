@@ -2,13 +2,65 @@
   <p-tabView>
      <p-tabPanel header="Cadastro Geral / Lista de Espécie / Genero">
       <form action="">
+
         <p-fieldset legend="Genero">
+          
           <div class="ui-g-6 ui-md-6 ui-fluid">
             <label>Nome: </label>
              <input type="text" pInputText name="" placeholder="Genero">
           </div>
+
+          <div class="ui-fluid ui-g-4 ui-md-4" style="margin-right:60px;">
+              <label>Familia: </label>
+               <p-dropdown name="familia"  [options]="familia" [autoWidth]="false" placeholder= "Selecione a Familia" 
+               filter="true" >
+             </p-dropdown> 
+         </div>
+         <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-pencil" label="Familia"></button>
+
+         <p-dialog [(visible)]="display" header ="Godfather Casting" class="mydialog">
+          <div class="container">
+            kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+            kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+            kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+          </div>
+           
+          <p-footer>
+            Teste
+          </p-footer>
+      </p-dialog>
+
         </p-fieldset>
       </form>
+      <p-fieldset legend="Dados Cadastrais">
+        <div class="ui-g">        
+          <p-table [value]="genero"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+           [totalRecords]="totalRegistrosGenero" (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela>
+              <ng-template pTemplate="header">
+                  <tr>
+                  
+                    <th>Codigo</th>
+                    <th>Genero</th>
+                    <th>Familia</th>
+                    <th></th>
+        
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-genero >
+                  <tr class="hoverfamilia">
+                    <td>{{genero.cdGenero}}</td>
+                    <td>{{genero.nmGenero}}</td>
+                    <td>{{genero.cdFamilia.nmFamilia}}</td>
+
+                    <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="left"
+                   ></button>
+                    <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+              </tr>
+             </ng-template>
+          </p-table>
+         
+       </div>
+      </p-fieldset>
     </p-tabPanel>
   </p-tabView>
 </div>

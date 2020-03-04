@@ -74,7 +74,6 @@ import { Modlocal1Service } from './modlocal1/modlocal1.service';
 import { Modlocal2Component } from './modlocal2/modlocal2.component';
 import { Modlocal2Service } from './modlocal2/modlocal2.service';
 import { Modlocal2EditandoComponent } from './modlocal2/modlocal2-editando/modlocal2-editando.component';
-import { from } from 'rxjs';
 import { Modnivel1Component } from './modnivel1/modnivel1.component';
 import { Modnivel2Component } from './modnivel2/modnivel2.component';
 import { Modnivel3Component } from './modnivel3/modnivel3.component';
@@ -84,7 +83,6 @@ import { Modnivel4Component } from './modnivel4/modnivel4.component';
 import { Modnivel4Service } from './modnivel4/modnivel4.service';
 import { ModmonitoramentotemplateComponent } from './modmonitoramentotemplate/modmonitoramentotemplate.component';
 import { ModmonitoramentotemplateService } from './modmonitoramentotemplate/modmonitoramentotemplate.service';
-import { ModmonitoramentoService } from './modmonitoramento/modmonitoramento.service';
 import { ModverificadoresdomodeloComponent } from './modverificadoresdomodelo/modverificadoresdomodelo.component';
 import { AssociarverificadorComponent } from './associarverificador/associarverificador.component';
 import { AppmonitoramentoService } from './appmonitoramento/appmonitoramento.service';
@@ -195,6 +193,7 @@ const routes: Routes = [
 
   ],
   imports: [
+    DialogModule,
     AccordionModule,
     BrowserModule,
     FormsModule,

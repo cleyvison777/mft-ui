@@ -16,7 +16,7 @@ export class FamiliaService {
 
 cadFamiliaURL = 'http://localhost:8080/cadfamilia';
   constructor(private http: Http) { }
-
+//consultar 
 consultar(filtro: CadFamiliaFiltro): Promise<any> {
   const params = new URLSearchParams();
   const headers = new Headers;
@@ -88,5 +88,15 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
       })
 
   }
+
+  listarTodasFamilia(): Promise<any> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+  
+    return this.http.get(this.cadFamiliaURL, { headers })
+    .toPromise()
+    .then(response => response.json().content);
+    }
 
 }
