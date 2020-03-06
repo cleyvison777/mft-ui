@@ -1,120 +1,106 @@
 <div class=" container">
-  <p-tabView>
-     <p-tabPanel header="Cadastro Geral / Lista de Espécie / Genero">
-      <form autocomplete="off" #cadgenero="ngForm" (ngSubmit)="salvar(cadgenero)">
 
-
-        <div class="ui-g ui-md" style="margin-left: 1010px">
-          <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-pencil" label="Familia"></button>
-          <p-dialog [(visible)]="displayBasic" [style]="{left: '2000vw'}">
-            <p-header>Cadastro Familía</p-header>
-         
-            <div class="ui-g-12 ui-md-12">            
-              <p-table [value]="listaGenero"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
-               [totalRecords]="totalRegistrosGenero" (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela>
-                  <ng-template pTemplate="header">
-                      <tr>
-                      
-                        <th>Codigo</th>
-                        <th>Familia</th>
-                        
-            
-                      </tr>
-                  </ng-template>
-                  <ng-template pTemplate="body" let-listaGenero>
-                      <tr>
-                        <td>{{listaGenero.cdFamilia.cdFamilia}}</td>
-                        <td>{{listaGenero.cdFamilia.nmFamilia}}</td>
-                      
-                        
-                  </tr>
-                 </ng-template>
-              </p-table>
-             
-           </div>
-       <p-footer>
-           <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"></button>
-           <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
-       </p-footer>
-   </p-dialog>
- </div>
+  <p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title ui-g-11 ui-md-11" style="font-size:16px;display:inline-block;margin-top:2px">Cadastro-Genero</span>
+            <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-pencil" label="Familia " [style]="{'float':'right'}"></button>
+            <p-dialog [(visible)]="displayBasic">
+              <p-header>Cadastro Familia</p-header>
+           Teste table
+         <p-footer>
+             <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"></button>
+             <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
+         </p-footer>
+     </p-dialog>
+        </div>
+    </p-header>
+    <form autocomplete="off" #cadgenero="ngForm" (ngSubmit)="salvar(cadgenero)">
+      
+       
 
 
 
 
 
-        <p-fieldset legend="{{editando ? 'EDITANDO ': ' '}} Genero">
-          <div class="ui-g-7 ui-md-7 ui-fluid">
-            <label>Nome: </label>
-             <input type="text" pInputText name="nmGenero" placeholder="Genero" [(ngModel)]="genero.nmGenero">
-          </div>
+
+      <p-fieldset legend="{{editando ? 'EDITANDO ': ' '}} Genero">
+        <div class="ui-g-7 ui-md-7 ui-fluid">
+          <label>Nome: </label>
+           <input type="text" pInputText name="nmGenero" placeholder="Genero" [(ngModel)]="genero.nmGenero">
+        </div>
+        
+        <div class="ui-fluid ui-g-5 ui-md-5">
+            <label>Familia: </label>
+             <p-dropdown name="familia"  [options]="familia" [autoWidth]="false" placeholder= "Selecione a Familia" 
+             filter="true"  [(ngModel)]="genero.cdFamilia.cdFamilia">
+           </p-dropdown> 
+       </div>
+       
+       
+
+    <div class="ui-g-1  ui-md-1">
+      <button type="submit" pButton  label="Salvar"[disabled]="!genero.nmGenero" class="ui-button-success"></button>
+    </div>
+
+    <div *ngIf="editando" class="ui-g-2 ui-md-2">
+      <strong><a routerLink="/cadastro-genero"><button type="button" pButton label="Sair da edição"></button></a></strong>
+    </div>
+      </p-fieldset>
+    </form>
+
+    <p-fieldset legend="Dados Cadastrais">
+      <div class="ui-g-12 ui-md-12">  
+      <form  autocomplete="off" (ngSubmit)="consultar()">
+        <div class="ui-g-12 ui-fluid">
+            <label style="display: block">Pesquisar por Genero: </label>
+            <div class="ui-g-12 ui-md-7">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                    <input type="text" pInputText name="nmGenero" [(ngModel)]="filtro.nmGenero" placeholder="Pesquisar">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="ui-g-12 ui-md-12">            
+  <p-table [value]="listaGenero"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+   [totalRecords]="totalRegistrosGenero" (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela>
+      <ng-template pTemplate="header">
+          <tr>
           
-          <div class="ui-fluid ui-g-5 ui-md-5">
-              <label>Familia: </label>
-               <p-dropdown name="familia"  [options]="familia" [autoWidth]="false" placeholder= "Selecione a Familia" 
-               filter="true"  [(ngModel)]="genero.cdFamilia.cdFamilia">
-             </p-dropdown> 
-         </div>
-         
-         
+            <th>Codigo</th>
+            <th>Genero</th>
+            <th>Familia</th>
+            <th></th>
 
-      <div class="ui-g-1  ui-md-1">
-        <button type="submit" pButton  label="Salvar"[disabled]="!genero.nmGenero" class="ui-button-success"></button>
-      </div>
-
-      <div *ngIf="editando" class="ui-g-2 ui-md-2">
-        <strong><a routerLink="/cadastro-genero"><button type="button" pButton label="Sair da edição"></button></a></strong>
-      </div>
-        </p-fieldset>
-      </form>
-
-      <p-fieldset legend="Dados Cadastrais">
-        <div class="ui-g-12 ui-md-12">  
-        <form  autocomplete="off" (ngSubmit)="consultar()">
-          <div class="ui-g-12 ui-fluid">
-              <label style="display: block">Pesquisar por Genero: </label>
-              <div class="ui-g-12 ui-md-7">
-                  <div class="ui-inputgroup">
-                      <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
-                      <input type="text" pInputText name="nmGenero" [(ngModel)]="filtro.nmGenero" placeholder="Pesquisar">
-                  </div>
-              </div>
-
-          </div>
-      </form>
-  </div>
-
-  <div class="ui-g-12 ui-md-12">            
-    <p-table [value]="listaGenero"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
-     [totalRecords]="totalRegistrosGenero" (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela>
-        <ng-template pTemplate="header">
-            <tr>
-            
-              <th>Codigo</th>
-              <th>Genero</th>
-              <th>Familia</th>
-              <th></th>
-  
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-listaGenero>
-            <tr>
-              <td>{{listaGenero.cdGenero}}</td>
-              <td>{{listaGenero.nmGenero}}</td>
-              <td>{{listaGenero.cdFamilia.cdFamilia}}</td>
-              <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
-                pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaGenero)">
-              </button>
-              <button pButton icon="pi pi-pencil" pTooltip="editar"  [routerLink]="['/cadastro-genero', listaGenero.cdGenero]"></button></td>
-        </tr>
-       </ng-template>
-    </p-table>
-   
- </div>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-listaGenero>
+          <tr>
+            <td>{{listaGenero.cdGenero}}</td>
+            <td>{{listaGenero.nmGenero}}</td>
+            <td>{{listaGenero.cdFamilia.cdFamilia}}</td>
+            <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
+              pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaGenero)">
+            </button>
+            <button pButton icon="pi pi-pencil" pTooltip="editar"  [routerLink]="['/cadastro-genero', listaGenero.cdGenero]"></button></td>
+      </tr>
+     </ng-template>
+  </p-table>
+ 
+</div>
 
 </p-fieldset>
-</p-tabPanel>
-
+    <p-footer>
        
+    </p-footer>
+</p-panel>
+
+
+
+</div>
  
 
