@@ -1,3 +1,4 @@
+import { FamiliaService, CadFamiliaFiltro } from './../cadastro-familia/familia.service';
 import { promise } from 'protractor';
 import { Genero } from './../core/model';
 import { Http, Headers } from '@angular/http';
@@ -6,12 +7,13 @@ import { Injectable } from '@angular/core';
 export class GeneroFiltro {
   nmGenero: string;
   page = 0;
-  size = 20;
+  size = 10;
 }
 @Injectable({
   providedIn: 'root'
 })
 export class GeneroService {
+
 generoURL = 'http://localhost:8080/genero';
   constructor(private http: Http) { }
 
@@ -39,6 +41,7 @@ generoURL = 'http://localhost:8080/genero';
           return resultado;
         });
    }
+   
 
 adicionar(genero: Genero): Promise<Genero> {
   const params = new URLSearchParams;
@@ -50,6 +53,15 @@ adicionar(genero: Genero): Promise<Genero> {
          .toPromise()
           .then(response => response.json())
    }
+
+      //exclui o resgitro da tabela
+      excluir(cdGenero: number): Promise<void>{
+        const headers = new Headers;
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+        return this.http.delete(`${this.generoURL}/${cdGenero}`, { headers })
+        .toPromise()
+        .then(() => null);
+      }
 
 
 }

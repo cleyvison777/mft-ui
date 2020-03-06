@@ -32,8 +32,6 @@ export class CadempresaComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
     ) {}
-
-    
   ngOnInit() {
    // this.pesquisar();
    const codigoEmpresa = this.route.snapshot.params['codigo'];

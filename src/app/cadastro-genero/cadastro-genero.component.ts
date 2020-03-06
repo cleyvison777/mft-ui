@@ -1,3 +1,4 @@
+import { CadastroFamiliaComponent } from './../cadastro-familia/cadastro-familia.component';
 import { FormControl } from '@angular/forms';
 import { FamiliaService } from './../cadastro-familia/familia.service';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
@@ -12,7 +13,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-cadastro-genero',
   templateUrl: './cadastro-genero.component.html',
-  styleUrls: ['./cadastro-genero.component.css']
+  styleUrls: ['./cadastro-genero.component.css'],
 })
 
 
@@ -28,8 +29,8 @@ export class CadastroGeneroComponent implements OnInit {
 
 
   //chamar o dialog
-  display: boolean;
-  displayMaximizable = true;
+  displayBasic: boolean;
+ 
 ///////
   constructor(
     private generoService: GeneroService,
@@ -47,7 +48,7 @@ export class CadastroGeneroComponent implements OnInit {
   }
   ////chamar o dialog
   showBasicDialog() {
-    this.display = true;
+    this.displayBasic = true;
 }
 
 consultar(page = 0) {
@@ -88,8 +89,29 @@ adicionarGenero(form: FormControl) {
   
    }
 
+      //exclui o resgitro da tabela
+excluir(listaGenero: any) {
+  this.generoService.excluir(listaGenero.cdGenero)
+   .then(() => {
+     if (this.grid.first === 0) {
+       this.consultar();
+     } else {
+       this.grid.first = 0;
+       this.consultar();
+     }
+     this.toasty.success('Area excluída com sucesso!');
+   })
+   .catch(erro => this.errorHandler.handle(erro));
+}
 
-
+confirmarExclusao(listaGenero: any) {
+  this.confirmation.confirm({
+    message: 'Tem certeza que deseja excluir?',
+     accept: () => {
+       this.excluir(listaGenero);
+     }
+  });
+}
 
 
 
