@@ -27,11 +27,10 @@ export class CadastroGeneroComponent implements OnInit {
   genero = new Genero;
   @ViewChild('tabela') grid;
 
-
   //chamar o dialog
   displayBasic: boolean;
- 
 ///////
+
   constructor(
     private generoService: GeneroService,
     private familiaService: FamiliaService,
@@ -43,14 +42,21 @@ export class CadastroGeneroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+       //se houver um id entra no metodo de carregar valores
+const cadigoGenero = this.route.snapshot.params['codigo'];
+   if (cadigoGenero) {
+      this.CarregarGenero(cadigoGenero);
+   }
     this.carregarFamilia();
-
   }
   ////chamar o dialog
   showBasicDialog() {
     this.displayBasic = true;
 }
 
+get editando() {
+  return Boolean(this.genero.cdGenero);
+}
 consultar(page = 0) {
  this.filtro.page = page;
  this.generoService.consultar(this.filtro)
@@ -84,9 +90,7 @@ adicionarGenero(form: FormControl) {
   .then( familia => {
     this.familia = familia.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
   })
-  
   .catch(erro => this.errorHandler.handle(erro));
-  
    }
 
       //exclui o resgitro da tabela
@@ -104,15 +108,54 @@ excluir(listaGenero: any) {
    .catch(erro => this.errorHandler.handle(erro));
 }
 
-confirmarExclusao(listaGenero: any) {
-  this.confirmation.confirm({
-    message: 'Tem certeza que deseja excluir?',
-     accept: () => {
-       this.excluir(listaGenero);
-     }
-  });
+    confirmarExclusao(listaGenero: any) {
+      this.confirmation.confirm({
+        message: 'Tem certeza que deseja excluir?',
+        accept: () => {
+          this.excluir(listaGenero);
+        }
+      });
+    }
+
+           //verifica se e uma atualizção ou um novo cadastro
+salvar(form: FormControl) {
+  if ( this.editando) {
+    this.confirmarAlterar(form);
+  } else {
+    this.adicionarGenero(form);
+  }
 }
 
 
+atualizar(form: FormControl) {
+  this.generoService.atualizar(this.genero)
+   .then(listagenero => {
+     this.genero = listagenero;
+     this.toasty.success('Atualização realizada com sucesso!');
+     this.consultar();
+     this.router.navigate(['/cadastro-genero']);
+   })
+   .catch(erro => this.errorHandler.handle(erro));
+}
+     //confirmação para alterar
+     confirmarAlterar(genero: any) {
+      this.confirmation.confirm({
+        message: 'Tem certeza que deseja alterar?',
+         accept: () => {
+           this.atualizar(genero);
+         }
+      });
+     }
 
+
+
+//Carregar Valores
+CarregarGenero(codigo: number) {
+  this.generoService.buscarPeloCodigoGenero(codigo)
+  .then(listaGenero => {
+    this.genero = listaGenero;
+  })
+  .catch(erro => this.errorHandler.handle(erro));
+
+        }
 }

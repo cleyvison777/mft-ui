@@ -62,6 +62,39 @@ adicionar(genero: Genero): Promise<Genero> {
         .toPromise()
         .then(() => null);
       }
+       //atualiza
+atualizar(genero: Genero): Promise<Genero> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+     return this.http.put(`${this.generoURL}/${genero.cdGenero}`,
+      JSON.stringify(genero), { headers })
+       .toPromise()
+       .then(response => {
+         const generoAltera = response.json() as Genero;
+            return generoAltera;
+});
 
+  }
+buscarPeloCodigoGenero(cdGenero: number): Promise<Genero>{
+  const headers = new Headers();
+  headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+  return this.http.get(`${this.generoURL}/${cdGenero}`, { headers })
+   .toPromise()
+    .then(response => {
+      const genero = response.json() as Genero;
+       return genero;
+    });
+     }
+//buscar pelo godigo para atualizar
+     listarTodosGeneros(): Promise<any> {
+      const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      headers.append('Content-Type', 'application/json');
+         
+        return this.http.get(this.generoURL, { headers })
+        .toPromise()
+        .then(response => response.json().Content);
+     }
 
 }

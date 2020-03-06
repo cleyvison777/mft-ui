@@ -62,7 +62,7 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
    .then(() => null);
   }
 
-
+ //atualiza
   atualizar(cadFamilia: CadFamilia): Promise<CadFamilia> {
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -76,7 +76,7 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
       return cadFamiliaAltera;
     });
   }
-
+//buscar pelo godigo para atualizar
   buscarPeloCodigo(cdFamilia: number): Promise<CadFamilia> {
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -85,7 +85,7 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
       .then(response => {
         const cadFamilia = response.json() as CadFamilia;
          return cadFamilia;
-      })
+      });
 
   }
 

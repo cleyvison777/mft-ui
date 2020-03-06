@@ -143,6 +143,7 @@ const routes: Routes = [
   { path: 'appavaliacao/:codigo', component: AppavaliacaoComponent},
 
   { path: 'cadastro-genero', component: CadastroGeneroComponent},
+  { path: 'cadastro-genero/:codigo', component: CadastroGeneroComponent},
 
   { path: 'cadastro-amf', component: CadastroAmfComponent},
   { path: 'cadastro-amf/:codigo', component: CadastroAmfComponent},
