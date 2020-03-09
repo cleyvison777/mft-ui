@@ -1,6 +1,6 @@
 import { CadastroFamiliaComponent } from './../cadastro-familia/cadastro-familia.component';
 import { FormControl } from '@angular/forms';
-import { FamiliaService } from './../cadastro-familia/familia.service';
+import { FamiliaService, CadFamiliaFiltro } from './../cadastro-familia/familia.service';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
 import { Genero } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,9 +20,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 export class CadastroGeneroComponent implements OnInit {
   totalRegistrosGenero = 0;
+  totalRegistrosf = 0;
+  familiaf = [];
   familia = [];
   listaGenero = [];
-
+  filtrof = new CadFamiliaFiltro();
   filtro = new GeneroFiltro();
   genero = new Genero;
   @ViewChild('tabela') grid;
@@ -38,8 +40,7 @@ export class CadastroGeneroComponent implements OnInit {
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
     private route: ActivatedRoute,
-    private router: Router,
-  ) { }
+    private router: Router) { }
 
   ngOnInit() {
        //se houver um id entra no metodo de carregar valores
@@ -48,6 +49,7 @@ const cadigoGenero = this.route.snapshot.params['codigo'];
       this.CarregarGenero(cadigoGenero);
    }
     this.carregarFamilia();
+    
   }
   ////chamar o dialog
   showBasicDialog() {
@@ -85,13 +87,15 @@ adicionarGenero(form: FormControl) {
 }
 
 
- carregarFamilia() {
-  return this.familiaService.listarTodasFamilia()
-  .then( familia => {
-    this.familia = familia.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
-  })
-  .catch(erro => this.errorHandler.handle(erro));
-   }
+ 
+
+   carregarFamilia() {
+    return this.familiaService.listarTodasFamilia()
+    .then( familia => {
+      this.familia = familia.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+     }
 
       //exclui o resgitro da tabela
 excluir(listaGenero: any) {
@@ -124,6 +128,7 @@ salvar(form: FormControl) {
   } else {
     this.adicionarGenero(form);
   }
+
 }
 
 
@@ -158,4 +163,27 @@ CarregarGenero(codigo: number) {
   .catch(erro => this.errorHandler.handle(erro));
 
         }
+        ///////////////////////////////////////
+        consultarF(page = 0) {
+          this.filtro.page = page;
+          this.familiaService.consultar(this.filtrof)
+           .then(resultado => {
+             this.totalRegistrosf = resultado.total;
+             this.familiaf = resultado.familia;
+           })
+           .catch(erro => this.errorHandler.handle(erro));
+         
+         }
+          aoMudarPaginaGeneroF(event: LazyLoadEvent){
+            const page = event.first / event.rows;
+            this.consultarF(page);
+          }
+
+          carregarFamiliaf() {
+            return this.familiaService.listarTodasFamilia()
+            .then( familiaf => {
+              this.familiaf = familiaf.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
+            })
+            .catch(erro => this.errorHandler.handle(erro));
+             }
 }

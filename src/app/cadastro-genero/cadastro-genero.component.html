@@ -4,13 +4,38 @@
     <p-header>
         <div class="ui-helper-clearfix">
             <span class="ui-panel-title ui-g-11 ui-md-11" style="font-size:16px;display:inline-block;margin-top:2px">Cadastro-Genero</span>
-            <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-pencil" label="Familia " [style]="{'float':'right'}"></button>
+            <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-eye" label="Familia " [style]="{'float':'right'}"></button>
             <p-dialog [(visible)]="displayBasic">
               <p-header>Cadastro Familia</p-header>
-           Teste table
+          
+              <div class="ui-g-12 ui-md-12">            
+                <p-table [value]="familiaf"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+                 [totalRecords]="totalRegistrosf" (onLazyLoad)="aoMudarPaginaGeneroF($event)" #tabela>
+                    <ng-template pTemplate="header">
+                        <tr>
+                        
+                          <th>Codigo</th>
+                          <th>Familia</th>
+                           
+              
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-familiaf>
+                        <tr class="hovergenero">
+                          <td>{{familiaf.cdFamilia}}</td>
+                          <td>{{familiaf.nmFamilia}}</td>
+                         
+                    </tr>
+                   </ng-template>
+                </p-table>
+               
+              </div>
+
+
+
          <p-footer>
-             <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Yes"></button>
-             <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>
+             <button type="button" pButton icon="pi pi-pencil" (click)="displayBasic=false" label="Cad-Familia" routerLink="/cadastro-familia"></button>
+             <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Fechar" class="ui-button-secondary"></button>
          </p-footer>
      </p-dialog>
         </div>
@@ -68,7 +93,7 @@
 <div class="ui-g-12 ui-md-12">            
   <p-table [value]="listaGenero"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
    [totalRecords]="totalRegistrosGenero" (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela>
-      <ng-template pTemplate="header">
+      <ng-template pTemplate="header" >
           <tr>
           
             <th>Codigo</th>
@@ -78,11 +103,11 @@
 
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-listaGenero>
-          <tr>
+      <ng-template pTemplate="body" let-listaGenero >
+          <tr class="hovergenero">
             <td>{{listaGenero.cdGenero}}</td>
             <td>{{listaGenero.nmGenero}}</td>
-            <td>{{listaGenero.cdFamilia.cdFamilia}}</td>
+            <td>{{listaGenero.cdFamilia.nmFamilia}}</td>
             <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
               pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaGenero)">
             </button>
