@@ -21,7 +21,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class CadastroGeneroComponent implements OnInit {
   totalRegistrosGenero = 0;
   totalRegistrosf = 0;
-  familiaf = [];
   familia = [];
   listaGenero = [];
   filtrof = new CadFamiliaFiltro();
@@ -49,7 +48,6 @@ const cadigoGenero = this.route.snapshot.params['codigo'];
       this.CarregarGenero(cadigoGenero);
    }
     this.carregarFamilia();
-    
   }
   ////chamar o dialog
   showBasicDialog() {
@@ -69,7 +67,7 @@ consultar(page = 0) {
   .catch(erro => this.errorHandler.handle(erro));
 
 }
- aoMudarPaginaGenero(event: LazyLoadEvent){
+ aoMudarPaginaGenero(event: LazyLoadEvent) {
    const page = event.first / event.rows;
    this.consultar(page);
  }
@@ -86,8 +84,6 @@ adicionarGenero(form: FormControl) {
 
 }
 
-
- 
 
    carregarFamilia() {
     return this.familiaService.listarTodasFamilia()
@@ -163,27 +159,5 @@ CarregarGenero(codigo: number) {
   .catch(erro => this.errorHandler.handle(erro));
 
         }
-        ///////////////////////////////////////
-        consultarF(page = 0) {
-          this.filtro.page = page;
-          this.familiaService.consultar(this.filtrof)
-           .then(resultado => {
-             this.totalRegistrosf = resultado.total;
-             this.familiaf = resultado.familia;
-           })
-           .catch(erro => this.errorHandler.handle(erro));
          
-         }
-          aoMudarPaginaGeneroF(event: LazyLoadEvent){
-            const page = event.first / event.rows;
-            this.consultarF(page);
-          }
-
-          carregarFamiliaf() {
-            return this.familiaService.listarTodasFamilia()
-            .then( familiaf => {
-              this.familiaf = familiaf.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
-            })
-            .catch(erro => this.errorHandler.handle(erro));
-             }
 }

@@ -7,32 +7,7 @@
             <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-eye" label="Familia " [style]="{'float':'right'}"></button>
             <p-dialog [(visible)]="displayBasic">
               <p-header>Cadastro Familia</p-header>
-          
-              <div class="ui-g-12 ui-md-12">            
-                <p-table [value]="familiaf"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
-                 [totalRecords]="totalRegistrosf" (onLazyLoad)="aoMudarPaginaGeneroF($event)" #tabela>
-                    <ng-template pTemplate="header">
-                        <tr>
-                        
-                          <th>Codigo</th>
-                          <th>Familia</th>
-                           
-              
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-familiaf>
-                        <tr class="hovergenero">
-                          <td>{{familiaf.cdFamilia}}</td>
-                          <td>{{familiaf.nmFamilia}}</td>
-                         
-                    </tr>
-                   </ng-template>
-                </p-table>
-               
-              </div>
-
-
-
+                <app-cadastro-familia></app-cadastro-familia>
          <p-footer>
              <button type="button" pButton icon="pi pi-pencil" (click)="displayBasic=false" label="Cad-Familia" routerLink="/cadastro-familia"></button>
              <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Fechar" class="ui-button-secondary"></button>
