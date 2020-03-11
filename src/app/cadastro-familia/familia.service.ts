@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class CadFamiliaFiltro {
   nmFamilia: string;
   page = 0;
-  size = 20;
+  size = 10;
 }
 
 @Injectable({

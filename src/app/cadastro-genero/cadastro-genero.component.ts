@@ -148,8 +148,6 @@ atualizar(form: FormControl) {
       });
      }
 
-
-
 //Carregar Valores
 CarregarGenero(codigo: number) {
   this.generoService.buscarPeloCodigoGenero(codigo)
@@ -158,6 +156,5 @@ CarregarGenero(codigo: number) {
   })
   .catch(erro => this.errorHandler.handle(erro));
 
-        }
-         
+        }  
 }

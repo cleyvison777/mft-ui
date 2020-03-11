@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class GeneroFiltro {
   nmGenero: string;
   page = 0;
-  size = 20;
+  size = 15;
 }
 @Injectable({
   providedIn: 'root'
