@@ -231,6 +231,12 @@ export class Genero {
 
 }
 
+export class CadGrupoEcologico {
+  cdGrupoEcologico: number;
+  cdEmpresa = new Cadempresa();
+  nmGrupoEcologico: string;
+}
+
 
 
 

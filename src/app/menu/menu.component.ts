@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
                 },
                 {
                   label: 'Grupo Ecologico',
-                  routerLink: '/modverificadoresdomodelo'
+                  routerLink: '/cadastro-grupo-ecologico'
                 },
                 {
                   label: 'Uso da Espécie',

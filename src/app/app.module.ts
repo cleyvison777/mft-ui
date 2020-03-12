@@ -1,3 +1,4 @@
+import { GrupoEcologicoService } from './cadastro-grupo-ecologico/grupo-ecologico.service';
 import { GeneroService } from './cadastro-genero/genero.service';
 import { FamiliaService } from './cadastro-familia/familia.service';
 import { ArvoreService } from './cadastro-arvore/arvore.service';
@@ -5,7 +6,6 @@ import { AppavaliacaoService } from './appavaliacao/appavaliacao.service';
 import { AppavaliacaoComponent } from './appavaliacao/appavaliacao.component';
 import { AppmonitoramentoComponent } from './appmonitoramento/appmonitoramento.component';
 import { AssociarverificadorService } from './associarverificador/associarverificador.service';
-import { ModmonitoramentoComponent } from './modmonitoramento/modmonitoramento.component';
 import { Modnivel1Service } from './modnivel1/modnivel1.service';
 
 import { UnidadelocalsublocalService } from './unidadelocalsublocal/unidadelocalsublocal.service';
@@ -98,6 +98,7 @@ import { AmfService } from './cadastro-amf/amf.service';
 import { ListaEspecieComponent } from './lista-especie/lista-especie.component';
 import { CadastroFamiliaComponent } from './cadastro-familia/cadastro-familia.component';
 import { CadastroGeneroComponent } from './cadastro-genero/cadastro-genero.component';
+import { CadastroGrupoEcologicoComponent } from './cadastro-grupo-ecologico/cadastro-grupo-ecologico.component';
 
 
 
@@ -141,7 +142,7 @@ const routes: Routes = [
   { path: 'appmonitoramento/:codigo', component:AppmonitoramentoComponent},
   { path: 'appavaliacao', component:AppavaliacaoComponent},
   { path: 'appavaliacao/:codigo', component: AppavaliacaoComponent},
-
+  
   { path: 'cadastro-genero', component: CadastroGeneroComponent},
   { path: 'cadastro-genero/:codigo', component: CadastroGeneroComponent},
 
@@ -150,7 +151,8 @@ const routes: Routes = [
 
   { path: 'cadastro-familia', component: CadastroFamiliaComponent},
   { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
-
+  { path: 'cadastro-grupo-ecologico', component: CadastroGrupoEcologicoComponent},
+  
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
@@ -190,6 +192,7 @@ const routes: Routes = [
     ListaEspecieComponent,
     CadastroFamiliaComponent,
     CadastroGeneroComponent,
+    CadastroGrupoEcologicoComponent,
 
 
   ],
@@ -252,7 +255,8 @@ const routes: Routes = [
     ArvoreService,
     AmfService,
     FamiliaService,
-    GeneroService
+    GeneroService,
+    GrupoEcologicoService
 
   ],
   bootstrap: [AppComponent]

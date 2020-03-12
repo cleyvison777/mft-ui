@@ -20,7 +20,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 export class CadastroGeneroComponent implements OnInit {
   totalRegistrosGenero = 0;
-  totalRegistrosf = 0;
   familia = [];
   listaGenero = [];
   filtrof = new CadFamiliaFiltro();
@@ -57,6 +56,7 @@ const cadigoGenero = this.route.snapshot.params['codigo'];
 get editando() {
   return Boolean(this.genero.cdGenero);
 }
+
 consultar(page = 0) {
  this.filtro.page = page;
  this.generoService.consultar(this.filtro)
