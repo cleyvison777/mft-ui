@@ -103,7 +103,7 @@ excluir(listaGenero: any) {
        this.grid.first = 0;
        this.consultar();
      }
-     this.toasty.success('Area excluída com sucesso!');
+     this.toasty.success('Genero excluída com sucesso!');
    })
    .catch(erro => this.errorHandler.handle(erro));
 }

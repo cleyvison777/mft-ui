@@ -1,20 +1,21 @@
 <div class="container">
   <p-panel>
     <p-header>Cadastro Geral / Lista Espécie / Grupo Ecológico</p-header>
-      <form>
+      <form autocomplete="off" #grupoEcologico="ngForm" (ngSubmit)="adicionarGrupoEcologico(grupoEcologico)">
           <p-fieldset legend="Grupo Ecológico">
             <div class="ui-g-9 ui-md-7 ui-fluid">
                 <label>Nome: </label>
-                <input type="text" pInputText name="" placeholder="Grupo Ecológico">
+                <input type="text" pInputText name="nmGrupoEcologico" placeholder="Grupo Ecológico" [(ngModel)]="cadGrupoEcologico.nmGrupoEcologico">
               </div>
 
               <div class="ui-g-5 ui-fluid">
-                <label>Empresa:</label>
-                  <p-dropdown name="empresa"  [autoWidth]="false" placeholder= "Selecione a empresa" required filter="true"></p-dropdown>    
+                <label>Empresas:</label>
+                  <p-dropdown name="empresa"  [options]="empresas" [autoWidth]="false" 
+                  placeholder= "Selecione a empresa"  filter="true" [(ngModel)]="cadGrupoEcologico.cdEmpresa.cdEmpresa" required></p-dropdown>    
               </div>
 
               <div class="ui-g-1  ui-md-1">
-                <button type="submit" pButton  label="Salvar" [disabled]="" class="ui-button-success"></button>
+                <button type="submit" pButton   label="Salvar" class="ui-button-success"></button>
               </div>
           </p-fieldset>
     </form>
@@ -44,16 +45,15 @@
                       <th>Grupo Ecológico</th>
                       <th></th>
                       
-
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-totalRegistrosGrupoEcologico>
+                <ng-template pTemplate="body" let-listaGrupoEcologico>
                     <tr class="hovergenero">
-                      <td>{{totalRegistrosGrupoEcologico.cdGrupoEcologico}}</td>
-                      <td>{{totalRegistrosGrupoEcologico.nmGrupoEcologico}}</td>
+                      <td>{{listaGrupoEcologico.cdGrupoEcologico}}</td>
+                      <td>{{listaGrupoEcologico.nmGrupoEcologico}}</td>
                     
                       <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
-                        pTooltip="remover" class="ui-button-danger" tooltipPosition="left">
+                        pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaGrupoEcologico)">
                       </button>
                       <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
                 </tr>
@@ -63,9 +63,6 @@
           </div>
 
       </p-fieldset>
-                   
-
-
 
 </p-panel>
   

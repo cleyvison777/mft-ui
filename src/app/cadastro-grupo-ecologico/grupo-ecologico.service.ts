@@ -1,4 +1,5 @@
-import { Http, Headers, URLSearchParams } from '@angular/http';
+import { CadGrupoEcologico } from './../core/model';
+import { Http, Headers} from '@angular/http';
 import { Injectable } from '@angular/core';
 
 export class GrupoEcologicoFiltro {
@@ -20,7 +21,7 @@ GrupoEcologicoURL = 'http://localhost:8080/grupoecologico';
 
     //consultar 
 consultar(filtro: GrupoEcologicoFiltro): Promise<any>{
-  const params = new URLSearchParams();
+  const params = new URLSearchParams;
   const headers = new Headers;
   headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
   params.set('page', filtro.page.toString());
@@ -42,5 +43,24 @@ consultar(filtro: GrupoEcologicoFiltro): Promise<any>{
          return resultado;
        });
   }
+
+  adicionar(cadGrupoEcologico: CadGrupoEcologico): Promise<CadGrupoEcologico> {
+    const params = new URLSearchParams;
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+      return this.http.post(this.GrupoEcologicoURL,
+        JSON.stringify(cadGrupoEcologico), { headers })
+        .toPromise()
+         .then(response => response.json());
+  }
+    //exclui o resgitro da tabela
+     excluir(cdGrupoEcologico: number): Promise<void> {
+      const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+       return this.http.delete(`${this.GrupoEcologicoURL}/${cdGrupoEcologico}`, { headers })
+        .toPromise()
+         .then(() => null);
+     }
 
 }

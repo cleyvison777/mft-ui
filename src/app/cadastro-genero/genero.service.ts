@@ -51,11 +51,11 @@ adicionar(genero: Genero): Promise<Genero> {
       return this.http.post(this.generoURL,
         JSON.stringify(genero), { headers })
          .toPromise()
-          .then(response => response.json())
+          .then(response => response.json());
    }
 
       //exclui o resgitro da tabela
-      excluir(cdGenero: number): Promise<void>{
+      excluir(cdGenero: number): Promise<void> {
         const headers = new Headers;
         headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
         return this.http.delete(`${this.generoURL}/${cdGenero}`, { headers })

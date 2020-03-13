@@ -1,3 +1,5 @@
+import { CadempresaService } from './../cadempresa/cadempresa.service';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
@@ -14,11 +16,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class CadastroGrupoEcologicoComponent implements OnInit {
   totalRegistrosGrupoEcologico = 0;
   listaGrupoEcologico = [];
+  empresas = [];
   filtro = new GrupoEcologicoFiltro();
   cadGrupoEcologico = new CadGrupoEcologico();
   @ViewChild('tabela') grid;
 
   constructor(
+    private cadEmpresaService: CadempresaService,
     private grupoEcologicoService: GrupoEcologicoService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
@@ -27,6 +31,8 @@ export class CadastroGrupoEcologicoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.carregarEmpresas();
+
   }
 consultarGrupoEcologico(page = 0) {
   this.filtro.page = page;
@@ -42,4 +48,47 @@ consultarGrupoEcologico(page = 0) {
     const page = event.first / event.rows;
     this.consultarGrupoEcologico(page);
   }
+
+  adicionarGrupoEcologico(form: FormControl) {
+    this.grupoEcologicoService.adicionar(this.cadGrupoEcologico)
+      .then(() => {
+        this.cadGrupoEcologico = new CadGrupoEcologico();
+         this.consultarGrupoEcologico();
+         this.toasty.success('Cadastrado realizado com sucesso!');
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+
+  }
+
+  carregarEmpresas() {
+    return this.cadEmpresaService.listarTodas()
+      .then(empresas => {
+        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + " - " + c.nmEmpresa, value: c.cdEmpresa }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+    
+  excluir(listaGrupoEcologico: any) {
+    this.grupoEcologicoService.excluir(listaGrupoEcologico.cdGrupoEcologico)
+    .then(() => {
+      if(this.grid.first === 0) {
+        this.consultarGrupoEcologico();
+      } else {
+        this.grid.first = 0;
+        this.consultarGrupoEcologico();
+      }
+      this.toasty.success('Genero excluída com sucesso!');
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  confirmarExclusao(listaGrupoEcologico: any){
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(listaGrupoEcologico);
+      }
+    });
+  }
+
 }
