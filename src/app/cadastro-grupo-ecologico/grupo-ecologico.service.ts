@@ -63,4 +63,38 @@ consultar(filtro: GrupoEcologicoFiltro): Promise<any>{
          .then(() => null);
      }
 
+
+     atualizar(cadGrupoEcologico: CadGrupoEcologico): Promise<CadGrupoEcologico> {
+      const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      headers.append('Content-Type', 'application/json');
+        return this.http.put(`${this.GrupoEcologicoURL}/${cadGrupoEcologico.cdGrupoEcologico}`,
+        JSON.stringify(cadGrupoEcologico), { headers })
+         .toPromise()
+          .then(response => {
+            const grupoEcologicoAltera = response.json() as CadGrupoEcologico;
+            return grupoEcologicoAltera;
+          });
+     }
+     
+     buscarPeloCodigoGrupoEcologico(cdGrupoEcologico: number): Promise<CadGrupoEcologico>{
+      const headers = new Headers();
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+         return this.http.get(`${this.GrupoEcologicoURL}/${cdGrupoEcologico}`, { headers })
+          .toPromise()
+           .then(response =>{
+             const cadGrupoEcologico = response.json() as CadGrupoEcologico;
+             return cadGrupoEcologico;
+           });
+     }
+
+     listarGrupoEcologico(): Promise<any> {
+      const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      headers.append('Content-Type', 'application/json');
+        return this.http.get(this.GrupoEcologicoURL, { headers })
+         .toPromise()
+          .then(response => response.json().Content);
+     }
+
 }

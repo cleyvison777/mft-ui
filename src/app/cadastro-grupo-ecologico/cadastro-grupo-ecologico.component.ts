@@ -32,8 +32,17 @@ export class CadastroGrupoEcologicoComponent implements OnInit {
 
   ngOnInit() {
     this.carregarEmpresas();
+     //se houver um id entra no metodo de carregar valores
+    const codigoGrupoEcologico = this.route.snapshot.params['codigo'];
+       if(codigoGrupoEcologico) {
+         this.carregarGrupoEcologico(codigoGrupoEcologico);
+       }
 
   }
+  get editando() {
+    return Boolean(this.cadGrupoEcologico.cdGrupoEcologico);
+  }
+
 consultarGrupoEcologico(page = 0) {
   this.filtro.page = page;
    this.grupoEcologicoService.consultar(this.filtro)
@@ -91,4 +100,42 @@ consultarGrupoEcologico(page = 0) {
     });
   }
 
+   atualizarGrupo(form: FormControl) {
+     this.grupoEcologicoService.atualizar(this.cadGrupoEcologico)
+    .then(grupoecologico => {
+          this.cadGrupoEcologico = grupoecologico;
+          this.toasty.success('Atualização realizada com sucesso!');
+          this.consultarGrupoEcologico();
+          this.router.navigate(['/cadastro-grupo-ecologico']);
+        })
+        .catch(erro => this.errorHandler.handle(erro));
+
+   }
+
+   //confirmação para alterar
+      confirmarAlterar(cadGrupoEcologico: any) {
+        this.confirmation.confirm({
+          message: 'Tem certeza que deseja alterar?',
+          accept: () => {
+            this.atualizarGrupo(cadGrupoEcologico);
+          }
+        });
+      }
+     
+      carregarGrupoEcologico(cadigo: number){
+        this.grupoEcologicoService.buscarPeloCodigoGrupoEcologico(cadigo)
+         .then( grupoecologico => {
+           this.cadGrupoEcologico = grupoecologico;
+         })
+         .catch(erro => this.errorHandler.handle(erro));
+
+      }
+
+      salvar(form: FormControl) {
+        if (this.editando) {
+          this.confirmarAlterar(form);
+        } else {
+          this.adicionarGrupoEcologico(form);
+        }
+      }
 }

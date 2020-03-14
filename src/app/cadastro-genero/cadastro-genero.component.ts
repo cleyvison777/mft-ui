@@ -41,12 +41,13 @@ export class CadastroGeneroComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.carregarFamilia();
        //se houver um id entra no metodo de carregar valores
 const cadigoGenero = this.route.snapshot.params['codigo'];
    if (cadigoGenero) {
       this.CarregarGenero(cadigoGenero);
-   }
-    this.carregarFamilia();
+      }
+    
   }
   ////chamar o dialog
   showBasicDialog() {
@@ -156,5 +157,5 @@ CarregarGenero(codigo: number) {
   })
   .catch(erro => this.errorHandler.handle(erro));
 
-        }  
+    }
 }

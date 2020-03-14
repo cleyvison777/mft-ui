@@ -151,8 +151,10 @@ const routes: Routes = [
 
   { path: 'cadastro-familia', component: CadastroFamiliaComponent},
   { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
-  { path: 'cadastro-grupo-ecologico', component: CadastroGrupoEcologicoComponent},
   
+  { path: 'cadastro-grupo-ecologico', component: CadastroGrupoEcologicoComponent},
+  { path: 'cadastro-grupo-ecologico/:codigo', component: CadastroGrupoEcologicoComponent},
+
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
