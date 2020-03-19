@@ -91,7 +91,7 @@ consultarGrupoEcologico(page = 0) {
     .catch(erro => this.errorHandler.handle(erro));
   }
 
-  confirmarExclusao(listaGrupoEcologico: any){
+  confirmarExclusao(listaGrupoEcologico: any) {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {

@@ -1,3 +1,4 @@
+import { CadCategoriaProtecao } from './../core/model';
 import { promise } from 'protractor';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -40,4 +41,24 @@ export class CategoriaProtecaoService {
 
        }
 
+       adicionar(cadCategoriaProtecao: CadCategoriaProtecao): Promise<CadCategoriaProtecao> {
+        const params = new URLSearchParams;
+        const headers = new Headers();
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+        headers.append('Content-Type', 'application/json');
+         return this.http.post(this.CategoriaProtecaoURL,
+          JSON.stringify(cadCategoriaProtecao),
+          { headers })
+          .toPromise()
+           .then(response => response.json());
+       }
+
+
+       excluir(cdCategoriaProtecao: number): Promise<void> {
+        const headers = new Headers;
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+         return this.http.delete(`${this.CategoriaProtecaoURL}/${cdCategoriaProtecao}`, { headers })
+          .toPromise()
+           .then(() => null);
+       }
 }

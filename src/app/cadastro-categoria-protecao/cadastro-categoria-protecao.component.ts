@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { CadCategoriaProtecao } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/primeng';
@@ -31,6 +32,8 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.carregarEmpresas();
+
   }
 
   consultaCategoriaProtecao(page = 0) {
@@ -42,9 +45,56 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
      })
      .catch(erro => this.errorHandler.handle(erro));
   }
-  aoMudarPaginaGrupoEcologico(event: LazyLoadEvent) {
+  aoMudarPaginaCategoriaProtecao(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.consultaCategoriaProtecao(page);
+  }
+
+  adicionarCategoriaProtecao(form: FormControl) {
+    this.categoriaProtecaoService.adicionar(this.cadCategoriaProtecao)
+     .then(() => {
+       this.cadCategoriaProtecao = new CadCategoriaProtecao();
+        this.consultaCategoriaProtecao();
+         this.toasty.success('Cadastrado realizado com sucesso!');
+       })
+     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+    //exclui o resgitro da tabela
+      excluirCategoria(listaCategoriaProtecao: any){
+        this.categoriaProtecaoService.excluir(listaCategoriaProtecao.cdCategoriaProtecao)
+         .then(() =>{
+           if (this.grid.first === 0){
+            this.consultaCategoriaProtecao();
+           } else {
+            this.grid.first = 0;
+            this.consultaCategoriaProtecao();
+
+           }
+           this.toasty.success('Categoria Protecao excluída com sucesso!');
+         })
+         .catch(erro => this.errorHandler.handle(erro));
+
+      }
+
+      confirmarExclusao(listaCategoriaProtecao: any){
+        this.confirmation.confirm({
+          message: 'Tem certeza que deseja excluir?',
+          accept: () => {
+           this.excluirCategoria(listaCategoriaProtecao);
+          }
+        });
+      }
+
+
+
+
+  carregarEmpresas() {
+    return this.cadEmpresaService.listarTodas()
+      .then(empresas => {
+        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + " - " + c.nmEmpresa, value: c.cdEmpresa }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 }
