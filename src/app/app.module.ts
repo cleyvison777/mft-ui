@@ -99,6 +99,7 @@ import { ListaEspecieComponent } from './lista-especie/lista-especie.component';
 import { CadastroFamiliaComponent } from './cadastro-familia/cadastro-familia.component';
 import { CadastroGeneroComponent } from './cadastro-genero/cadastro-genero.component';
 import { CadastroGrupoEcologicoComponent } from './cadastro-grupo-ecologico/cadastro-grupo-ecologico.component';
+import { CadastroCategoriaProtecaoComponent } from './cadastro-categoria-protecao/cadastro-categoria-protecao.component';
 
 
 
@@ -154,6 +155,9 @@ const routes: Routes = [
   
   { path: 'cadastro-grupo-ecologico', component: CadastroGrupoEcologicoComponent},
   { path: 'cadastro-grupo-ecologico/:codigo', component: CadastroGrupoEcologicoComponent},
+   
+  { path: 'cadastro-categoria-protecao', component: CadastroCategoriaProtecaoComponent},
+  { path: 'cadastro-categoria-protecao/:codigo', component: CadastroCategoriaProtecaoComponent},
 
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -195,6 +199,7 @@ const routes: Routes = [
     CadastroFamiliaComponent,
     CadastroGeneroComponent,
     CadastroGrupoEcologicoComponent,
+    CadastroCategoriaProtecaoComponent,
 
 
   ],

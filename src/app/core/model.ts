@@ -237,6 +237,12 @@ export class CadGrupoEcologico {
   nmGrupoEcologico: string;
 }
 
+export class CadCategoriaProtecao {
+  cdCategoriaProtecao: number;
+  cdEmpresa = new Cadempresa();
+  nmCategoriaProtecao: string;
+}
+
 
 
 

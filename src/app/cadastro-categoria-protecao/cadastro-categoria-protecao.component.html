@@ -1,0 +1,72 @@
+<div class="container"> 
+  <p-panel>
+    <p-header>Cadastro Geral / Lista Espécie / Grupo Ecológico / Uso Espécie / Categoria Proteção </p-header>
+      <form action="">
+        <p-fieldset legend="Categoria Proteção">
+            <div class="ui-g-9 ui-md-7 ui-fluid">
+              <label>Nome: </label>
+              <input type="text" pInputText name="" placeholder="Categoria Proteção" required>
+            </div>
+
+              <div class="ui-g-5 ui-fluid">
+                <label>Empresas:</label>
+                  <p-dropdown name="empresa"  [autoWidth]="false" 
+                  placeholder= "Selecione a empresa"  filter="true"  required></p-dropdown>    
+              </div>
+
+              <div class="ui-g-1  ui-md-1">
+                <button type="submit" pButton   label="Salvar" class="ui-button-success"[disabled]=""></button>
+              </div>
+                
+              <!-- <div *ngIf="editando" class="ui-g-2 ui-md-2">
+                <strong><a routerLink="/cadastro-grupo-ecologico"><button type="button" pButton label="Sair da edição"></button></a></strong>
+              </div> -->
+
+        </p-fieldset>
+      </form>
+      <p-fieldset legend="Dados Cadastrais">
+          <div class="ui-g-12 ui-md-12">  
+            <form  autocomplete="off" (ngSubmit)="consultaCategoriaProtecao()">
+              <div class="ui-g-12 ui-fluid">
+                  <label style="display: block">Pesquisar Grupo Ecológico: </label>
+                  <div class="ui-g-12 ui-md-7">
+                      <div class="ui-inputgroup">
+                          <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                          <input type="text" pInputText name="nmGenero" [(ngModel)]="filtroCategoria.nmCategoriaProtecao" placeholder="Pesquisar">
+                      </div>
+                  </div>
+
+              </div>
+          </form>
+      </div>
+
+        <div class="ui-g-12 ui-md-12">            
+            <p-table [value]="listaCategoriaProtecao"  [paginator]="true"   [rows]="filtroCategoria.size" [responsive]="true" [lazy]="true"
+              [totalRecords]="totalRegistrosCategoriaProtecao" (onLazyLoad)="aoMudarPaginaGrupoEcologico($event)" #tabela>
+                <ng-template pTemplate="header" >
+                    <tr>
+                    
+                      <th>Codigo</th>
+                      <th>Categoria Proteção</th>
+                      <th></th>
+                      
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-listaCategoriaProtecao>
+                    <tr class="hoverCtegoria">
+                      <td>{{listaCategoriaProtecao.cdCategoriaProtecao}}</td>
+                      <td>{{listaCategoriaProtecao.nmCategoriaProtecao}}</td>
+                    
+                      <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
+                        pTooltip="remover" class="ui-button-danger" tooltipPosition="left">
+                      </button>
+                      <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+                </tr>
+              </ng-template>
+            </p-table>
+        
+        </div>
+      </p-fieldset>
+  </p-panel>
+  
+</div>

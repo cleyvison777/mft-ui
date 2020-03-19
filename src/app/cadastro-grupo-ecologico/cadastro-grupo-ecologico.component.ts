@@ -46,7 +46,7 @@ export class CadastroGrupoEcologicoComponent implements OnInit {
 consultarGrupoEcologico(page = 0) {
   this.filtro.page = page;
    this.grupoEcologicoService.consultar(this.filtro)
-    .then(resultado =>{
+    .then(resultado => {
       this.totalRegistrosGrupoEcologico = resultado.total;
       this.listaGrupoEcologico = resultado.listaGrupoEcologico;
     })

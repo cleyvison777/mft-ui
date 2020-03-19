@@ -59,7 +59,7 @@ export class MenuComponent implements OnInit {
                 },
                 {
                   label: 'Categoria Proteção',
-                  routerLink: '/modverificadoresdomodelo'
+                  routerLink: '/cadastro-categoria-protecao'
                 }
               ]
               },

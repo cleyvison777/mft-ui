@@ -1,5 +1,5 @@
 import { CadFamilia } from './../core/model';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 export class CadFamiliaFiltro {

@@ -2,10 +2,10 @@
   <p-panel>
     <p-header>Cadastro Geral / Lista Espécie / Grupo Ecológico</p-header>
       <form autocomplete="off" #grupoEcologico="ngForm" (ngSubmit)="salvar(grupoEcologico)">
-          <p-fieldset legend="Grupo Ecológico">
+          <p-fieldset legend=" {{editando ? 'EDITANDO ': ' '}} Grupo Ecológico">
             <div class="ui-g-9 ui-md-7 ui-fluid">
                 <label>Nome: </label>
-                <input type="text" pInputText name="nmGrupoEcologico" placeholder="Grupo Ecológico" [(ngModel)]="cadGrupoEcologico.nmGrupoEcologico">
+                <input type="text" pInputText name="nmGrupoEcologico" placeholder="Grupo Ecológico" [(ngModel)]="cadGrupoEcologico.nmGrupoEcologico" required>
               </div>
 
               <div class="ui-g-5 ui-fluid">
@@ -15,7 +15,7 @@
               </div>
 
               <div class="ui-g-1  ui-md-1">
-                <button type="submit" pButton   label="Salvar" class="ui-button-success"></button>
+                <button type="submit" pButton   label="Salvar" class="ui-button-success"[disabled]="!cadGrupoEcologico.nmGrupoEcologico"></button>
               </div>
                 
               <div *ngIf="editando" class="ui-g-2 ui-md-2">

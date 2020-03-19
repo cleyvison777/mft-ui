@@ -1,13 +1,13 @@
 import { FamiliaService, CadFamiliaFiltro } from './../cadastro-familia/familia.service';
 import { promise } from 'protractor';
 import { Genero } from './../core/model';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 export class GeneroFiltro {
   nmGenero: string;
   page = 0;
-  size = 15;
+  size = 10;
 }
 @Injectable({
   providedIn: 'root'
