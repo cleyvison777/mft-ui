@@ -122,8 +122,8 @@ consultarGrupoEcologico(page = 0) {
         });
       }
      
-      carregarGrupoEcologico(cadigo: number){
-        this.grupoEcologicoService.buscarPeloCodigoGrupoEcologico(cadigo)
+      carregarGrupoEcologico(codigo: number){
+        this.grupoEcologicoService.buscarPeloCodigoGrupoEcologico(codigo)
          .then( grupoecologico => {
            this.cadGrupoEcologico = grupoecologico;
          })

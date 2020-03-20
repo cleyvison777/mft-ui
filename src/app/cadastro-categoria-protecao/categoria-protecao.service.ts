@@ -61,4 +61,40 @@ export class CategoriaProtecaoService {
           .toPromise()
            .then(() => null);
        }
+
+       atualizar(cadCategoriaProtecao: CadCategoriaProtecao): Promise<CadCategoriaProtecao>{
+        const headers = new Headers;
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(`${this.CategoriaProtecaoURL}/${cadCategoriaProtecao.cdCategoriaProtecao}`,
+        JSON.stringify(cadCategoriaProtecao), { headers })
+         .toPromise()
+          .then(response => {
+            const categoriaProtecaoAltera = response.json() as CadCategoriaProtecao;
+             return categoriaProtecaoAltera;
+          });
+
+       }
+
+      buscarPeloCodigoCategoria(cdCategoriaProtecao: number): Promise<CadCategoriaProtecao> {
+            const headers = new Headers();
+            headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+             return this.http.get(`${this.CategoriaProtecaoURL}/${cdCategoriaProtecao}`, { headers })
+              .toPromise()
+               .then(response => {
+                 const cadCategoriaProtecao = response.json() as CadCategoriaProtecao;
+                  return cadCategoriaProtecao;
+               });
+
+     }
+  listarCategoria(): Promise<any> {
+    const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      headers.append('Content-Type', 'application/json');
+       return this.http.get(this.CategoriaProtecaoURL, { headers })
+        .toPromise()
+         .then(response => response.json().content);
+  }
 }
+
+

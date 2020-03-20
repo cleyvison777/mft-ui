@@ -34,6 +34,15 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
   ngOnInit() {
     this.carregarEmpresas();
 
+    const codigoCategoriaProtecao = this.route.snapshot.params['codigo'];
+    if (codigoCategoriaProtecao) {
+      this.carregarCategoriaProtecao(codigoCategoriaProtecao);
+    }
+
+  }
+
+  get editando() {
+    return Boolean(this.cadCategoriaProtecao.cdCategoriaProtecao);
   }
 
   consultaCategoriaProtecao(page = 0) {
@@ -61,10 +70,10 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
   }
 
     //exclui o resgitro da tabela
-      excluirCategoria(listaCategoriaProtecao: any){
+      excluirCategoria(listaCategoriaProtecao: any) {
         this.categoriaProtecaoService.excluir(listaCategoriaProtecao.cdCategoriaProtecao)
          .then(() =>{
-           if (this.grid.first === 0){
+           if (this.grid.first === 0) {
             this.consultaCategoriaProtecao();
            } else {
             this.grid.first = 0;
@@ -86,8 +95,42 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
         });
       }
 
+      atualizarCategoria(form: FormControl) {
+        this.categoriaProtecaoService.atualizar(this.cadCategoriaProtecao)
+         .then(categoriaprotecao => {
+           this.cadCategoriaProtecao = categoriaprotecao;
+           this.toasty.success('Atualização realizada com sucesso!');
+           this.consultaCategoriaProtecao();
+           this.router.navigate(['/cadastro-categoria-protecao']);
+         })
+         .catch(erro => this.errorHandler.handle(erro));
+      }
+         //confirmação para alterar
+      confirmarAlterar(cadCategoriaProtecao: any) {
+        this.confirmation.confirm({
+          message: 'Tem certeza que deseja alterar?',
+          accept: () => {
+            this.atualizarCategoria(cadCategoriaProtecao);
+          }
+        });
+      }
+      carregarCategoriaProtecao(codigo: number) {
+        this.categoriaProtecaoService.buscarPeloCodigoCategoria(codigo)
+        .then(categoriaprotecao => {
+          this.cadCategoriaProtecao = categoriaprotecao;
+        })
+        .catch(erro => this.errorHandler.handle(erro));
 
+      }
 
+      salvar(form: FormControl) {
+        if (this.editando) {
+          this.confirmarAlterar(form);
+        } else {
+          this.adicionarCategoriaProtecao(form);
+        }
+    
+      }
 
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()
@@ -96,5 +139,7 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
+
+  
 
 }

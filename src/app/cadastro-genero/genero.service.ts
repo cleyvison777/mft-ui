@@ -94,7 +94,7 @@ buscarPeloCodigoGenero(cdGenero: number): Promise<Genero>{
          
         return this.http.get(this.generoURL, { headers })
         .toPromise()
-        .then(response => response.json().Content);
+        .then(response => response.json().content);
      }
 
 }

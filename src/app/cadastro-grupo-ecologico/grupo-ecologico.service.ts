@@ -94,7 +94,7 @@ consultar(filtro: GrupoEcologicoFiltro): Promise<any>{
       headers.append('Content-Type', 'application/json');
         return this.http.get(this.GrupoEcologicoURL, { headers })
          .toPromise()
-          .then(response => response.json().Content);
+          .then(response => response.json().content);
      }
 
 }
