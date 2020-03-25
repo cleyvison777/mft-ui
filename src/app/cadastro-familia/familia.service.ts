@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class CadFamiliaFiltro {
   nmFamilia: string;
   page = 0;
-  size = 10;
+  size = 15;
 }
 
 @Injectable({
@@ -14,37 +14,37 @@ export class CadFamiliaFiltro {
 
 export class FamiliaService {
 
-cadFamiliaURL = 'http://localhost:8080/cadfamilia';
+  cadFamiliaURL = 'http://localhost:8081/cadfamilia';
   constructor(private http: Http) { }
-//consultar 
-consultar(filtro: CadFamiliaFiltro): Promise<any> {
-  const params = new URLSearchParams();
-  const headers = new Headers;
-  headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-  params.set('page', filtro.page.toString());
-  params.set('size', filtro.size.toString());
-     if(filtro.nmFamilia) {
-     params.set('nmFamilia', filtro.nmFamilia);
-     }
-     return this.http.get(`${this.cadFamiliaURL}`,
-     {headers, search: filtro })
-     .toPromise()
-     .then(response => {
-       const responseJson = response.json();
-       const familia = responseJson.content;
+  //consultar 
+  consultar(filtro: CadFamiliaFiltro): Promise<any> {
+    const params = new URLSearchParams();
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    params.set('page', filtro.page.toString());
+    params.set('size', filtro.size.toString());
+    if (filtro.nmFamilia) {
+      params.set('nmFamilia', filtro.nmFamilia);
+    }
+    return this.http.get(`${this.cadFamiliaURL}`,
+      { headers, search: filtro })
+      .toPromise()
+      .then(response => {
+        const responseJson = response.json();
+        const familia = responseJson;
 
-       const resultado = {
-        familia,
-        total: responseJson.totalElements
-       };
-       return resultado;
-     });
-}
+        const resultado = {
+          familia,
+          total: responseJson.totalElements
+        };
+        return resultado;
+      });
+  }
 
   //adiciona registros na tabela
 
-adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
-  const params = new URLSearchParams;
+  adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
+    const params = new URLSearchParams;
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     headers.append('Content-Type', 'application/json');
@@ -52,39 +52,39 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
       JSON.stringify(cadFamilia), { headers })
       .toPromise()
       .then(response => response.json());
-    }
-      //exclui o resgitro da tabela
+  }
+  //exclui o resgitro da tabela
   excluir(cdFamilia: number): Promise<void> {
-   const headers = new Headers;
-   headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-   return this.http.delete(`${this.cadFamiliaURL}/${cdFamilia}`, { headers })
-   .toPromise()
-   .then(() => null);
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    return this.http.delete(`${this.cadFamiliaURL}/${cdFamilia}`, { headers })
+      .toPromise()
+      .then(() => null);
   }
 
- //atualiza
+  //atualiza
   atualizar(cadFamilia: CadFamilia): Promise<CadFamilia> {
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     headers.append('Content-Type', 'application/json');
     return this.http.put(`${this.cadFamiliaURL}/${cadFamilia.cdFamilia}`,
-    JSON.stringify(cadFamilia), { headers })
-    .toPromise()
-    .then(response => {
-      const cadFamiliaAltera = response.json() as CadFamilia;
+      JSON.stringify(cadFamilia), { headers })
+      .toPromise()
+      .then(response => {
+        const cadFamiliaAltera = response.json() as CadFamilia;
 
-      return cadFamiliaAltera;
-    });
+        return cadFamiliaAltera;
+      });
   }
-//buscar pelo godigo para atualizar
+  //buscar pelo godigo para atualizar
   buscarPeloCodigo(cdFamilia: number): Promise<CadFamilia> {
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     return this.http.get(`${this.cadFamiliaURL}/${cdFamilia}`, { headers })
-     .toPromise()
+      .toPromise()
       .then(response => {
         const cadFamilia = response.json() as CadFamilia;
-         return cadFamilia;
+        return cadFamilia;
       });
 
   }
@@ -93,10 +93,10 @@ adicionar(cadFamilia: CadFamilia): Promise<CadFamilia> {
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
     headers.append('Content-Type', 'application/json');
-  
+
     return this.http.get(this.cadFamiliaURL, { headers })
-    .toPromise()
-    .then(response => response.json().content);
-    }
+      .toPromise()
+      .then(response => response.json());
+  }
 
 }

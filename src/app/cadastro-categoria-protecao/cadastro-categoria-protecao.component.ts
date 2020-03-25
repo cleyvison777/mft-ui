@@ -123,15 +123,6 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
 
       }
 
-      salvar(form: FormControl) {
-        if (this.editando) {
-          this.confirmarAlterar(form);
-        } else {
-          this.adicionarCategoriaProtecao(form);
-        }
-    
-      }
-
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()
       .then(empresas => {
@@ -140,6 +131,13 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  
+  salvar(form: FormControl) {
+    if (this.editando) {
+      this.confirmarAlterar(form);
+    } else {
+      this.adicionarCategoriaProtecao(form);
+    }
+
+  }
 
 }

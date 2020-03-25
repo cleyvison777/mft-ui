@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 )
 export class ListaEspecieService {
 
- CadListaEspecieURL = 'http://localhost:8080/cadlistaespecie';
+ CadListaEspecieURL = 'http://localhost:8081/cadlistaespecie';
 
  constructor( private http: Http) { }
   

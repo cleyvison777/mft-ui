@@ -14,7 +14,7 @@ export class GeneroFiltro {
 })
 export class GeneroService {
 
-generoURL = 'http://localhost:8080/genero';
+generoURL = 'http://localhost:8081/genero';
   constructor(private http: Http) { }
 
   //consultar 

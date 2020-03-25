@@ -13,7 +13,7 @@ export class CategoriaFiltro {
   providedIn: 'root'
 })
 export class CategoriaProtecaoService {
-  CategoriaProtecaoURL = 'http://localhost:8080/categoriaProtecao';
+  CategoriaProtecaoURL = 'http://localhost:8081/categoriaProtecao';
    
   constructor( private http: Http) { }
 

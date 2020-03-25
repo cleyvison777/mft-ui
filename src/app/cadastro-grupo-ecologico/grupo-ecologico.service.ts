@@ -15,7 +15,7 @@ export class GrupoEcologicoFiltro {
 
 export class GrupoEcologicoService {
 
-GrupoEcologicoURL = 'http://localhost:8080/grupoecologico';
+GrupoEcologicoURL = 'http://localhost:8081/grupoecologico';
 
   constructor(private http: Http) { }
 
