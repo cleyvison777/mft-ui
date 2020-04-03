@@ -39,9 +39,10 @@
     </div>
   </div>
    
+  
   <div class="ui-g">        
-    <p-table [value]="familia"  [paginator]="true"   [rows]="15" [responsive]="true" [lazy]="true"
-     [totalRecords]="totalRegistrosFamilia" (onLazyLoad)="aoMudarPaginaFamilia($event)" #tabela [scrollable]="true">
+    <p-table [value]="familia"  [paginator]="true"  [rows]="10" [responsive]="true" 
+     [totalRecords]="totalRegistrosFamilia"  #tabela>
         <ng-template pTemplate="header">
             <tr>
             

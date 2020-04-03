@@ -37,6 +37,8 @@ const codigoFamilia = this.route.snapshot.params['codigo'];
    this.CarrgarFamilia(codigoFamilia);
  }
 
+ this.consultar();
+
   }
 
      //metodo para identificar se esta atualizando
@@ -45,20 +47,17 @@ get editando() {
  return Boolean(this.cadFamilia.cdFamilia);
 }
 
-  consultar(page = 0) {
-    this.filtro.page = page;
+  consultar() {
+   
     this.familiaService.consultar(this.filtro)
     .then(resultado => {
-      this.totalRegistrosFamilia = resultado.total;
+     
       this.familia = resultado.familia;
     })
     .catch(erro => this.errorHandler.handle(erro));
 
   }
-  aoMudarPaginaFamilia(event: LazyLoadEvent) {
-    const page = event.first / event.rows;
-    this.consultar(page);
-  }
+  
 
   adicionarFamilia(form: FormControl) {
     this.familiaService.adicionar(this.cadFamilia)

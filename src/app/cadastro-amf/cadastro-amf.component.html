@@ -19,18 +19,18 @@
               </div>
               <div class="ui-g-5 ui-md-5 ui-fluid">
                 <label>Nome: </label>
-                <input type="text" pInputText name="nmArea" [(ngModel)]="cadAmf.nmArea">
+                <input type="text" pInputText name="nmArea" [(ngModel)]="cadAmf.nmArea" required>
                
 
               </div>
 
               <div class="ui-g-3 ui-md-3 ui-fluid">
                 <label>Munícipio: </label>
-                <input type="text" pInputText name="nmMunicipio" [(ngModel)] = "cadAmf.nmMunicipio">
+                <input type="text" pInputText name="nmMunicipio" [(ngModel)] = "cadAmf.nmMunicipio" required>
               </div>
               <div class="ui-g-1 ui-md-1 ui-fluid">
                 <label >Estado: </label>
-                <input type="text" pInputText name="nmEstado" [(ngModel)]="cadAmf.nmEstado">
+                <input type="text" pInputText name="nmEstado" [(ngModel)]="cadAmf.nmEstado" required>
               </div>
 
               <p-fieldset legend="Informações Geograficas">
@@ -202,7 +202,7 @@
                 <div class="ui-fluid ui-g-4 ui-md-4" style="margin-right:60px;">
                   <label>Lista de Especie: </label>
                   <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie" 
-                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp" filter="true"></p-dropdown> 
+                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp" filter="true" required></p-dropdown> 
                 </div>
                   <div style="padding-bottom: 10px;">
                     <p-checkbox name="groupname" value="val1" label="Muda contada">

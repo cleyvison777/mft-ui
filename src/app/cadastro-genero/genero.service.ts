@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class GeneroFiltro {
   nmGenero: string;
   page = 0;
-  size = 10;
+  size = 15;
 }
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,6 @@ generoURL = 'http://localhost:8081/genero';
           return resultado;
         });
    }
-   
 
 adicionar(genero: Genero): Promise<Genero> {
   const params = new URLSearchParams;

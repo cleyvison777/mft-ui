@@ -66,8 +66,8 @@
 </div>
 
 <div class="ui-g-12 ui-md-12">            
-  <p-table [value]="listaGenero" [responsive]="true" [lazy]="true"
-   (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela>
+  <p-table [value]="listaGenero" [paginator]="true" [rows]="30" [lazy]="true" [paginator]="true"
+   (onLazyLoad)="aoMudarPaginaGenero($event)" #tabela [totalRecords]="totalRegistrosGenero">
       <ng-template pTemplate="header" >
           <tr>
           
