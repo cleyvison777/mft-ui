@@ -15,7 +15,9 @@ import { CadFamiliaFiltro, FamiliaService } from './familia.service';
 })
 export class CadastroFamiliaComponent implements OnInit {
 totalRegistrosFamilia = 0;
+tatalRegistros = 0;
 familia = [];
+familia2 = [];
 filtro = new CadFamiliaFiltro();
 cadFamilia = new CadFamilia;
 @ViewChild('tabela') grid;
@@ -32,12 +34,12 @@ cadFamilia = new CadFamilia;
 
   ngOnInit() {
     //se houver um id entra no metodo de carregar valores
-const codigoFamilia = this.route.snapshot.params['codigo'];
- if (codigoFamilia) {
-   this.CarrgarFamilia(codigoFamilia);
- }
+    const codigoFamilia = this.route.snapshot.params['codigo'];
+    if (codigoFamilia) {
+      this.CarrgarFamilia(codigoFamilia);
+    }
 
- this.consultar();
+  //  this.consultar();
 
   }
 
@@ -47,23 +49,33 @@ get editando() {
  return Boolean(this.cadFamilia.cdFamilia);
 }
 
-  consultar() {
-   
-    this.familiaService.consultar(this.filtro)
+
+pesquisar(page = 0) {
+
+  this.filtro.page = page;
+
+  this.familiaService.pesquisar(this.filtro)
     .then(resultado => {
-     
-      this.familia = resultado.familia;
+      this.tatalRegistros = resultado.total;
+      this.familia2 = resultado.familia;
     })
     .catch(erro => this.errorHandler.handle(erro));
-
   }
+
+
+
+  aoMudarPagina(event: LazyLoadEvent){
+    const page = event.first / event.rows;
+    this.pesquisar(page);
+  }
+ 
   
 
   adicionarFamilia(form: FormControl) {
     this.familiaService.adicionar(this.cadFamilia)
      .then(() => {
        this.cadFamilia = new CadFamilia();
-        this.consultar();
+        this.pesquisar();
         this.toasty.success('Cadastrado realizado com sucesso!');
      })
      .catch(erro => this.errorHandler.handle(erro));
@@ -74,10 +86,10 @@ get editando() {
      this.familiaService.excluir(familia.cdFamilia)
       .then(() => {
         if(this.grid.first === 0) {
-          this.consultar();
+          this.pesquisar();
         } else{
           this.grid.first = 0;
-          this.consultar();
+          this.pesquisar();
         }
         this.toasty.success('Area excluída com sucesso!');
       })
@@ -107,7 +119,7 @@ get editando() {
    .then(familia => {
      this.cadFamilia = familia;
      this.toasty.success('Atualização realizada com sucesso!');
-    this.consultar();
+    this.pesquisar();
      //REDIRECIONA PARA O ADICIONAR O AMF
      this.router.navigate(['/cadastro-familia']);
    })
