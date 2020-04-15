@@ -150,8 +150,8 @@ const routes: Routes = [
   { path: 'cadastro-amf', component: CadastroAmfComponent},
   { path: 'cadastro-amf/:codigo', component: CadastroAmfComponent},
 
-  { path: 'cadastro-familia', component: CadastroFamiliaComponent},
-  { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
+   { path: 'cadastro-familia', component: CadastroFamiliaComponent},
+   { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
   
   { path: 'cadastro-grupo-ecologico', component: CadastroGrupoEcologicoComponent},
   { path: 'cadastro-grupo-ecologico/:codigo', component: CadastroGrupoEcologicoComponent},
@@ -196,7 +196,7 @@ const routes: Routes = [
     CadastroArvoreComponent,
     CadastroAmfComponent,
     ListaEspecieComponent,
-    CadastroFamiliaComponent,
+     CadastroFamiliaComponent,
     CadastroGeneroComponent,
     CadastroGrupoEcologicoComponent,
     CadastroCategoriaProtecaoComponent,

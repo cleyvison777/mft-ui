@@ -1,6 +1,6 @@
-import { CadastroFamiliaComponent } from './../cadastro-familia/cadastro-familia.component';
-import { FormControl } from '@angular/forms';
-import { FamiliaService, CadFamiliaFiltro } from './../cadastro-familia/familia.service';
+ import { CadastroFamiliaComponent} from './../cadastro-familia/cadastro-familia.component';
+ import { FormControl } from '@angular/forms';
+import { FamiliaService } from './../cadastro-familia/familia.service';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
 import { Genero } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,9 +20,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 export class CadastroGeneroComponent implements OnInit {
   totalRegistrosGenero = 0;
-  familia = [];
+  cadastrofamilia = [];
   listaGenero = [];
-  filtrof = new CadFamiliaFiltro();
+  // filtrof = new CadFamiliaFiltro();
   filtro = new GeneroFiltro();
   genero = new Genero;
   @ViewChild('tabela') grid;
@@ -33,7 +33,7 @@ export class CadastroGeneroComponent implements OnInit {
 
   constructor(
     private generoService: GeneroService,
-    private familiaService: FamiliaService,
+   private familiaService: FamiliaService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
@@ -86,13 +86,13 @@ adicionarGenero(form: FormControl) {
 }
 
 
-   carregarFamilia() {
-    return this.familiaService.listarTodasFamilia()
-    .then( familia => {
-      this.familia = familia.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
-    })
-    .catch(erro => this.errorHandler.handle(erro));
-     }
+  carregarFamilia() {
+  return this.familiaService.listarTodasFamiliaDropdown()
+  .then( cadastrofamilia => {
+     this.cadastrofamilia = cadastrofamilia.map(e => ({label: e.cdFamilia + " - " + e.nmFamilia, value: e.cdFamilia}));
+   })
+  .catch(erro => this.errorHandler.handle(erro));
+  }
 
       //exclui o resgitro da tabela
 excluir(listaGenero: any) {

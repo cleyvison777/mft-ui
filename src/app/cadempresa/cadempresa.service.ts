@@ -69,8 +69,6 @@ export class CadempresaService {
   }
 
 
-  
-
   listarTodas(): Promise<any> {
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');

@@ -1,4 +1,4 @@
-import { FamiliaService, CadFamiliaFiltro } from './../cadastro-familia/familia.service';
+// import { FamiliaService, CadFamiliaFiltro } from './../cadastro-familia/familia.service';
 import { promise } from 'protractor';
 import { Genero } from './../core/model';
 import { Http, Headers, URLSearchParams } from '@angular/http';

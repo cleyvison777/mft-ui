@@ -1,71 +1,60 @@
 <div class="container">
   <p-panel>
-    <p-header>
-        <div class="ui-helper-clearfix">
-            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Cadastro-Familia</span>
-            
-        </div>
-    </p-header>
-    <form autocomplete="off" #cadfamilia="ngForm" (ngSubmit)="salva(cadFamilia)">
-      <p-fieldset legend="{{editando ? 'EDITANDO ': ' '}} FAMILIA">
-        <div class="ui-g-12 ui-md-12 ui-fluid">
+    <p-header>Lista de Espécie / Manutenção da  lista Espécie / Família</p-header>
+    <form autocomplete="off" #cadFamilia="ngForm" (ngSubmit)="adicionandoFamilia(cadFamilia)">
+      <p-fieldset legend="Cadastro Familia">
+        <div class="class= ui-g-11 ui-md-11 ui-fluid">
           <label>Nome: </label>
-          <input type="text" pInputText name="nmFamilia" [(ngModel)]="cadFamilia.nmFamilia" placeholder="Nome Familia">
+          <input type="text" name="nmFamilia" placeholder="Familia" pInputText [(ngModel)]="familiaSalva.nmFamilia">
         </div>
-        <div class="ui-g-1  ui-md-1">
-          <button type="submit" pButton  label="Salvar"[disabled]="!cadFamilia.nmFamilia" class="ui-button-success"></button>
-        </div>
-        <div *ngIf="editando" class="ui-g-2 ui-md-3">
-          <strong><a routerLink="/cadastro-familia"><button type="button" pButton label="Sair da edição"></button></a></strong>
+        <div class="ui-g-2  ui-md-2">
+          <button type="submit" pButton  label="Salvar" class="ui-button-success"></button>
         </div>
       </p-fieldset>
-    </form>
+    </form> 
+        <p-fieldset legend="legend">
+          <div class="ui-g-12 ui-md-12">  
+            <form  autocomplete="off" (ngSubmit)="pesquisarFamilia()">
+              <div class="ui-g-12 ui-fluid">
+                  <label style="display: block">Pesquisar Grupo Ecológico: </label>
+                  <div class="ui-g-12 ui-md-7">
+                      <div class="ui-inputgroup">
+                          <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                          <input type="text" pInputText name="nmGenero" [(ngModel)]="filtro.nmFamilia" placeholder="Pesquisar">
+                      </div>
+                  </div>
 
- <p-fieldset legend="Tabela Familia">
-  <div class="ui-g">
-    <div class="ui-g-12">
-        <form  autocomplete="off" (ngSubmit)="consultar()">
-            <div class="ui-g-12 ui-fluid">
-                <label style="display: block">Pesquisar por Familia: </label>
-                <div class="ui-g-12 ui-md-7">
-                    <div class="ui-inputgroup">
-                        <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
-                        <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmFamilia" placeholder="Pesquisar">
-                    </div>
-                </div>
+              </div>
+          </form>
+      </div>
 
-            </div>
-        </form>
-    </div>
-  </div>
-   
-  
-  <div class="ui-g">        
-     <p-table [value]="familia2" [paginator]="true" [rows]="10" [lazy]="true" [paginator]="true"
-            (onLazyLoad)="aoMudarPagina($event)" #tabela [totalRecords]="tatalRegistros" [responsive]="true">
-      <ng-template pTemplate="header">
-            <tr>
-            
-              <th>Codigo</th>
-            
-              <th></th>
-  
+      <div class="ui-g-12 ui-md-12">            
+        <p-table [value]="cadastrofamilia"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+        [totalRecords]="totalRegistrosFamilia" (onLazyLoad)="aoMudarPaginaFamilia($event)" #tabela>
+            <ng-template pTemplate="header" >
+                <tr>
+                
+                  <th>Codigo</th>
+                  <th>Grupo Ecológico</th>
+                  <th></th>
+                  
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cadastrofamilia>
+                <tr class="hovergenero">
+                  <td>{{cadastrofamilia.cdFamilia}}</td>
+                  <td>{{cadastrofamilia.nmFamilia}}</td>
+                
+                  <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
+                    pTooltip="remover" class="ui-button-danger" tooltipPosition="left"(click)="confirmarExclusaoFamilia(cadastrofamilia)">
+                  </button>
+                  <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
             </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-familia>
-            <tr class="hoverfamilia">
-              <td>{{familia.cdFamilia}}</td>
-            
+          </ng-template>
+        </p-table>
+      
+      </div>
 
-              <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" pTooltip="remover" class="ui-button-danger" tooltipPosition="left"
-                (click)="confirmarExclusao(familia)"></button>
-              <button pButton icon="pi pi-pencil" pTooltip="editar"  [routerLink]="['/cadastro-familia', familia.cdFamilia]"></button></td>
-        </tr>
-       </ng-template>
-    </p-table>
-   
- </div>
-  
- </p-fieldset>
-</p-panel>
+        </p-fieldset>
+  </p-panel>
 </div>

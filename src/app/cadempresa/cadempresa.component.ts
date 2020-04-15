@@ -104,7 +104,7 @@ export class CadempresaComponent implements OnInit {
         confirmarExclusao(empresa: any) {
           this.confirmation.confirm( {
             message: 'Tem certeza que deseja excluir?',
-            accept: () =>{
+            accept: () => {
               this.excluir(empresa);
             }
           });
@@ -113,7 +113,7 @@ export class CadempresaComponent implements OnInit {
         confirmarSalvar(empresa: any) {
           this.confirmation.confirm( {
             message: 'Tem certeza que deseja salvar?',
-            accept: () =>{
+            accept: () => {
               this.adicionarEmpresa(empresa);
             }
           });
