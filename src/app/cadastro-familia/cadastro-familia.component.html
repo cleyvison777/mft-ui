@@ -1,14 +1,18 @@
 <div class="container">
   <p-panel>
     <p-header>Lista de Espécie / Manutenção da  lista Espécie / Família</p-header>
-    <form autocomplete="off" #cadFamilia="ngForm" (ngSubmit)="adicionandoFamilia(cadFamilia)">
+    <form autocomplete="off" #cadFamilia="ngForm" (ngSubmit)="salvar(cadFamilia)">
       <p-fieldset legend="Cadastro Familia">
-        <div class="class= ui-g-11 ui-md-11 ui-fluid">
+        <div class="class= ui-g-12 ui-md-12 ui-fluid">
           <label>Nome: </label>
           <input type="text" name="nmFamilia" placeholder="Familia" pInputText [(ngModel)]="familiaSalva.nmFamilia">
         </div>
-        <div class="ui-g-2  ui-md-2">
+        <div class="ui-g-1 ui-md-1">
           <button type="submit" pButton  label="Salvar" class="ui-button-success"></button>
+        </div>
+        <div *ngIf="editando" class="ui-g-2 ui-md-2 ui-fluid">
+          
+          <button type="button" pButton label="Sair da edição" routerLink="/cadastro-familia"></button>
         </div>
       </p-fieldset>
     </form> 
@@ -48,7 +52,7 @@
                   <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
                     pTooltip="remover" class="ui-button-danger" tooltipPosition="left"(click)="confirmarExclusaoFamilia(cadastrofamilia)">
                   </button>
-                  <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+                  <button pButton icon="pi pi-pencil" pTooltip="editar" [routerLink]="['/cadastro-familia', cadastrofamilia.cdFamilia]"></button></td>
             </tr>
           </ng-template>
         </p-table>

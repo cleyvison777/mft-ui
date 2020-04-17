@@ -30,6 +30,18 @@ export class CadastroFamiliaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const codigoFamilia = this.route.snapshot.params['codigo'];
+
+    //se houver um id entra no metodo de carregar valores
+   if(codigoFamilia) {
+    this.carregarFamilia(codigoFamilia);
+
+       }
+
+  }
+
+  get editando() {
+    return Boolean(this.familiaSalva.cdFamilia);
   }
 pesquisarFamilia(page = 0) {
  this.filtro.page = page;
@@ -86,4 +98,45 @@ pesquisarFamilia(page = 0) {
         }
       });
     }
+     
+    salvar(form: FormControl) {
+
+      if(this.editando) {
+        this.confirmarAlterarFamilia(form);
+      } else {
+        this.adicionandoFamilia(form);
+      }
+
+    }
+
+    atualizandoFamilia(form: FormControl) {
+      this.familiaService.atualizarFamilia(this.familiaSalva)
+       .then(cadfamilia => {
+         this.familiaSalva = cadfamilia;
+         this.toasty.success('Familia atualizada com sucesso!');
+         this.pesquisarFamilia();
+         this.router.navigate(['/cadastro-familia']);
+       })
+       .catch(erro => this.errorHandler.handle(erro));
+    }
+    confirmarAlterarFamilia(cadfamilia: any){
+      this.confirmation.confirm({
+        message: 'Tem certeza que deseja alterar?',
+         accept: () => {
+           this.atualizandoFamilia(cadfamilia);
+         }
+      });
+    }
+
+    
+//Carregar Valores
+CarregarGenero(codigo: number) {
+ this.familiaService.buscarPeloCadigo(codigo)
+  .then(cadastrofamilia => {
+    this.familiaSalva = cadastrofamilia;
+  })
+  .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
 }

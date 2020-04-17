@@ -94,6 +94,30 @@ export class FamiliaService {
      .toPromise()
      .then(() => null);
   }
-  
+  atualizarFamilia(cadFamilia: CadFamilia): Promise<CadFamilia> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+    return this.http.put(`${this.cadFamiliaURL}/${cadFamilia.cdFamilia}`,
+     JSON.stringify(cadFamilia), {headers})
+      .toPromise()
+       .then(response => {
+         const cadfamiliaAltera = response.json() as CadFamilia;
+
+         return cadfamiliaAltera;
+       });
+  }
+  buscarFamiliaCodigo(cdFamilia: number): Promise<CadFamilia> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+
+     return this.http.get(`${this.cadFamiliaURL}/${cdFamilia}`, { headers })
+      .toPromise()
+       .then(response => {
+         const cadfamilia = response.json() as CadFamilia;
+
+         return cadfamilia;
+       })
+  } 
 }
 
