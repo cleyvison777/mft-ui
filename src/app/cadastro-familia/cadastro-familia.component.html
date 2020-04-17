@@ -2,13 +2,13 @@
   <p-panel>
     <p-header>Lista de Espécie / Manutenção da  lista Espécie / Família</p-header>
     <form autocomplete="off" #cadFamilia="ngForm" (ngSubmit)="salvar(cadFamilia)">
-      <p-fieldset legend="Cadastro Familia">
+      <p-fieldset legend="Cadastro Familia {{ editando ? ' - Editando - ' : '' }}">
         <div class="class= ui-g-12 ui-md-12 ui-fluid">
           <label>Nome: </label>
           <input type="text" name="nmFamilia" placeholder="Familia" pInputText [(ngModel)]="familiaSalva.nmFamilia">
         </div>
         <div class="ui-g-1 ui-md-1">
-          <button type="submit" pButton  label="Salvar" class="ui-button-success"></button>
+          <button type="submit" pButton  label="Salvar" class="ui-button-success" [disabled]="!familiaSalva.nmFamilia" ></button>
         </div>
         <div *ngIf="editando" class="ui-g-2 ui-md-2 ui-fluid">
           

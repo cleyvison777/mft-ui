@@ -119,7 +119,7 @@ pesquisarFamilia(page = 0) {
        })
        .catch(erro => this.errorHandler.handle(erro));
     }
-    confirmarAlterarFamilia(cadfamilia: any){
+    confirmarAlterarFamilia(cadfamilia: any) {
       this.confirmation.confirm({
         message: 'Tem certeza que deseja alterar?',
          accept: () => {

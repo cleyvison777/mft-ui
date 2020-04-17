@@ -7,7 +7,7 @@
             <button type="button" (click)="showBasicDialog()" pButton icon="pi pi-eye" label="Familia " [style]="{'float':'right'}"></button>
             <p-dialog [(visible)]="displayBasic">
               <p-header>Cadastro Familia</p-header>
-                <!-- <app-cadastro-familia></app-cadastro-familia> -->
+                <app-cadastro-familia></app-cadastro-familia> 
          <p-footer>
              <button type="button" pButton icon="pi pi-pencil" (click)="displayBasic=false" label="Cad-Familia" routerLink="/cadastro-familia"></button>
              <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Fechar" class="ui-button-secondary"></button>
