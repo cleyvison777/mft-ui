@@ -22,6 +22,7 @@ empresas = [];
 especies = [];
 filtro = new CadeAmfFiltro();
 cadAmf = new CadAmf();
+
 @ViewChild('tabela') grid;
 
 
@@ -39,11 +40,14 @@ cadAmf = new CadAmf();
   ngOnInit() {
     this.carregarEmpresas();
     this.carregarListaEpecie();
+    this.cadAmf.lgMudaContada = false;
+    this.cadAmf.lgPalmeiraContada = false;
     
     const codigoAmf = this.route.snapshot.params['codigo'];
     //se houver um id entra no metodo de carregar valores
     if (codigoAmf) {
        this.carregarAmf(codigoAmf);
+       
     }
 
   }

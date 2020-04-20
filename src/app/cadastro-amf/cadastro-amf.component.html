@@ -205,18 +205,18 @@
                 [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp" filter="true" required></p-dropdown> 
                 </div>
                   <div style="padding-bottom: 10px;">
-                    <p-checkbox name="groupname" value="val1" label="Muda contada">
+                    <p-checkbox name="lgMudaContada"   label="Muda contada" [(ngModel)]="cadAmf.lgMudaContada" binary="true">
                     </p-checkbox>
                   </div>
                   <div>
-                    <p-checkbox name="groupname" value="val2" label="Palmeira contada" >
+                    <p-checkbox name="lgPalmeiraContada"  label="Palmeira contada" [(ngModel)]="cadAmf.lgPalmeiraContada" binary="true">
                     </p-checkbox>
                   </div>
                 </p-fieldset>
               </div>
             </div>
-            <div class="ui-g-5  ui-md-1">
-              <button type="submit" pButton  label="Salvar"[disabled]="!cadAmf.nmArea" style="padding-left: 10px;"></button>
+            <div class="ui-g-1  ui-md-1">
+              <button type="submit" pButton class="ui-button-success" label="Salvar"[disabled]="!cadAmf.nmArea" ></button>
             </div>
             <div *ngIf="editando" class="ui-g-2 ui-md-3">
               <strong><a routerLink="/cadastro-amf"><button type="button" pButton label="Sair da edição"></button></a></strong>

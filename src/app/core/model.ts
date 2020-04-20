@@ -207,8 +207,8 @@ export class CadAmf {
   emailResponsavel: string;
   txHistoricoArea: string;
   txObservacaoArea: string;
-  lgMudaContada: number;
-  lgPalmeiraContada: number;
+  lgMudaContada: Boolean;
+  lgPalmeiraContada: Boolean;
 
 }
 
