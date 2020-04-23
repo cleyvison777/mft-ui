@@ -243,6 +243,12 @@ export class CadCategoriaProtecao {
   nmCategoriaProtecao: string;
 }
 
+export class UsoEspecie {
+  cdUso: number;
+  cdEmpresa: number;
+  nmUso: string;
+  lgMadeira: boolean;
+}
 
 
 

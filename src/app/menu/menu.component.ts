@@ -55,7 +55,7 @@ export class MenuComponent implements OnInit {
                 },
                 {
                   label: 'Uso da Espécie',
-                  routerLink: '/modverificadoresdomodelo'
+                  routerLink: '/cadastro-usoespecie'
                 },
                 {
                   label: 'Categoria Proteção',

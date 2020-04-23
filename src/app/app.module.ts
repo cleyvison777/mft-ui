@@ -1,3 +1,4 @@
+import { UsoespecieService } from './cadastro-usoespecie/usoespecie.service';
 import { GrupoEcologicoService } from './cadastro-grupo-ecologico/grupo-ecologico.service';
 import { GeneroService } from './cadastro-genero/genero.service';
 import { FamiliaService } from './cadastro-familia/familia.service';
@@ -100,6 +101,7 @@ import { CadastroFamiliaComponent } from './cadastro-familia/cadastro-familia.co
 import { CadastroGeneroComponent } from './cadastro-genero/cadastro-genero.component';
 import { CadastroGrupoEcologicoComponent } from './cadastro-grupo-ecologico/cadastro-grupo-ecologico.component';
 import { CadastroCategoriaProtecaoComponent } from './cadastro-categoria-protecao/cadastro-categoria-protecao.component';
+import { CadastroUsoespecieComponent } from './cadastro-usoespecie/cadastro-usoespecie.component';
 
 
 
@@ -159,6 +161,10 @@ const routes: Routes = [
   { path: 'cadastro-categoria-protecao', component: CadastroCategoriaProtecaoComponent},
   { path: 'cadastro-categoria-protecao/:codigo', component: CadastroCategoriaProtecaoComponent},
 
+  { path: 'cadastro-usoespecie', component: CadastroUsoespecieComponent},
+  { path: 'cadastro-usoespecie/:codigo', component: CadastroUsoespecieComponent},
+
+
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
@@ -200,6 +206,7 @@ const routes: Routes = [
     CadastroGeneroComponent,
     CadastroGrupoEcologicoComponent,
     CadastroCategoriaProtecaoComponent,
+    CadastroUsoespecieComponent,
 
 
   ],
@@ -263,7 +270,8 @@ const routes: Routes = [
     AmfService,
     FamiliaService,
     GeneroService,
-    GrupoEcologicoService
+    GrupoEcologicoService,
+    UsoespecieService
 
   ],
   bootstrap: [AppComponent]
