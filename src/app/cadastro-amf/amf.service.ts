@@ -70,7 +70,7 @@ export class AmfService {
      return this.http.put(`${this.cadAmfURL}/${cadAmf.cdarea}`,
      JSON.stringify(cadAmf), { headers })
      .toPromise()
-     .then(response =>{
+     .then(response => {
        const cadamfaltera = response.json() as CadAmf;
 
        return cadamfaltera;

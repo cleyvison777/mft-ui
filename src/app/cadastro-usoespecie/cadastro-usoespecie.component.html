@@ -2,21 +2,26 @@
   <p-panel>
     <p-header>Cadastro Geral / Familia / Genero / Lista Espécie / Grupo Ecológico / Uso da Espécie</p-header>
     <p-fieldset legend="Cadastro Uso da Espécie">
-      <form action="">
+      <form autocomplete="off" #usoEspecie="ngForm" (ngSubmit)="adicionandoUsoEspecie(usoEspecie)">
         <div class="class= ui-g-12 ui-md-12 ui-fluid">
           <label>Nome: </label>
-          <input type="text" name="" placeholder="Familia" pInputText>
-        </div>
-        <div class="class= ui-g-4 ui-md-4 ui-fluid">
-        <p-dropdown name="familia"   [autoWidth]="false" placeholder= "Selecione a Empresa" 
-             filter="true">
-           </p-dropdown> 
+          <input type="text" name="nmUso" placeholder="Uso Especie" pInputText [(ngModel)]="usoEspecieSalva.nmUso"></div>
+          <div class="ui-g-12 ui-md-12">
+        <div class="class= ui-g-5 ui-md-5 ui-fluid">
+          <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
+                [(ngModel)]="usoEspecieSalva.cdEmpresa.cdEmpresa" required></p-dropdown>
            </div>
-           <div class="class= ui-g-3 ui-md-3" style="margin-left: 25px;">
-            <p-checkbox label="Comercial" binary="true"></p-checkbox>
+           <div class="class= ui-g-1 ui-md-2" style="margin-left: 25px;" >
+            <p-checkbox label="Comercial"  name="lgMadeira" [(ngModel)]="usoEspecieSalva.lgMadeira" binary="true"></p-checkbox>
            </div>
+          </div>
+           <div class="ui-md-1">
+            <button type="submit" pButton  label="Salvar" class="ui-button-success"  ></button>
+          </div>
       </form>
+      
     </p-fieldset>
+    
      
     <p-fieldset legend="legend">
       <div class="ui-g-12 ui-md-12">  

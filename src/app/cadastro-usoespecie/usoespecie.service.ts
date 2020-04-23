@@ -53,4 +53,13 @@ export class UsoespecieService {
        });
   }
 
+  adicionarUsoEspecie(cadUsoEspecie: UsoEspecie): Promise<UsoEspecie>{
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+     return this.http.post(this.cadusoEspecieURL, JSON.stringify(cadUsoEspecie), { headers })
+          .toPromise()
+           .then(response => response.json());
+  }
+
 }

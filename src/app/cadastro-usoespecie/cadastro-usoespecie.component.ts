@@ -1,3 +1,5 @@
+import { CadempresaService } from './../cadempresa/cadempresa.service';
+import { FormControl } from '@angular/forms';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
 import { UsoEspecie } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,10 +19,12 @@ export class CadastroUsoespecieComponent implements OnInit {
   filtro = new UsoEspecieFiltro;
   nmUso: string;
   cadEspecieUso = [];
-  especieusoSalva = new UsoEspecie;
+  usoEspecieSalva = new UsoEspecie;
+  empresas: [];
   @ViewChild('tabela') grid;
 
   constructor(
+    private cadempresaService: CadempresaService,
     private usoespecieService: UsoespecieService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
@@ -30,6 +34,9 @@ export class CadastroUsoespecieComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.usoEspecieSalva.lgMadeira = false;
+    this.carregarEmpresas();
+
   }
 
 pesquisandoUsoEspecie(page = 0){
@@ -48,4 +55,23 @@ pesquisandoUsoEspecie(page = 0){
 
    carregarUsoEspecie(cdUso: number) {
    }
+   
+   adicionandoUsoEspecie(form: FormControl) {
+        this.usoespecieService.adicionarUsoEspecie(this.usoEspecieSalva)
+         .then(() => {
+          this.toasty.success("Uso Especie cadastrada com sucesso!");
+          form.reset();
+          this.usoEspecieSalva = new UsoEspecie();
+          this.pesquisandoUsoEspecie();
+         })
+         .catch(erro => this.errorHandler.handle(erro));
+   }
+
+   carregarEmpresas() {
+    return this.cadempresaService.listarTodas()
+      .then(empresas => {
+        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + " - " + c.nmEmpresa, value: c.cdEmpresa }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
 }

@@ -245,7 +245,7 @@ export class CadCategoriaProtecao {
 
 export class UsoEspecie {
   cdUso: number;
-  cdEmpresa: number;
+  cdEmpresa = new Cadempresa();
   nmUso: string;
   lgMadeira: boolean;
 }
