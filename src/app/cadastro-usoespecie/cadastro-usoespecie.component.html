@@ -1,29 +1,34 @@
 <div class="container">
   <p-panel>
     <p-header>Cadastro Geral / Familia / Genero / Lista Espécie / Grupo Ecológico / Uso da Espécie</p-header>
-    <p-fieldset legend="Cadastro Uso da Espécie">
-      <form autocomplete="off" #usoEspecie="ngForm" (ngSubmit)="adicionandoUsoEspecie(usoEspecie)">
+    <p-fieldset legend="{{editando ? 'EDITANDO ': ' '}} Cadastro Uso da Espécie">
+      <form autocomplete="off" #usoEspecie="ngForm" (ngSubmit)="salvar(usoEspecie)">
         <div class="class= ui-g-12 ui-md-12 ui-fluid">
           <label>Nome: </label>
-          <input type="text" name="nmUso" placeholder="Uso Especie" pInputText [(ngModel)]="usoEspecieSalva.nmUso"></div>
+          <input type="text" name="nmUso" placeholder="Uso Especie" pInputText [(ngModel)]="usoEspecieSalva.nmUso" ></div>
           <div class="ui-g-12 ui-md-12">
         <div class="class= ui-g-5 ui-md-5 ui-fluid">
           <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
                 [(ngModel)]="usoEspecieSalva.cdEmpresa.cdEmpresa" required></p-dropdown>
            </div>
-           <div class="class= ui-g-1 ui-md-2" style="margin-left: 25px;" >
-            <p-checkbox label="Comercial"  name="lgMadeira" [(ngModel)]="usoEspecieSalva.lgMadeira" binary="true"></p-checkbox>
+           <div class="class= ui-g-3 ui-md-3" style="margin-left: 25px;" >
+            <p-selectButton [options]="selecao" [(ngModel)]="usoEspecieSalva.lgMadeira" name="lgMadeira"></p-selectButton>
+
+
            </div>
           </div>
-           <div class="ui-md-1">
+           <div class="ui-md-1 ui-g-1">
             <button type="submit" pButton  label="Salvar" class="ui-button-success"  ></button>
+          </div>
+          <div *ngIf="editando" class="ui-g-3 ui-md-2">
+            <strong><a routerLink="/cadastro-usoespecie"><button type="button" pButton label="Sair da edição"></button></a></strong>
           </div>
       </form>
       
     </p-fieldset>
     
      
-    <p-fieldset legend="legend">
+    <p-fieldset legend="Dados Cadastrais">
       <div class="ui-g-12 ui-md-12">  
         <form  autocomplete="off" (ngSubmit)="pesquisandoUsoEspecie()">
           <div class="ui-g-12 ui-fluid">
@@ -31,7 +36,7 @@
               <div class="ui-g-12 ui-md-7">
                   <div class="ui-inputgroup">
                       <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
-                      <input type="text" pInputText name="nmGenero" [(ngModel)]="filtro.nmUso" placeholder="Pesquisar">
+                      <input type="text" pInputText name="nmUso" [(ngModel)]="filtro.nmUso" placeholder="Pesquisar">
                   </div>
               </div>
 
@@ -40,7 +45,7 @@
   </div>
 
   <div class="ui-g-12 ui-md-12">            
-    <p-table [value]="cadEspecieUso"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+    <p-table [value]="cadEspecieUso"  [contextMenu]="cadEspecieUso" [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
     [totalRecords]="totalRegistrosEspecie" (onLazyLoad)="aoMudarPaginaEspecieUso($event)" #tabela>
         <ng-template pTemplate="header" >
             <tr>
@@ -48,22 +53,24 @@
               <th>Codigo</th>
               <th>Empresa</th>
               <th>Nome Uso Especie</th>
-              <th>Grupo Ecológico</th>
+              <th>Comercial</th>
               <th></th>
               
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-cadEspecieUso>
-            <tr class="">
-              <td>{{cadEspecieUso.cdUso}}</td>
-              <td>{{cadEspecieUso.cdEmpresa.nmEmpresa}}</td>
-              <td>{{cadEspecieUso.nmUso}}</td>
-              <td>{{cadEspecieUso.lgMadeira}}</td>
+         
+            <tr>
+              <td pEditableColumn>{{cadEspecieUso.cdUso}}</td>
+              <td pEditableColumn>{{cadEspecieUso.cdEmpresa.nmEmpresa}}</td>
+              <td pEditableColumn>{{cadEspecieUso.nmUso}}</td>
+              <td pEditableColumn style="text-align: center;">{{cadEspecieUso.lgMadeira}}</td>
             
               <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
-                pTooltip="remover" class="ui-button-danger" tooltipPosition="left">
+                pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusaoUsoEspecie(cadEspecieUso)">
               </button>
-              <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+              <button pButton icon="pi pi-pencil" pTooltip="editar" [routerLink]="['/cadastro-usoespecie', cadEspecieUso.cdUso]"></button></td>
+        
         </tr>
       </ng-template>
     </p-table>

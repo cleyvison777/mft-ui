@@ -1,3 +1,4 @@
+import { ConfirmationService } from 'primeng/primeng';
 import { UsoEspecie } from './../core/model';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -60,6 +61,49 @@ export class UsoespecieService {
      return this.http.post(this.cadusoEspecieURL, JSON.stringify(cadUsoEspecie), { headers })
           .toPromise()
            .then(response => response.json());
+  }
+
+  excluirUsoEspecie(cdUso: number): Promise<void> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+     return this.http.delete(`${this.cadusoEspecieURL}/${cdUso}`, { headers })
+     .toPromise()
+     .then(() => null);
+  }
+
+  atualizarUsoespecie(cadusoespecie: UsoEspecie): Promise<UsoEspecie>{
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+     return this.http.put(`${this.cadusoEspecieURL}/${cadusoespecie.cdUso}`,
+     JSON.stringify(cadusoespecie), { headers })
+     .toPromise()
+      .then(response => {
+        const usopespecieAltera = response.json() as UsoEspecie;
+         return usopespecieAltera;
+      });
+  }
+
+  buscarPeloCodigoUsoEspecie(cdUso: number): Promise<UsoEspecie>{
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+     return this.http.get(`${this.cadusoEspecieURL}/${cdUso}`, { headers })
+       .toPromise()
+        .then(response => {
+          const cadusoespecie = response.json() as UsoEspecie;
+          return cadusoespecie;
+        });
+
+  }
+
+  listarEspecieUso(): Promise<any> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+
+     return this.http.get(this.cadusoEspecieURL, { headers })
+      .toPromise()
+       .then(response => response.json().content);
   }
 
 }

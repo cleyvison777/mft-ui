@@ -21,11 +21,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import {SelectButtonModule} from 'primeng/selectbutton';
-
 import { ToastyModule } from 'ng2-toasty';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AccordionModule} from 'primeng/accordion';
@@ -41,15 +38,11 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {DropdownModule} from 'primeng/dropdown';
 import {TabViewModule} from 'primeng/tabview';
 import {TreeModule} from 'primeng/tree';
-
 import {DialogModule} from 'primeng/dialog';
-
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
-
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
-
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { MenuComponent } from './menu/menu.component';
 import { CadempresaComponent } from './cadempresa/cadempresa.component';
@@ -64,12 +57,12 @@ import { NodeService } from 'src/service/nodeservice';
 import { UnidadelocalsublocalComponent } from './unidadelocalsublocal/unidadelocalsublocal.component';
 import { CadniveldeavaliacaoService } from './cadniveldeavaliacao/cadniveldeavaliacao.service';
 import { ErrorHandlerService } from './core/error-handler.service';
+
 import { VerificadorMService } from './verificador-m/verificador-m.service';
 import { VerificadorMEditandoComponent } from './verificador-m/verificador-m-editando/verificador-m-editando.component';
 import { VerificadorMEditandoService } from './verificador-m/verificador-m-editando/verificador-m-editando.service';
 import { VerificadorMAssociarComponent } from './verificador-m/verificador-m-associar/verificador-m-associar.component';
 import { VerificadorMAssociarService } from './verificador-m/verificador-m-associar/verificador-m-associar.service';
-
 import { Modlocal1Component } from './modlocal1/modlocal1.component';
 import { Modlocal1Service } from './modlocal1/modlocal1.service';
 import { Modlocal2Component } from './modlocal2/modlocal2.component';

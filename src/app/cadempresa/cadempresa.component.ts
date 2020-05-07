@@ -18,7 +18,6 @@ export class CadempresaComponent implements OnInit {
   tatalRegistros = 0;
   filtro = new CadempresaFiltro();
   nmEmpresa: string;
-
   empresas = [];
   empresasSalvar = new Cadempresa();
   @ViewChild('tabela') grid;

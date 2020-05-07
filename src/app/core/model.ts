@@ -247,7 +247,7 @@ export class UsoEspecie {
   cdUso: number;
   cdEmpresa = new Cadempresa();
   nmUso: string;
-  lgMadeira: boolean;
+  lgMadeira: string;
 }
 
 

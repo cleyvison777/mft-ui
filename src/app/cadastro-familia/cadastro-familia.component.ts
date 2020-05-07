@@ -93,7 +93,7 @@ pesquisarFamilia(page = 0) {
     confirmarExclusaoFamilia(cadastrofamilia: any) {
       this.confirmation.confirm({
         message: 'Tem certeza que deseja excluir?',
-        accept: () =>{
+        accept: () => {
           this.excluindoFamilia(cadastrofamilia);
         }
       });
