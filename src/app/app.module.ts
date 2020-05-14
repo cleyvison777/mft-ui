@@ -1,3 +1,4 @@
+import { ListaEspecieService } from './lista-especie/lista-especie.service';
 import { UsoespecieService } from './cadastro-usoespecie/usoespecie.service';
 import { GrupoEcologicoService } from './cadastro-grupo-ecologico/grupo-ecologico.service';
 import { GeneroService } from './cadastro-genero/genero.service';
@@ -156,7 +157,9 @@ const routes: Routes = [
 
   { path: 'cadastro-usoespecie', component: CadastroUsoespecieComponent},
   { path: 'cadastro-usoespecie/:codigo', component: CadastroUsoespecieComponent},
-
+  
+  { path: 'lista-especie', component: ListaEspecieComponent},
+  { path: 'lista-especie/:codigo', component: ListaEspecieComponent},
 
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -264,7 +267,8 @@ const routes: Routes = [
     FamiliaService,
     GeneroService,
     GrupoEcologicoService,
-    UsoespecieService
+    UsoespecieService,
+    ListaEspecieService
 
   ],
   bootstrap: [AppComponent]

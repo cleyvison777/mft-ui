@@ -8,6 +8,7 @@
           <input type="text" name="nmUso" placeholder="Uso Especie" pInputText [(ngModel)]="usoEspecieSalva.nmUso" ></div>
           <div class="ui-g-12 ui-md-12">
         <div class="class= ui-g-5 ui-md-5 ui-fluid">
+          <label>Empresas:</label>
           <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
                 [(ngModel)]="usoEspecieSalva.cdEmpresa.cdEmpresa" required></p-dropdown>
            </div>
@@ -32,7 +33,7 @@
       <div class="ui-g-12 ui-md-12">  
         <form  autocomplete="off" (ngSubmit)="pesquisandoUsoEspecie()">
           <div class="ui-g-12 ui-fluid">
-              <label style="display: block">Pesquisar Grupo Ecológico: </label>
+              <label style="display: block">Pesquisar Uso Especie: </label>
               <div class="ui-g-12 ui-md-7">
                   <div class="ui-inputgroup">
                       <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>

@@ -212,12 +212,7 @@ export class CadAmf {
 
 }
 
-export class ListaEspecie {
-  cdListaEsp: number;
-  cdEmpresa = new Cadempresa();
-  nmListaEsp: string;
 
-}
 
 export class CadFamilia {
   cdFamilia: number;

@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
                 items: [{
                   label: 'Mautenção da Lista Espécie',
                   icon:'pi pi-fw pi-cog',
-                  routerLink: '/modmonitoramentotemplate'
+                  routerLink: '/lista-especie'
                 },
                 {separator: true},
                 {

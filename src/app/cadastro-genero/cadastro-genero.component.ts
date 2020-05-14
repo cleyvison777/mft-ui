@@ -33,7 +33,7 @@ export class CadastroGeneroComponent implements OnInit {
 
   constructor(
     private generoService: GeneroService,
-   private familiaService: FamiliaService,
+    private familiaService: FamiliaService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
@@ -118,7 +118,7 @@ excluir(listaGenero: any) {
       });
     }
 
-           //verifica se e uma atualizção ou um novo cadastro
+ //verifica se e uma atualizção ou um novo cadastro
 salvar(form: FormControl) {
   if ( this.editando) {
     this.confirmarAlterar(form);

@@ -1,3 +1,75 @@
-<p>
-  lista-especie works!
-</p>
+<div class="container">
+  <p-panel>
+    <p-header>Cadastro Geral / Manutenção da Lista de Espécies </p-header>
+      <p-fieldset legend="Cadastro Lista de Espécies">
+         <form autocomplete="off" #Listaespecie="ngForm" (ngSubmit)="adicionandoListaEspecie(Listaespecie)">
+          <div class="class= ui-g-7 ui-md-7 ui-fluid">
+            <label>Nome: </label>
+            <input type="text" name="nmListaEsp" placeholder="Nome lista" pInputText [(ngModel)]="listaEspecieSalva.nmListaEsp">
+           </div>
+           <div class="ui-g-5 ui-fluid">
+            <label>Empresas:</label>
+              <p-dropdown name="empresa"  [options]="empresas" [autoWidth]="false" 
+              placeholder= "Selecione a empresa"  filter="true" [(ngModel)]="listaEspecieSalva.cdEmpresa.cdEmpresa" required></p-dropdown>    
+          </div>
+
+          
+          <div class="ui-g-1  ui-md-1">
+            <button type="submit" pButton   label="Salvar" class="ui-button-success"[disabled]="!listaEspecieSalva.nmListaEsp"></button>
+          </div>
+        </form>
+        </p-fieldset>
+
+        <p-fieldset legend="legend">
+          <div class="ui-g-12 ui-md-12">  
+            <form  autocomplete="off" (ngSubmit)="consultarListaEspecie()">
+              <div class="ui-g-12 ui-fluid">
+                  <label style="display: block">Pesquisar Grupo Ecológico: </label>
+                  <div class="ui-g-12 ui-md-7">
+                      <div class="ui-inputgroup">
+                          <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                          <input type="text" pInputText name="nmListaEsp" [(ngModel)]="filtro.nmListaEsp" placeholder="Pesquisar">
+                      </div>
+                  </div>
+    
+              </div>
+          </form>
+      </div>
+    
+      <div class="ui-g-12 ui-md-12">            
+        <p-table [value]="listaespecie"  [contextMenu]="listaespecie" [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+        [totalRecords]="totalRegistrosEspecie" (onLazyLoad)="aoMudarPaginaEspecie($event)" #tabela>
+            <ng-template pTemplate="header" >
+                <tr>
+                
+                  <th>Codigo</th>
+                  <th>Lista Especie</th>
+                  <th></th>
+                  
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-listaespecie>
+            
+                <tr>
+                  <td pEditableColumn>{{listaespecie.cdListaEsp}}</td>
+                  <td pEditableColumn>{{listaespecie.nmListaEsp}}</td>
+                
+                  <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
+                    pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaespecie)">
+                  </button>
+                  <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+            
+            </tr>
+          </ng-template>
+        </p-table>
+      
+      </div>
+        </p-fieldset>
+        <p-footer>
+          <button pButton type="button" label="Primary"></button>
+          <button pButton type="button" label="Primary" style="margin-left: 10px;"></button>
+
+        </p-footer>
+    </p-panel>
+  
+  </div>
