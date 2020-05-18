@@ -52,17 +52,7 @@ export class ListaEspecieService {
   .then(response => response.json().content);
   }
 
-  buscarPeloCodigo(cdListaEsp: number): Promise<CadListaEspecie> {
-    const headers = new Headers();
-    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-    return this.http.get(`${this.CadListaEspecieURL}/${cdListaEsp}`, { headers })
-     .toPromise()
-      .then(response => {
-        const listaespecie = response.json() as CadListaEspecie;
-         return listaespecie;
-      });
-   }
-
+ 
    adicionarListaEspecie(cadListaEspecie: CadListaEspecie): Promise<CadListaEspecie>{
     const headers = new Headers;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -80,4 +70,37 @@ export class ListaEspecieService {
      .toPromise()
       .then(() => null);
   }
+  atualizarListaEspecie(listaespecie: CadListaEspecie): Promise<CadListaEspecie>{
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+
+     return this.http.put(`${this.CadListaEspecieURL}/${listaespecie.cdListaEsp}`,
+     JSON.stringify(listaespecie), { headers })
+      .toPromise()
+       .then(response => {
+         const listaespecieAltera = response.json() as CadListaEspecie;
+          return listaespecieAltera;
+       });
+  }
+  listarListaEspecie(): Promise<any> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+    return this.http.get(this.CadListaEspecieURL, {headers})
+     .toPromise()
+      .then(response => response.json().content);
+  }
+
+  buscarPeloCodigoListaEspecie(cdListaEsp: number): Promise<CadListaEspecie> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    return this.http.get(`${this.CadListaEspecieURL}/${cdListaEsp}`, { headers })
+     .toPromise()
+      .then(response => {
+        const listaespecie = response.json() as CadListaEspecie;
+         return listaespecie;
+      });
+   }
+
 }

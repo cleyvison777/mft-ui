@@ -2,7 +2,7 @@
   <p-panel>
     <p-header>Cadastro Geral / Manutenção da Lista de Espécies </p-header>
       <p-fieldset legend="Cadastro Lista de Espécies">
-         <form autocomplete="off" #Listaespecie="ngForm" (ngSubmit)="adicionandoListaEspecie(Listaespecie)">
+         <form autocomplete="off" #Listaespecie="ngForm" (ngSubmit)="salvar(Listaespecie)">
           <div class="class= ui-g-7 ui-md-7 ui-fluid">
             <label>Nome: </label>
             <input type="text" name="nmListaEsp" placeholder="Nome lista" pInputText [(ngModel)]="listaEspecieSalva.nmListaEsp">
@@ -16,6 +16,9 @@
           
           <div class="ui-g-1  ui-md-1">
             <button type="submit" pButton   label="Salvar" class="ui-button-success"[disabled]="!listaEspecieSalva.nmListaEsp"></button>
+          </div>
+          <div *ngIf="editanto" class="ui-g-2 ui-md-2">
+            <strong><a routerLink="/lista-especie"><button type="button" pButton label="Sair da edição"></button></a></strong>
           </div>
         </form>
         </p-fieldset>
@@ -57,7 +60,7 @@
                   <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
                     pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaespecie)">
                   </button>
-                  <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+                  <button pButton icon="pi pi-pencil" pTooltip="editar"  [routerLink]="['/lista-especie', listaespecie.cdListaEsp]"></button></td>
             
             </tr>
           </ng-template>
@@ -66,8 +69,17 @@
       </div>
         </p-fieldset>
         <p-footer>
-          <button pButton type="button" label="Primary"></button>
-          <button pButton type="button" label="Primary" style="margin-left: 10px;"></button>
+          <button pButton type="button" label="Selecionar" icon="pi pi-check"></button>
+          <button pButton type="button" label="Copia lista para..." style="margin-left: 10px;" icon="pi pi-copy" (click)="showBasicDialog()"></button>
+        
+          <p-dialog header="Copia lista especie para..." [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+           teste
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Processar"></button>
+            <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Cancelar" class="ui-button-secondary"></button>
+        </p-footer>
+    </p-dialog>
+
 
         </p-footer>
     </p-panel>
