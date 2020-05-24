@@ -20,7 +20,7 @@ export class AmfService {
 
 
 //localiza o registro
-  cadAmfURL = 'http://localhost:8081/cadamf';
+  cadAmfURL = 'http://localhost:8082/cadamf';
   constructor(private http: Http) { }
   //Faz a consulta
   consultar(filtro: CadeAmfFiltro): Promise<any> {

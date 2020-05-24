@@ -1,0 +1,35 @@
+<div class="container ">
+  <p-panel>
+    <p-header> Inventario continuo / Tipo parcela </p-header>
+     <form action="">
+       <p-fieldset legend="Tipo parcela">
+        <div class="class= ui-g-12 ui-md-12 ui-fluid">
+          <label>Nome: </label>
+          <input type="text" name="nmUso" placeholder="Tipo parcela" pInputText ></div>
+       <div class="ui-g-12 ui-md-12">
+          <div class="class= ui-g-5 ui-md-5 ui-fluid">
+            <label>Empresas:</label>
+            <p-dropdown name="empresa" [options]=""  filter="true" [autoWidth]="false" placeholder= "Selecione a empresa"   required></p-dropdown>
+             </div>
+
+             <div class="class= ui-g-5 ui-md-5" style="margin-left: 100px;" >
+              <p-checkbox name="lgPalmeiraContada"  label="Estudo de crescimento"  binary="true">
+              </p-checkbox>
+            </div>
+        </div>
+            <div class="ui-md-1 ui-g-1">
+              <button type="submit" pButton  label="Salvar" class="ui-button-success"  ></button>
+            </div>
+           
+       </p-fieldset>
+     </form>
+     <p-fieldset legend="Dados Cadastrais">
+      your content
+   </p-fieldset>
+
+    <p-footer>
+      your footer template
+    </p-footer>
+  </p-panel>
+  
+</div>

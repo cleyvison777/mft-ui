@@ -13,9 +13,9 @@ export class CadastroFamiliaFiltro {
 })
 export class FamiliaService {
 
-  cadFamiliaURL = 'http://localhost:8081/cadfamilia';
+  cadFamiliaURL = 'http://localhost:8082/cadfamilia';
   //para listar todas os registros no dropdonw
-  cadFamiliaURLPageable = 'http://localhost:8081/cadfamilia?page=0&size=120';
+  cadFamiliaURLPageable = 'http://localhost:8082/cadfamilia?page=0&size=120';
 
 
   constructor(private http: Http) { }

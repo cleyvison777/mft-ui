@@ -12,7 +12,7 @@ export class CadmaterialFiltro{
 @Injectable()
 export class CadmaterialService {
 
-  cadmaterialURL = 'http://localhost:8081/cadmaterial';
+  cadmaterialURL = 'http://localhost:8082/cadmaterial';
 
 
   constructor(private http: Http) { }

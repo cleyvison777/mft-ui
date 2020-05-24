@@ -245,6 +245,13 @@ export class UsoEspecie {
   lgMadeira: string;
 }
 
+export class TipoParcelaMft {
+  cdTipoparcela: number;
+  cdEmpresa = new Cadempresa();
+  nmTipoparcela: string;
+  lgEstudoCrescimento: boolean;
+}
+
 
 
 

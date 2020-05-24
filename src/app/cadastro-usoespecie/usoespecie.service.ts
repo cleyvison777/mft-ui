@@ -14,7 +14,7 @@ export class UsoEspecieFiltro {
 })
 export class UsoespecieService {
 
-  cadusoEspecieURL = 'http://localhost:8081/usoespecie';
+  cadusoEspecieURL = 'http://localhost:8082/usoespecie';
   constructor(private http: Http) { }
   
 

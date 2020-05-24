@@ -77,7 +77,7 @@ export class MenuComponent implements OnInit {
           items: [
               {
                 label: 'Tipo Parcela',
-                routerLink: '/verificador_m'
+                routerLink: '/tipo-parcela'
               },
               {
                 label: 'Classe Floresta',
