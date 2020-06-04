@@ -1,6 +1,3 @@
-import { element } from 'protractor';
-import { CadempresaService } from './../cadempresa/cadempresa.service';
-import { UsoEspecieFiltro } from './../cadastro-usoespecie/usoespecie.service';
 import { Http, Headers } from '@angular/http';
 import { CadListaEspecie } from './../core/model';
 import { Injectable } from '@angular/core';

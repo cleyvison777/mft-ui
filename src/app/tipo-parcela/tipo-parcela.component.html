@@ -1,30 +1,73 @@
 <div class="container ">
   <p-panel>
     <p-header> Inventario continuo / Tipo parcela </p-header>
-     <form action="">
+     <form autocomplete="off" #tipoparcela="ngForm" (ngSubmit)="adicionandoTipoParcela(tipoparcela)">
        <p-fieldset legend="Tipo parcela">
         <div class="class= ui-g-12 ui-md-12 ui-fluid">
           <label>Nome: </label>
-          <input type="text" name="nmUso" placeholder="Tipo parcela" pInputText ></div>
+          <input type="text" name="nmTipoParcela" placeholder="Tipo parcela" pInputText [(ngModel)]="cadTipoParcelaSalva.nmTipoParcela"></div>
        <div class="ui-g-12 ui-md-12">
           <div class="class= ui-g-5 ui-md-5 ui-fluid">
             <label>Empresas:</label>
-            <p-dropdown name="empresa" [options]=""  filter="true" [autoWidth]="false" placeholder= "Selecione a empresa"   required></p-dropdown>
+            <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
+            [(ngModel)]="cadTipoParcelaSalva.cdEmpresa.cdEmpresa" required></p-dropdown>
              </div>
 
              <div class="class= ui-g-5 ui-md-5" style="margin-left: 100px;" >
-              <p-checkbox name="lgPalmeiraContada"  label="Estudo de crescimento"  binary="true">
+              <p-checkbox name="lgEstudoCrescimento"  label="Estudo de crescimento"  binary="true" [(ngModel)]="cadTipoParcelaSalva.lgEstudoCrescimento">
               </p-checkbox>
             </div>
         </div>
             <div class="ui-md-1 ui-g-1">
-              <button type="submit" pButton  label="Salvar" class="ui-button-success"  ></button>
+              <button type="submit" pButton  label="Salvar" class="ui-button-success"  [disabled]="!cadTipoParcelaSalva.nmTipoParcela"></button>
             </div>
            
        </p-fieldset>
      </form>
      <p-fieldset legend="Dados Cadastrais">
-      your content
+      <div class="ui-g-12 ui-md-12">  
+        <form  autocomplete="off" (ngSubmit)="consultarTipoParcela()">
+          <div class="ui-g-12 ui-fluid">
+              <label style="display: block">Pesquisar Grupo Ecológico: </label>
+              <div class="ui-g-12 ui-md-7">
+                  <div class="ui-inputgroup">
+                      <span class="ui-inputgroup-addon"><i class="pi pi-search" style="line-height: 1.25;"></i></span>
+                      <input type="text" pInputText name="nmTipoParcela" [(ngModel)]="filtro.nmTipoParcela" placeholder="Pesquisar">
+                  </div>
+              </div>
+
+          </div>
+      </form>
+  </div>
+
+  <div class="ui-g-12 ui-md-12">            
+    <p-table [value]="listaTipoparcela"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+    [totalRecords]="totalRegistrosTipoParcela" (onLazyLoad)="aoMudarPaginaTipoParcela($event)" #tabela>
+        <ng-template pTemplate="header" >
+            <tr>
+            
+              <th>Codigo</th>
+              <th>Tipo Parcela</th>
+              <th>Estudo Crescimento</th>
+              <th></th>
+              
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-listaTipoparcela>
+            <tr class="hovergenero">
+              <td>{{listaTipoparcela.cdTipoParcela}}</td>
+              <td>{{listaTipoparcela.nmTipoParcela}}</td>
+              <td>{{listaTipoparcela.lgEstudoCrescimento}}</td>
+            
+              <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
+                pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusaoTipoParcela(listaTipoparcela)">
+              </button>
+              <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  
+  </div>
    </p-fieldset>
 
     <p-footer>

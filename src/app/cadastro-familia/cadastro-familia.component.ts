@@ -67,6 +67,7 @@ pesquisarFamilia(page = 0) {
         })
         .catch(erro => this.errorHandler.handle(erro));
     }
+    
     adicionandoFamilia(form: FormControl) {
       this.familiaService.adicionarFamilia(this.familiaSalva)
        .then(() => {
