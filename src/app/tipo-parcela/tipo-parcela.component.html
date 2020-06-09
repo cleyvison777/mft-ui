@@ -1,8 +1,8 @@
 <div class="container ">
   <p-panel>
     <p-header> Inventario continuo / Tipo parcela </p-header>
-     <form autocomplete="off" #tipoparcela="ngForm" (ngSubmit)="adicionandoTipoParcela(tipoparcela)">
-       <p-fieldset legend="Tipo parcela">
+     <form autocomplete="off" #tipoparcela="ngForm" (ngSubmit)="salvar(tipoparcela)">
+       <p-fieldset legend="Tipo parcela {{ editando ? ' - Editando - ' : '' }}">
         <div class="class= ui-g-12 ui-md-12 ui-fluid">
           <label>Nome: </label>
           <input type="text" name="nmTipoParcela" placeholder="Tipo parcela" pInputText [(ngModel)]="cadTipoParcelaSalva.nmTipoParcela"></div>
@@ -22,6 +22,9 @@
               <button type="submit" pButton  label="Salvar" class="ui-button-success"  [disabled]="!cadTipoParcelaSalva.nmTipoParcela"></button>
             </div>
            
+            <div *ngIf="editando" class="ui-g-2 ui-md-2 ui-fluid">
+              <button type="button" pButton label="Sair da edição" routerLink="/tipo-parcela"></button>
+          </div>
        </p-fieldset>
      </form>
      <p-fieldset legend="Dados Cadastrais">
@@ -48,7 +51,6 @@
             
               <th>Codigo</th>
               <th>Tipo Parcela</th>
-              <th>Estudo Crescimento</th>
               <th></th>
               
             </tr>
@@ -57,12 +59,12 @@
             <tr class="hovergenero">
               <td>{{listaTipoparcela.cdTipoParcela}}</td>
               <td>{{listaTipoparcela.nmTipoParcela}}</td>
-              <td>{{listaTipoparcela.lgEstudoCrescimento}}</td>
+             
             
               <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
                 pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusaoTipoParcela(listaTipoparcela)">
               </button>
-              <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+              <button pButton icon="pi pi-pencil" pTooltip="editar"[routerLink]="['/tipo-parcela', listaTipoparcela.cdTipoParcela]"></button></td>
         </tr>
       </ng-template>
     </p-table>
@@ -71,7 +73,7 @@
    </p-fieldset>
 
     <p-footer>
-      your footer template
+     
     </p-footer>
   </p-panel>
   

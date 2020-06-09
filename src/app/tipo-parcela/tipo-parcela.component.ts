@@ -35,11 +35,20 @@ export class TipoParcelaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+   
+    const codigoTipoParcela = this.route.snapshot.params['codigo'];
+     //se houver um id entra no metodo de carregar valores
+    if(codigoTipoParcela) {
+      this.carregarTipoParcela(codigoTipoParcela);
+    }
 
     this.carregarEmpresas();
     this.cadTipoParcelaSalva.lgEstudoCrescimento = false;
   }
-
+  get editando(){
+    return Boolean(this.cadTipoParcelaSalva.cdTipoParcela);
+  }
+  //consulta tipo parceça
   consultarTipoParcela(page = 0) {
     this.filtro.page = page;
     this.tipoParcelaService.pesquisaTipoParcela(this.filtro)
@@ -50,11 +59,12 @@ export class TipoParcelaComponent implements OnInit {
      .catch(erro => this.errorHandler.handle(erro));
 
   }
+   //paginação
   aoMudarPaginaTipoParcela(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.consultarTipoParcela(page);
      }
-
+ //lista os dados no dropdonw emprasa
      carregarEmpresas() {
       return this.cadEmpresaService.listarTodas()
         .then(empresas => {
@@ -62,7 +72,7 @@ export class TipoParcelaComponent implements OnInit {
         })
         .catch(erro => this.errorHandler.handle(erro));
     }
-
+   // adiciona tipo parcela
     adicionandoTipoParcela(form: FormControl) {
       this.tipoParcelaService.adicionarTipoParcela(this.cadTipoParcelaSalva)
        .then(() => {
@@ -73,7 +83,7 @@ export class TipoParcelaComponent implements OnInit {
        })
        .catch(erro => this.errorHandler.handle(erro));
     }
-
+     //exclui tipo parcela
     excluindoTipoParcela(listaTipoparcela: any){
       this.tipoParcelaService.excluirTipoParcela(listaTipoparcela.cdTipoParcela)
       .then(()=>{
@@ -94,6 +104,44 @@ export class TipoParcelaComponent implements OnInit {
           this.excluindoTipoParcela(listaTipoparcela);
         }
       });
+    }
+    salvar(form: FormControl) {
+      if(this.editando) {
+        this.confirmarAlterarTipoParcela(form);
+
+      } else {
+        this.adicionandoTipoParcela(form);
+      }
+    }
+     //atualiza tipo parcela 
+    atualizarTipoparcela(form: FormControl) {
+      this.tipoParcelaService.atualizar(this.cadTipoParcelaSalva)
+       .then( cadTipoParcela => {
+         this.cadTipoParcelaSalva = cadTipoParcela;
+         this.toasty.success('Familia atualizada com sucesso!');
+           this.consultarTipoParcela();
+           this.router.navigate(['/tipo-parcela']);
+       })
+       .catch(erro => this.errorHandler.handle(erro));
+    }
+    //confirma a alteração 
+    confirmarAlterarTipoParcela(cadTipoParcela: any) {
+      this.confirmation.confirm({
+        message: 'Tem certeza que deseja alterar?',
+         accept: () => {
+           this.atualizarTipoparcela(cadTipoParcela);
+         }
+      });
+    }
+
+    //Carregar Valores
+    carregarTipoParcela(codigo: number) {
+      this.tipoParcelaService.buscarTipoParcelaPeloCodigo(codigo)
+       .then(cadastrotipoparcela => {
+         this.cadTipoParcelaSalva = cadastrotipoparcela;
+       })
+       .catch(erro => this.errorHandler.handle(erro));
+
     }
 }
 

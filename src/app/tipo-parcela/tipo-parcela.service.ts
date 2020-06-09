@@ -67,6 +67,31 @@ TipoParcelaURL='http://localhost:8082/cadtipoparcela';
       .toPromise()
        .then(() => null);
   }
+
+  atualizar(cadTipoParcela: CadTipoParcela): Promise<CadTipoParcela>{
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    headers.append('Content-Type', 'application/json');
+     return this.http.put(`${this.TipoParcelaURL}/${cadTipoParcela.cdTipoParcela}`,
+     JSON.stringify(cadTipoParcela), {headers})
+      .toPromise()
+       .then(response => {
+         const cadtipoparcelaAltera = response.json() as CadTipoParcela;
+         return cadtipoparcelaAltera;
+       });
+  }
+
+  buscarTipoParcelaPeloCodigo(cdTipoParcela: number): Promise<CadTipoParcela>{
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+     return this.http.get(`${this.TipoParcelaURL}/${cdTipoParcela}`, {headers})
+      .toPromise()
+       .then(response => {
+         const cadTipoParcela = response.json() as CadTipoParcela;
+
+         return cadTipoParcela;
+       });
+  }
 }
 
 
