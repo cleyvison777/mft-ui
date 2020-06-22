@@ -252,6 +252,9 @@ export class CadTipoParcela {
   lgEstudoCrescimento: boolean;
 }
 
-
+export class CadClassTamanhoIndividuo {
+  cdClasseTamanho: number;
+  nmClasseTamanho: string;
+}
 
 

@@ -1,3 +1,4 @@
+import { ClasseTamanhoIndividoService } from './cadastro-classtamanhoindividuo/classe-tamanho-individo.service';
 import { TipoParcelaService } from './tipo-parcela/tipo-parcela.service';
 import { ListaEspecieService } from './lista-especie/lista-especie.service';
 import { UsoespecieService } from './cadastro-usoespecie/usoespecie.service';
@@ -98,6 +99,7 @@ import { CadastroGrupoEcologicoComponent } from './cadastro-grupo-ecologico/cada
 import { CadastroCategoriaProtecaoComponent } from './cadastro-categoria-protecao/cadastro-categoria-protecao.component';
 import { CadastroUsoespecieComponent } from './cadastro-usoespecie/cadastro-usoespecie.component';
 import { TipoParcelaComponent } from './tipo-parcela/tipo-parcela.component';
+import { CadastroClasstamanhoindividuoComponent } from './cadastro-classtamanhoindividuo/cadastro-classtamanhoindividuo.component';
 
 
 
@@ -166,6 +168,9 @@ const routes: Routes = [
   { path: 'tipo-parcela', component: TipoParcelaComponent},
   { path: 'tipo-parcela/:codigo', component: TipoParcelaComponent},
 
+  { path: 'cadastro-classtamanhoindividuo', component: CadastroClasstamanhoindividuoComponent},
+  { path: 'cadastro-classtamanhoindividuo/:codigo', component: CadastroClasstamanhoindividuoComponent},
+  
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
@@ -209,6 +214,7 @@ const routes: Routes = [
     CadastroCategoriaProtecaoComponent,
     CadastroUsoespecieComponent,
     TipoParcelaComponent,
+    CadastroClasstamanhoindividuoComponent,
 
 
   ],
@@ -275,7 +281,8 @@ const routes: Routes = [
     GrupoEcologicoService,
     UsoespecieService,
     ListaEspecieService,
-    TipoParcelaService
+    TipoParcelaService,
+    ClasseTamanhoIndividoService
 
   ],
   bootstrap: [AppComponent]

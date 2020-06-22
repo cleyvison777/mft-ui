@@ -85,7 +85,7 @@ export class MenuComponent implements OnInit {
               },
               {
                 label: 'Classe de Tamanho Individuo',
-                routerLink: '/modlocal1'
+                routerLink: '/cadastro-classtamanhoindividuo'
               },
               {separator: true},
               {
