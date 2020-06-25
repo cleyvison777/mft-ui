@@ -1,3 +1,4 @@
+import { CadClassTamanhoIndividuo } from './../core/model';
 import { Http, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -36,5 +37,33 @@ export class ClasseTamanhoIndividoService {
           };
           return resultado;
          });
+      }
+
+      listarTodasClasseIndividuo(): Promise<any> {
+        const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      headers.append('Content-Type', 'application/json');
+        return this.http.get(`${this.ClassIndividuoURL}`, {headers})
+         .toPromise()
+         .then(response => response.json().content);
+      }
+
+      adicionar(cadClassTamanhoIndividuo: CadClassTamanhoIndividuo): Promise<CadClassTamanhoIndividuo> {
+        const headers = new Headers;
+         headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+         headers.append('Content-Type', 'application/json');
+
+         return this.http.post(this.ClassIndividuoURL, JSON.stringify(cadClassTamanhoIndividuo), {headers})
+          .toPromise()
+           .then(response => response.json());
+      }
+
+      excluir(cdClasseTamanho: number): Promise<void> {
+        const headers = new Headers;
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+         return this.http.delete(`${this.ClassIndividuoURL}/ ${cdClasseTamanho}`, {headers})
+           .toPromise()
+            .then(() => null);
+
       }
   }

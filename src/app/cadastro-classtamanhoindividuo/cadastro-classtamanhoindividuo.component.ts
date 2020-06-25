@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
 import { CadClassTamanhoIndividuo } from './../core/model';
 import { ClasseTamanhoIndividoService, ClassIndividuoFiltro } from './classe-tamanho-individo.service';
@@ -15,7 +16,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class CadastroClasstamanhoindividuoComponent implements OnInit {
   totalregistrosClassTamanho = 0;
   listaClasseTamanho = [];
-  cadClassTamanhoIndividuo = new CadClassTamanhoIndividuo();
+  cadClassTamanhoIndividuoSalva = new CadClassTamanhoIndividuo();
   filtro = new ClassIndividuoFiltro();
   @ViewChild('tabela') grid;
 
@@ -30,7 +31,7 @@ export class CadastroClasstamanhoindividuoComponent implements OnInit {
 
   ngOnInit() {
   }
-
+//consulta
   consultaClasseTamanho(page = 0){
     this.filtro.page = page;
     this.classeTamanhoIndividoService.consultar(this.filtro)
@@ -40,8 +41,42 @@ export class CadastroClasstamanhoindividuoComponent implements OnInit {
      })
      .catch(erro => this.errorHandler.handle(erro));
   }
+  //paginação
   aoMudarPaginaClasseTamanho(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.consultaClasseTamanho(page);
+  }
+// adiciona 
+  adicionarClassTamanho(form: FormControl) {
+    this.classeTamanhoIndividoService.adicionar(this.cadClassTamanhoIndividuoSalva)
+     .then(() => {
+      this.toasty.success("Classe tamanho cadastrada com sucesso!");
+      this.cadClassTamanhoIndividuoSalva = new CadClassTamanhoIndividuo();
+      this.consultaClasseTamanho();
+     })
+     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  excluirClasseIndividuo(listaClasseTamanho: any){
+    this.classeTamanhoIndividoService.excluir(listaClasseTamanho.cdClasseTamanho)
+     .then(()=> {
+       if(this.grid.first === 0){
+         this.consultaClasseTamanho();
+       } else {
+        this.grid.first = 0;
+        this.consultaClasseTamanho();
+       }
+       this.toasty.success('Classe Tamanho excluída com sucesso!');
+     })
+     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  confirmarExclusaoClasseTamanho(listaClasseTamanho: any) {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluirClasseIndividuo(listaClasseTamanho);
+      }
+    });
   }
 }
