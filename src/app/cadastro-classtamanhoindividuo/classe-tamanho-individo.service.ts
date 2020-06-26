@@ -66,4 +66,32 @@ export class ClasseTamanhoIndividoService {
             .then(() => null);
 
       }
+
+      atualizar(cadClassTamanhoIndividuo: CadClassTamanhoIndividuo): Promise<CadClassTamanhoIndividuo> {
+        const headers = new Headers;
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(`${this.ClassIndividuoURL}/${cadClassTamanhoIndividuo.cdClasseTamanho}`,
+         JSON.stringify(cadClassTamanhoIndividuo), {headers})
+          .toPromise()
+           .then(response => {
+             const cadClassTamanhoIndividuoAltera = response.json() as CadClassTamanhoIndividuo;
+              return cadClassTamanhoIndividuoAltera;
+           });
+      }
+
+      buscarClassTamanhoPeloCodigo(cdClasseTamanho: number): Promise<CadClassTamanhoIndividuo> {
+        const headers = new Headers();
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+        return this.http.get(`${this.ClassIndividuoURL}/${cdClasseTamanho}`, {headers})
+         .toPromise()
+          .then(response =>{
+            const cadClassTamanhoIndividuo = response.json() as CadClassTamanhoIndividuo;
+
+             return cadClassTamanhoIndividuo;
+
+          });
+      }
+
+      
   }

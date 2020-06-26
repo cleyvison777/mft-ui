@@ -30,7 +30,18 @@ export class CadastroClasstamanhoindividuoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    const codigoClassTamanho = this.route.snapshot.params['codigo'];
+     //se houver um id entra no metodo de carregar valores
+     if(codigoClassTamanho) {
+       this.carregarClasseTamanho(codigoClassTamanho);
+     }
+
   }
+  get editando(){
+    return Boolean(this.cadClassTamanhoIndividuoSalva.cdClasseTamanho);
+  }
+      
 //consulta
   consultaClasseTamanho(page = 0){
     this.filtro.page = page;
@@ -79,4 +90,45 @@ export class CadastroClasstamanhoindividuoComponent implements OnInit {
       }
     });
   }
+
+ salvar(form: FormControl) {
+   if(this.editando) {
+    this.confirmarAlteraClasseTamanho(form);
+   } else {
+    this.adicionarClassTamanho(form);
+   }
+ }
+
+atualizarClasseTamanho(form: FormControl) {
+  this.classeTamanhoIndividoService.atualizar(this.cadClassTamanhoIndividuoSalva)
+   .then(cadClassTamanhoIndividuo => {
+     this.cadClassTamanhoIndividuoSalva = cadClassTamanhoIndividuo;
+     this.toasty.success('Classe Tamanho atualizado com sucesso!');
+      this.consultaClasseTamanho();
+      this.router.navigate(['/cadastro-classtamanhoindividuo']);
+   })
+   .catch(erro => this.errorHandler.handle(erro));
+
+}
+
+ //confirma a alteração 
+ confirmarAlteraClasseTamanho(cadClassTamanhoIndividuo: any) {
+  this.confirmation.confirm({
+    message: 'Tem certeza que deseja alterar?',
+     accept: () => {
+       this.atualizarClasseTamanho(cadClassTamanhoIndividuo);
+     }
+  });
+}
+    //Carregar Valores
+ carregarClasseTamanho(codigo: number) {
+   this.classeTamanhoIndividoService.buscarClassTamanhoPeloCodigo(codigo)
+    .then(cadclassetamanho => {
+      this.cadClassTamanhoIndividuoSalva = cadclassetamanho;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+
+ }
+
+
 }

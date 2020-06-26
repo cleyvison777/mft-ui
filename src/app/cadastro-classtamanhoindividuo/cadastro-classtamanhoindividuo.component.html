@@ -1,14 +1,17 @@
 <div class="container">
   <p-panel>
     <p-header>Inventario continuo / Tipo parcela / Classe Floresta / Classe de Tamanho Individuo</p-header>
-   <form autocomplete="off" #classTamanho="ngForm" (ngSubmit)="adicionarClassTamanho(classTamanho)">
-    <p-fieldset legend="Cadastro Classe de Tamanho Individuo">
+   <form autocomplete="off" #classTamanho="ngForm" (ngSubmit)="salvar(classTamanho)">
+    <p-fieldset legend="Cadastro Classe de Tamanho Individuo {{ editando ? ' - Editando - ' : '' }}">
       <div class="ui-g-12 ui-md-12 ui-fluid">
         <label>Nome: </label>
         <input type="text" pInputText name="nmCategoriaProtecao" placeholder="Categoria Proteção" [(ngModel)]="cadClassTamanhoIndividuoSalva.nmClasseTamanho" required>
       </div>
       <div class="ui-g-1  ui-md-1">
         <button type="submit" pButton  label="Salvar" class="ui-button-success"  [disabled]="!cadClassTamanhoIndividuoSalva.nmClasseTamanho"></button>
+      </div>
+      <div *ngIf="editando" class="ui-g-2 ui-md-2 ui-fluid">
+        <button type="button" pButton label="Sair da edição" routerLink="/tipo-parcela"></button>
       </div>
     </p-fieldset>
   </form> 
@@ -48,7 +51,7 @@
                       <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
                         pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusaoClasseTamanho(listaClasseTamanho)">
                       </button>
-                      <button pButton icon="pi pi-pencil" pTooltip="editar"></button></td>
+                      <button pButton icon="pi pi-pencil" pTooltip="editar" [routerLink]="['/cadastro-classtamanhoindividuo', listaClasseTamanho.cdClasseTamanho]"></button></td>
                 </tr>
               </ng-template>
             </p-table>
