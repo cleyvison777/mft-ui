@@ -256,5 +256,10 @@ export class CadClassTamanhoIndividuo {
   cdClasseTamanho: number;
   nmClasseTamanho: string;
 }
+export class CadTratamentoSilvicultural {
+  cdTratamento: number;
+  cdEmpresa = new Cadempresa();
+  nmTratamento: string;
+}
 
 

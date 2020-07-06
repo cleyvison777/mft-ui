@@ -90,7 +90,7 @@ export class MenuComponent implements OnInit {
               {separator: true},
               {
                 label: 'Situação Solvicultural',
-                routerLink: '/modlocal2'
+                routerLink: '/cadastro-situacaosilvicultural'
               },
               {
                 label: 'Classe de Indentificação do Fuste(CIF)',
