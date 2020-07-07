@@ -1,3 +1,4 @@
+import { TsatualtsanteriorService } from './cadastro-tsatualtsanterior/tsatualtsanterior.service';
 import { SituacaoService } from './cadastro-situacaosilvicultural/situacao.service';
 import { ClasseTamanhoIndividoService } from './cadastro-classtamanhoindividuo/classe-tamanho-individo.service';
 import { TipoParcelaService } from './tipo-parcela/tipo-parcela.service';
@@ -102,6 +103,7 @@ import { CadastroUsoespecieComponent } from './cadastro-usoespecie/cadastro-usoe
 import { TipoParcelaComponent } from './tipo-parcela/tipo-parcela.component';
 import { CadastroClasstamanhoindividuoComponent } from './cadastro-classtamanhoindividuo/cadastro-classtamanhoindividuo.component';
 import { CadastroSituacaosilviculturalComponent } from './cadastro-situacaosilvicultural/cadastro-situacaosilvicultural.component';
+import { CadastroTsatualtsanteriorComponent } from './cadastro-tsatualtsanterior/cadastro-tsatualtsanterior.component';
 
 
 
@@ -172,9 +174,16 @@ const routes: Routes = [
 
   { path: 'cadastro-classtamanhoindividuo', component: CadastroClasstamanhoindividuoComponent},
   { path: 'cadastro-classtamanhoindividuo/:codigo', component: CadastroClasstamanhoindividuoComponent},
-  
+
+  { path: 'cadastro-classtamanhoindividuo', component: CadastroClasstamanhoindividuoComponent},
+  { path: 'cadastro-classtamanhoindividuo/:codigo', component: CadastroClasstamanhoindividuoComponent},
+
   { path: 'cadastro-situacaosilvicultural', component: CadastroSituacaosilviculturalComponent},
   { path: 'cadastro-situacaosilvicultural/:codigo', component: CadastroSituacaosilviculturalComponent},
+
+  { path: 'cadastro-tsatualtsanterior', component: CadastroTsatualtsanteriorComponent},
+  { path: 'cadastro-tsatualtsanterior/:codigo', component: CadastroTsatualtsanteriorComponent},
+
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
 ]
@@ -220,6 +229,7 @@ const routes: Routes = [
     TipoParcelaComponent,
     CadastroClasstamanhoindividuoComponent,
     CadastroSituacaosilviculturalComponent,
+    CadastroTsatualtsanteriorComponent,
 
 
   ],
@@ -288,7 +298,8 @@ const routes: Routes = [
     ListaEspecieService,
     TipoParcelaService,
     ClasseTamanhoIndividoService,
-    SituacaoService
+    SituacaoService,
+    TsatualtsanteriorService
 
   ],
   bootstrap: [AppComponent]

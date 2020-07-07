@@ -61,4 +61,38 @@ export class SituacaoService {
         .then(() => null);
     }
 
+    atualizar(cadTratamentoSilvicultural: CadTratamentoSilvicultural): Promise<CadTratamentoSilvicultural> {
+      const headers = new Headers;
+        headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(`${this.SilviculturalURL}/${cadTratamentoSilvicultural.cdTratamento}`,
+         JSON.stringify(cadTratamentoSilvicultural), {headers})
+          .toPromise()
+           .then(response => {
+             const cadTratamentoSilviculturalAltera = response.json() as CadTratamentoSilvicultural;
+              return cadTratamentoSilviculturalAltera;
+           });
+    }
+
+    buscarPeloCogigoSilvicultural(cdTratamento: number): Promise<CadTratamentoSilvicultural> {
+            const headers = new Headers();
+            headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+            return this.http.get(`${this.SilviculturalURL}/${cdTratamento}`, {headers})
+             .toPromise()
+              .then(response => {
+                const cadTratamentoSilvicultural  = response.json() as CadTratamentoSilvicultural;
+                return cadTratamentoSilvicultural;
+              });
+
+    }
+
+    listarSilvicultural(): Promise<any> {
+      const headers = new Headers;
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      headers.append('Content-Type', 'application/json');
+       return this.http.get(this.SilviculturalURL, {headers})
+        .toPromise()
+         .then(response => response.json().content);
+    }
+
 }

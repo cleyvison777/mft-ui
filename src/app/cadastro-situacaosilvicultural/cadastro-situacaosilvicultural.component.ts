@@ -36,7 +36,16 @@ filtro = new SilviculturalFiltro();
 
   ngOnInit() {
     this.carregarEmpresas();
+    const codigoSilvicultural = this.route.snapshot.params['codigo'];
+    if(codigoSilvicultural) {
+      this.carregarSilvicultural(codigoSilvicultural);
+    }
+    
   }
+
+  get editando() {
+    return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
+   }
 
   //consulta
   cosultaSilvicultural(page = 0) {
@@ -95,6 +104,40 @@ adicionarTratamentoSilvicultural(form: FormControl){
       }
     });
   }
+   atualizarSilvicultural(form: FormControl) {
+     this.situacaoService.atualizar(this.cadTratamentoSilviculturalSalva)
+      .then(cadTratamentoSilvicultural => {
+      this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
+      this.toasty.success('Atualização realizada com sucesso!');
+      this.cosultaSilvicultural();
+      this.router.navigate(['/cadastro-situacaosilvicultural']);
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+   }
+   //confirmação para alterar
+   confirmarAlterar(cadTratamentoSilvicultural: any) {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja alterar?',
+      accept: () => {
+        this.atualizarSilvicultural(cadTratamentoSilvicultural);
+      }
+    });
+  }
+     carregarSilvicultural(codigo: number) {
+       this.situacaoService.buscarPeloCogigoSilvicultural(codigo)
+       .then(cadTratamentoSilvicultural => {
+          this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
+        })
+        .catch(erro => this.errorHandler.handle(erro));
+     }
+
+     salvar(form: FormControl) {
+       if(this.editando) {
+         this.confirmarAlterar(form);
+       } else {
+         this.adicionarTratamentoSilvicultural(form);
+       }
+     }
  }
 
 
