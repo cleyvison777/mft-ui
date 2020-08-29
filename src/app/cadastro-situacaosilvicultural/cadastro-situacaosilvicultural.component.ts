@@ -1,7 +1,8 @@
+import { TsatualtsanteriorService, TsFiltro } from './../cadastro-tsatualtsanterior/tsatualtsanterior.service';
 import { FormControl } from '@angular/forms';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
-import { CadTratamentoSilvicultural } from './../core/model';
+import { CadTratamentoSilvicultural, CadTsAtualTsAnterior } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
@@ -15,11 +16,15 @@ import { SilviculturalFiltro, SituacaoService } from './situacao.service';
   styleUrls: ['./cadastro-situacaosilvicultural.component.css']
 })
 export class CadastroSituacaosilviculturalComponent implements OnInit {
-totalElementosSilvicultural = 0;
-listaSilvicultural = [];
-empresas = [];
-cadTratamentoSilviculturalSalva = new CadTratamentoSilvicultural();
-filtro = new SilviculturalFiltro();
+  totalElementosSilvicultural = 0;
+  totalElementosTS = 0;
+  listaSilvicultural = [];
+  listaTs = [];
+  empresas = [];
+  cadTratamentoSilviculturalSalva = new CadTratamentoSilvicultural();
+  cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
+  filtro = new SilviculturalFiltro();
+  filtroTS = new TsFiltro();
 @ViewChild('tabela') grid;
 
 
@@ -27,6 +32,7 @@ filtro = new SilviculturalFiltro();
   constructor(
     private cadEmpresaService: CadempresaService,
     private situacaoService: SituacaoService,
+    private tsService: TsatualtsanteriorService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
@@ -39,31 +45,50 @@ filtro = new SilviculturalFiltro();
     const codigoSilvicultural = this.route.snapshot.params['codigo'];
     if(codigoSilvicultural) {
       this.carregarSilvicultural(codigoSilvicultural);
+      this.consultaTS(codigoSilvicultural);
     }
-    
   }
 
   get editando() {
     return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
-   }
+  }
 
-  //consulta
+
+
+  //consultaSilvicultural
   cosultaSilvicultural(page = 0) {
   this.filtro.page = page;
   this.situacaoService.consultar(this.filtro)
-   .then(resultado =>{
+   .then(resultado => {
      this.totalElementosSilvicultural = resultado.total;
      this.listaSilvicultural = resultado.listaSilvicultural;
    })
    .catch(erro => this.errorHandler.handle(erro));
   }
 
-  //paginação
+  //paginaçãoaoMudarPaginaSilvicultal
   aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
     const page = event.first / event.rows;
     this.cosultaSilvicultural(page);
   }
 
+//consultaTS//
+  consultaTS(codigo: number) {
+    //this.filtroTS.page = page;
+    this.tsService.buscarPeloTs(codigo)
+      .then(resultado => {
+         this.listaTs = resultado.listaTs;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  aoMudarPaginaTS(event: LazyLoadEvent) {
+    const page = event.first / event.rows;
+    this.consultaTS(page);
+  }
+
+//consultaTS//
+  
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()
       .then(empresas => {

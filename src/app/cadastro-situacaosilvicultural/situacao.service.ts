@@ -14,7 +14,6 @@ export class SilviculturalFiltro {
 export class SituacaoService {
 
   SilviculturalURL = 'http://localhost:8082/cadtratamentosilvicultural';
-  CadTsURL = 'http://localhost:8082/cadtratamentosilvicultural';
   constructor(private http: Http) { }
 
   //consulta

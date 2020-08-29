@@ -1,3 +1,5 @@
+import { logging } from "protractor";
+
 export class Cadempresa {
   cdEmpresa: number;
   nmEmpresa: string;
@@ -256,10 +258,20 @@ export class CadClassTamanhoIndividuo {
   cdClasseTamanho: number;
   nmClasseTamanho: string;
 }
+
+export class CadTsAtualTsAnterior {
+  cdTratamentAnterior: number;
+  cdEmpresa = new Cadempresa();
+  cdTratamentotual: number;
+}
+
 export class CadTratamentoSilvicultural {
   cdTratamento: number;
   cdEmpresa = new Cadempresa();
   nmTratamento: string;
+  cadTsAtualTsAnterior = new Array<CadTsAtualTsAnterior>();
 }
+
+
 
 
