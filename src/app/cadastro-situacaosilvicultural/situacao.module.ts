@@ -1,3 +1,4 @@
+import { CadastroTsatualtsanteriorComponent } from './../cadastro-tsatualtsanterior/cadastro-tsatualtsanterior.component';
 import { TsatualtsanteriorService } from './../cadastro-tsatualtsanterior/tsatualtsanterior.service';
 import { CadastroSituacaosilviculturalComponent } from './cadastro-situacaosilvicultural.component';
 import { NgModule } from '@angular/core';

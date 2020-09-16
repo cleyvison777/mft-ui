@@ -149,7 +149,7 @@ export class ModMonitoramentoTemplate {
   cdTipoDeVerificador = new Cadtipodeverificador();
 }
 
-export class AppMonitoramento{
+export class AppMonitoramento {
   cdMonitoramento: number;
   cdTemplate = new ModMonitoramentoTemplate();
   cdEmpresa = new Cadempresa();
@@ -259,11 +259,7 @@ export class CadClassTamanhoIndividuo {
   nmClasseTamanho: string;
 }
 
-export class CadTsAtualTsAnterior {
-  cdTratamentAnterior: number;
-  cdEmpresa = new Cadempresa();
-  cdTratamentotual: number;
-}
+
 
 export class CadTratamentoSilvicultural {
   cdTratamento: number;
@@ -272,6 +268,10 @@ export class CadTratamentoSilvicultural {
   cadTsAtualTsAnterior = new Array<CadTsAtualTsAnterior>();
 }
 
-
-
+export class CadTsAtualTsAnterior {
+  cdTratamentoAnteriorPk: number;
+  cdTratamentoAnterior = new CadTratamentoSilvicultural();
+  cdEmpresa = new Cadempresa();
+  cdTratamentotual = new CadTratamentoSilvicultural();
+}
 

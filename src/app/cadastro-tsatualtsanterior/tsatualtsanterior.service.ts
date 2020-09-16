@@ -8,7 +8,6 @@ export class TsFiltro {
   page = 0;
   size = 15;
   cdTratamentotual: number;
-  
 }
 
 @Injectable({
@@ -20,7 +19,7 @@ export class TsatualtsanteriorService {
   constructor(private http: Http) { }
 
 
-  adicionar(cadTsAtualTsAnterior: CadTsAtualTsAnterior): Promise<CadTsAtualTsAnterior>{
+  adicionar(cadTsAtualTsAnterior: CadTsAtualTsAnterior): Promise<CadTsAtualTsAnterior> {
     const params = new URLSearchParams;
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -33,7 +32,7 @@ export class TsatualtsanteriorService {
   }
 
 
-  consultar(filtro: TsFiltro): Promise<any>{
+  consultar(filtro: TsFiltro): Promise<any> {
     const params = new URLSearchParams;
     const headers = new Headers;
     params.set('page', filtro.page.toString());
@@ -52,13 +51,13 @@ export class TsatualtsanteriorService {
       });
   }
 
-  buscarPeloTs(cdTratamentotual: number): Promise<any> {
+  buscarPeloTs(cdTratamentoAnterior: number): Promise<any> {
     const headers = new Headers();
     const params = new URLSearchParams;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
    /* params.set('page', filtroTs.page.toString());
     params.set('size', filtroTs.size.toString());*/
-    return this.http.get(`${this.CadTsURL}?cdTratamentotual=${cdTratamentotual}`)
+    return this.http.get(`${this.CadTsURL}?cdTratamentoAnterior=${cdTratamentoAnterior}`)
       .toPromise()
       .then(response => {
         const responseJson = response.json();
@@ -72,12 +71,20 @@ export class TsatualtsanteriorService {
       });
   }
 
+  excluir(cdTratamentoAnteriorPk: number): Promise<void> {
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+    return this.http.delete(`${this.CadTsURL}/${cdTratamentoAnteriorPk}`, { headers })
+     .toPromise()
+      .then(() => null);
+  }
+
 
     atualizar(cadTsAtualTsAnterior: CadTsAtualTsAnterior): Promise<CadTsAtualTsAnterior> {
           const headers = new Headers;
           headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
           headers.append('Content-Type', 'application/json');
-      return this.http.put(`${this.CadTsURL}/${cadTsAtualTsAnterior.cdTratamentAnterior}`,
+      return this.http.put(`${this.CadTsURL}/${cadTsAtualTsAnterior.cdTratamentoAnteriorPk}`,
         JSON.stringify(cadTsAtualTsAnterior), { headers })
         .toPromise()
         .then(response => {
@@ -85,12 +92,23 @@ export class TsatualtsanteriorService {
           return cadTsAtualTsAnteriorAltera;
         });
     }
-  
-  
-    buscarPeloTsAtualiza(cdTratamentAnterior: number): Promise<CadTsAtualTsAnterior> {
+
+    buscarPeloTsAtualiza(cdTratamentoAnteriorPk: number): Promise<CadTsAtualTsAnterior> {
       const headers = new Headers();
       headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-      return this.http.get(`${this.CadTsURL}/ ${cdTratamentAnterior}`, { headers })
+      return this.http.get(`${this.CadTsURL}/ ${cdTratamentoAnteriorPk}`, { headers })
+        .toPromise()
+        .then(response => {
+          const cadTsAtualTsAnterior = response.json() as CadTsAtualTsAnterior;
+          return cadTsAtualTsAnterior;
+        });
+    }
+
+    
+    buscarPeloTsAnterior(cdTratamentoAnterior: number): Promise<CadTsAtualTsAnterior> {
+      const headers = new Headers();
+      headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      return this.http.get(`${this.CadTsURL}/ ${cdTratamentoAnterior}`, { headers })
         .toPromise()
         .then(response => {
           const cadTsAtualTsAnterior = response.json() as CadTsAtualTsAnterior;

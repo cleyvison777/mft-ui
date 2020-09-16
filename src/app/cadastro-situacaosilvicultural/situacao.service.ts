@@ -1,4 +1,4 @@
-import { CadTratamentoSilvicultural } from './../core/model';
+import { CadTratamentoSilvicultural, CadTsAtualTsAnterior } from './../core/model';
 import { Http, URLSearchParams, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -12,6 +12,7 @@ export class SilviculturalFiltro {
   providedIn: 'root'
 })
 export class SituacaoService {
+  cadTsAtualTsAnterior = new CadTsAtualTsAnterior();
 
   SilviculturalURL = 'http://localhost:8082/cadtratamentosilvicultural';
   constructor(private http: Http) { }

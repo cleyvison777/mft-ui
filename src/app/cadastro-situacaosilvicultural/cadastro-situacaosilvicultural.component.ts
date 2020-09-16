@@ -20,14 +20,17 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   totalElementosTS = 0;
   listaSilvicultural = [];
   listaTs = [];
+  listaTsSalva = [];
+
   empresas = [];
   cadTratamentoSilviculturalSalva = new CadTratamentoSilvicultural();
   cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
   filtro = new SilviculturalFiltro();
   filtroTS = new TsFiltro();
-@ViewChild('tabela') grid;
-
-
+  exibirFormularioTS = false;
+  @ViewChild('tabela') grid;
+  exibirFormularioAtualizaTS = false;
+  cdTratamentoAnterior: any = this.carregarTsanterior;
 
   constructor(
     private cadEmpresaService: CadempresaService,
@@ -37,47 +40,45 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
     private toasty: ToastyService,
     private confirmation: ConfirmationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.carregarEmpresas();
+    this.CarregarSilviculturaldropdown();
+
+    const codigoTsaterior = this.route.snapshot.params['codigo'];
     const codigoSilvicultural = this.route.snapshot.params['codigo'];
-    if(codigoSilvicultural) {
+    if (codigoSilvicultural) {
       this.carregarSilvicultural(codigoSilvicultural);
       this.consultaTS(codigoSilvicultural);
     }
   }
+// exibir modal vai ficar para proxima
+  // novoTs() {
+  //   this.exibirFormularioTS = true;
+  // }
+  // AtualizaTs() {
+  //   this.exibirFormularioAtualizaTS = true;
 
+  // }
+////////
   get editando() {
     return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
   }
+  // get editandoTs() {
+  //   return Boolean(this.cadTsAtualTsAnteriorSalva.cdTratamentoAnteriorPk);
+  // }
 
 
+  /// TS
 
-  //consultaSilvicultural
-  cosultaSilvicultural(page = 0) {
-  this.filtro.page = page;
-  this.situacaoService.consultar(this.filtro)
-   .then(resultado => {
-     this.totalElementosSilvicultural = resultado.total;
-     this.listaSilvicultural = resultado.listaSilvicultural;
-   })
-   .catch(erro => this.errorHandler.handle(erro));
-  }
-
-  //paginaçãoaoMudarPaginaSilvicultal
-  aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
-    const page = event.first / event.rows;
-    this.cosultaSilvicultural(page);
-  }
-
-//consultaTS//
-  consultaTS(codigo: number) {
-    //this.filtroTS.page = page;
-    this.tsService.buscarPeloTs(codigo)
+  // consultaTS//
+  consultaTS(cdTratamentoAnterior: number) {
+    // this.filtroTS.page = page;
+    this.tsService.buscarPeloTs(cdTratamentoAnterior)
       .then(resultado => {
-         this.listaTs = resultado.listaTs;
+        this.listaTs = resultado.listaTs;
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -87,60 +88,167 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
     this.consultaTS(page);
   }
 
-//consultaTS//
-  
-  carregarEmpresas() {
-    return this.cadEmpresaService.listarTodas()
-      .then(empresas => {
-        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + " - " + c.nmEmpresa, value: c.cdEmpresa }));
+
+  adicionarTsAtual(form: FormControl) {
+    this.tsService.adicionar(this.cadTsAtualTsAnteriorSalva)
+      .then(() => {
+        this.cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
+        this.toasty.success('Cadastrado realizado com sucesso!');
+        this.consultaTS(this.cdTratamentoAnterior);
       })
+
       .catch(erro => this.errorHandler.handle(erro));
+
   }
-adicionarTratamentoSilvicultural(form: FormControl){
-  this.situacaoService.adicionar(this.cadTratamentoSilviculturalSalva)
-   .then(() => {
-     this.cadTratamentoSilviculturalSalva = new CadTratamentoSilvicultural();
-     this.cosultaSilvicultural();
-     this.toasty.success('Cadastrado realizado com sucesso!');
 
-   })
-   .catch(erro => this.errorHandler.handle(erro));
-   }
-   
-   excluirSilvicultural(listaSilvicultural: any) {
-     this.situacaoService.excluir(listaSilvicultural.cdTratamento)
-     .then(() => {
-       if(this.grid.first === 0){
-         this.cosultaSilvicultural();
-       } else{
-        this.grid.first = 0;
-        this.cosultaSilvicultural();
-       }
-       this.toasty.success('Situação Silvicultural excluída com sucesso!');
-     })
-     .catch(erro => this.errorHandler.handle(erro));
-   }
+  // excluirTS
 
-   confirmarExclusao(listaSilvicultural: any) {
+  excluirTsAnterior(listaTs: any) {
+   this.tsService.excluir(listaTs.cdTratamentoAnteriorPk)
+    .then(() => {
+      if (this.grid.first === 0) {
+      // nao deu certo this.consultaTS(listaTs);
+      } else {
+     this.grid.first = 0;
+           // nao deu certo this.consultaTS(listaTs)
+      }
+      this.toasty.success('Situação Silvicultural excluída com sucesso!');
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+
+  }
+
+
+  confirmarExclusaoTS(listaTs: any) {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
-       this.excluirSilvicultural(listaSilvicultural);
+        this.excluirTsAnterior(listaTs);
+      }
+
+    });
+  }
+
+  atualizarTsAterior(form: FormControl) {
+    this.tsService.atualizar(this.cadTsAtualTsAnteriorSalva)
+     .then(cadTsAtualTsAnterior => {
+       this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
+       this.toasty.success('Atualização realizada com sucesso!');
+       form.reset(form);
+     })
+     .catch(erro => this.errorHandler.handle(erro));
+
+  }
+
+   // confirmação para alterar TS!
+   confirmarAlterarTsAnterior(cadTsAtualTsAnterior: any) {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja alterar?',
+      accept: () => {
+        this.atualizarTsAterior(cadTsAtualTsAnterior);
       }
     });
   }
-   atualizarSilvicultural(form: FormControl) {
-     this.situacaoService.atualizar(this.cadTratamentoSilviculturalSalva)
-      .then(cadTratamentoSilvicultural => {
-      this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
-      this.toasty.success('Atualização realizada com sucesso!');
-      this.cosultaSilvicultural();
-      this.router.navigate(['/cadastro-situacaosilvicultural']);
+
+  // salvarTs(form: FormControl) {
+  //   if (this.editandoTs) {
+  //     this.confirmarAlterarTsAnterior(form);
+  //   } else {
+  //     this.adicionarTsAtual(form);
+  //   }
+  // }
+
+  carregarTsanterior(cdTratamentoAnterior: number) {
+    this.tsService.buscarPeloTsAnterior(cdTratamentoAnterior)
+     .then(cadTsAtualTsAnterior => {
+        this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
+     })
+     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregarEmpresas() {
+    return this.cadEmpresaService.listarTodas()
+      .then(empresas => {
+        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + ' - ' + c.nmEmpresa, value: c.cdEmpresa }));
       })
       .catch(erro => this.errorHandler.handle(erro));
-   }
-   //confirmação para alterar
-   confirmarAlterar(cadTratamentoSilvicultural: any) {
+  }
+
+  CarregarSilviculturaldropdown() {
+    return this.situacaoService.listarSilvicultural()
+      .then(listaTsSalva => {
+        this.listaTsSalva = listaTsSalva.map(c => ({ label: c.cdTratamento + ' - ' + c.nmTratamento, value: c.cdTratamento }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
+////////////////////////////////
+
+
+adicionarTratamentoSilvicultural(form: FormControl) {
+  this.situacaoService.adicionar(this.cadTratamentoSilviculturalSalva)
+    .then(() => {
+      this.cadTratamentoSilviculturalSalva = new CadTratamentoSilvicultural();
+      this.cosultaSilvicultural();
+      this.toasty.success('Cadastrado realizado com sucesso!');
+
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+}
+
+ // consultaSilvicultural
+ cosultaSilvicultural(page = 0) {
+  this.filtro.page = page;
+  this.situacaoService.consultar(this.filtro)
+    .then(resultado => {
+      this.totalElementosSilvicultural = resultado.total;
+      this.listaSilvicultural = resultado.listaSilvicultural;
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+}
+
+// paginaçãoaoMudarPaginaSilvicultal
+aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
+  const page = event.first / event.rows;
+  this.cosultaSilvicultural(page);
+}
+
+  excluirSilvicultural(listaSilvicultural: any) {
+    this.situacaoService.excluir(listaSilvicultural.cdTratamento)
+      .then(() => {
+        if (this.grid.first === 0) {
+          this.cosultaSilvicultural();
+        } else {
+          this.grid.first = 0;
+          this.cosultaSilvicultural();
+        }
+        this.toasty.success('Situação Silvicultural excluída com sucesso!');
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  confirmarExclusao(listaSilvicultural: any) {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluirSilvicultural(listaSilvicultural);
+      }
+    });
+  }
+
+  atualizarSilvicultural(form: FormControl) {
+    this.situacaoService.atualizar(this.cadTratamentoSilviculturalSalva)
+      .then(cadTratamentoSilvicultural => {
+        this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
+        this.toasty.success('Atualização realizada com sucesso!');
+        this.cosultaSilvicultural();
+        this.router.navigate(['/cadastro-situacaosilvicultural']);
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+  // confirmação para alterar
+  confirmarAlterar(cadTratamentoSilvicultural: any) {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja alterar?',
       accept: () => {
@@ -148,22 +256,23 @@ adicionarTratamentoSilvicultural(form: FormControl){
       }
     });
   }
-     carregarSilvicultural(codigo: number) {
-       this.situacaoService.buscarPeloCogigoSilvicultural(codigo)
-       .then(cadTratamentoSilvicultural => {
-          this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
-        })
-        .catch(erro => this.errorHandler.handle(erro));
-     }
+  carregarSilvicultural(codigo: number) {
+    this.situacaoService.buscarPeloCogigoSilvicultural(codigo)
+      .then(cadTratamentoSilvicultural => {
+        this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  
+  }
 
-     salvar(form: FormControl) {
-       if(this.editando) {
-         this.confirmarAlterar(form);
-       } else {
-         this.adicionarTratamentoSilvicultural(form);
-       }
-     }
- }
+  salvar(form: FormControl) {
+    if (this.editando) {
+      this.confirmarAlterar(form);
+    } else {
+      this.adicionarTratamentoSilvicultural(form);
+    }
+  }
+}
 
 
 

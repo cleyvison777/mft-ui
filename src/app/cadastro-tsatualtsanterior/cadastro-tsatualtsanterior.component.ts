@@ -37,8 +37,6 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
     this.carregarSilvicultural();
   }
 
-  
-
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()
       .then(empresas => {
@@ -65,9 +63,5 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
     })
     .catch(erro => this.errorHandler.handle(erro));
   }
-
-  
-
-  
 
 }
