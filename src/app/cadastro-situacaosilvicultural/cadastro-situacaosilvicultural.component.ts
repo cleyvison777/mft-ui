@@ -5,10 +5,11 @@ import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d
 import { CadTratamentoSilvicultural, CadTsAtualTsAnterior } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
-import { ToastyService } from 'ng2-toasty';
+import { ToastyService, ToastyModule } from 'ng2-toasty';
 import { ErrorHandlerService } from './../core/error-handler.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SilviculturalFiltro, SituacaoService } from './situacao.service';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-cadastro-situacaosilvicultural',
@@ -30,7 +31,6 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   exibirFormularioTS = false;
   @ViewChild('tabela') grid;
   exibirFormularioAtualizaTS = false;
-  cdTratamentoAnterior: any = this.carregarTsanterior;
 
   constructor(
     private cadEmpresaService: CadempresaService,
@@ -74,19 +74,21 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   /// TS
 
   // consultaTS//
-  consultaTS(cdTratamentoAnterior: number) {
-    // this.filtroTS.page = page;
-    this.tsService.buscarPeloTs(cdTratamentoAnterior)
-      .then(resultado => {
-        this.listaTs = resultado.listaTs;
-      })
-      .catch(erro => this.errorHandler.handle(erro));
-  }
+   consultaTS(cdTratamentoAnterior: number) {
+     // this.filtroTS.page = page;
+      this.tsService.buscarPeloTs(cdTratamentoAnterior)
+        .then(resultado => {
+         this.listaTs = resultado.listaTs;
+       })
+     .catch(erro => this.errorHandler.handle(erro));
+    }
 
-  aoMudarPaginaTS(event: LazyLoadEvent) {
-    const page = event.first / event.rows;
-    this.consultaTS(page);
-  }
+    aoMudarPaginaTS(event: LazyLoadEvent) {
+       const page = event.first / event.rows;
+       this.consultaTS(page);
+   }
+
+ 
 
 
   adicionarTsAtual(form: FormControl) {
@@ -94,7 +96,8 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
       .then(() => {
         this.cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
         this.toasty.success('Cadastrado realizado com sucesso!');
-        this.consultaTS(this.cdTratamentoAnterior);
+        ///ele atribui o pega o valor da cdTratamento como busca na consultaTS
+        this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);
       })
 
       .catch(erro => this.errorHandler.handle(erro));
@@ -107,11 +110,10 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
    this.tsService.excluir(listaTs.cdTratamentoAnteriorPk)
     .then(() => {
       if (this.grid.first === 0) {
-      // nao deu certo this.consultaTS(listaTs);
-      } else {
+        this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);
+            } else {
      this.grid.first = 0;
-           // nao deu certo this.consultaTS(listaTs)
-      }
+     this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);      }
       this.toasty.success('Situação Silvicultural excluída com sucesso!');
     })
     .catch(erro => this.errorHandler.handle(erro));
@@ -158,8 +160,8 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   //   }
   // }
 
-  carregarTsanterior(cdTratamentoAnterior: number) {
-    this.tsService.buscarPeloTsAnterior(cdTratamentoAnterior)
+  carregarTsanterior(codigo: number) {
+    this.tsService.buscarPeloTsAtualiza(codigo)
      .then(cadTsAtualTsAnterior => {
         this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
      })
@@ -256,7 +258,7 @@ aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
       }
     });
   }
-  carregarSilvicultural(codigo: number) {
+  carregarSilvicultural(codigo: number, ) {
     this.situacaoService.buscarPeloCogigoSilvicultural(codigo)
       .then(cadTratamentoSilvicultural => {
         this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;

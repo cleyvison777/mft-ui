@@ -53,14 +53,14 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  carregarSitAnt(codigo: number) {
-    return this.tsService.buscarPeloTs(codigo)
-    .then(listaTs => {
-      this.listaTs = listaTs.map(c => ({
-        label: c.cdTratamentotual.cdTratamento + " - " +
-          c.cdTratamentotual.nmTratamento, value: c.cdTratamentotual.cdTratamento
-      }));
-    })
+ carregarSitAnt(codigo: number) {
+  return this.tsService.buscarPeloTs(codigo)
+  .then(listaTs => {
+    this.listaTs = listaTs.map(c => ({
+    label: c.cdTratamentotual.cdTratamento + " - " +
+     c.cdTratamentotual.nmTratamento, value: c.cdTratamentotual.cdTratamento
+  }));
+  })
     .catch(erro => this.errorHandler.handle(erro));
   }
 

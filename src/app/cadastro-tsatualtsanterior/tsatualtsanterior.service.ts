@@ -5,16 +5,20 @@ import { Injectable } from '@angular/core';
 
 
 export class TsFiltro {
+  cadTsAtualTsAnterior = new CadTsAtualTsAnterior();
+
   page = 0;
   size = 15;
-  cdTratamentotual: number;
+  cdTratamentoAnterior: any = this.cadTsAtualTsAnterior.cdTratamentoAnterior;
+
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class TsatualtsanteriorService {
-  
+  cadTsAtualTsAnterior = new CadTsAtualTsAnterior();
+
   CadTsURL = 'http://localhost:8082/cadtsatualtsanterior';
   constructor(private http: Http) { }
 
@@ -37,7 +41,10 @@ export class TsatualtsanteriorService {
     const headers = new Headers;
     params.set('page', filtro.page.toString());
     params.set('size', filtro.size.toString());
-    return this.http.get(`${this.CadTsURL}`, { headers, search: filtro })
+     if (filtro.cdTratamentoAnterior) {
+       params.set('cdTratamentoAnterior', filtro.cdTratamentoAnterior);
+     }
+    return this.http.get(`${this.CadTsURL}?cdTratamentoAnterior=${filtro.cadTsAtualTsAnterior}`, { headers, search: filtro })
       .toPromise()
       .then(response => {
         const responseJson = response.json();
@@ -51,7 +58,7 @@ export class TsatualtsanteriorService {
       });
   }
 
-  buscarPeloTs(cdTratamentoAnterior: number): Promise<any> {
+  buscarPeloTs(cdTratamentoAnterior: any): Promise<any> {
     const headers = new Headers();
     const params = new URLSearchParams;
     headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -70,6 +77,7 @@ export class TsatualtsanteriorService {
 
       });
   }
+
 
   excluir(cdTratamentoAnteriorPk: number): Promise<void> {
     const headers = new Headers;
@@ -105,16 +113,15 @@ export class TsatualtsanteriorService {
     }
 
     
-    buscarPeloTsAnterior(cdTratamentoAnterior: number): Promise<CadTsAtualTsAnterior> {
+    buscarPeloTsAnterior(cdTratamento: number): Promise<CadTsAtualTsAnterior> {
       const headers = new Headers();
       headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-      return this.http.get(`${this.CadTsURL}/ ${cdTratamentoAnterior}`, { headers })
+      return this.http.get(`${this.CadTsURL}/?cadtsatualtsanterior=${cdTratamento}`, { headers })
         .toPromise()
         .then(response => {
           const cadTsAtualTsAnterior = response.json() as CadTsAtualTsAnterior;
           return cadTsAtualTsAnterior;
         });
     }
-
 }
 
