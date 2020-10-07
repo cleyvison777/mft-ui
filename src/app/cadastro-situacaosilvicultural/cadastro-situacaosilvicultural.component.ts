@@ -9,7 +9,6 @@ import { ToastyService, ToastyModule } from 'ng2-toasty';
 import { ErrorHandlerService } from './../core/error-handler.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SilviculturalFiltro, SituacaoService } from './situacao.service';
-import { isNull } from 'util';
 
 @Component({
   selector: 'app-cadastro-situacaosilvicultural',
@@ -28,9 +27,7 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
   filtro = new SilviculturalFiltro();
   filtroTS = new TsFiltro();
-  exibirFormularioTS = false;
   @ViewChild('tabela') grid;
-  exibirFormularioAtualizaTS = false;
 
   constructor(
     private cadEmpresaService: CadempresaService,
@@ -47,12 +44,20 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
     this.carregarEmpresas();
     this.CarregarSilviculturaldropdown();
 
-    const codigoTsaterior = this.route.snapshot.params['codigo'];
     const codigoSilvicultural = this.route.snapshot.params['codigo'];
+    //coloquei cod se não pois a busca pelo codigo iria falhar 
+    const codigoTsaterior = this.route.snapshot.params['cod'];
+
     if (codigoSilvicultural) {
+
       this.carregarSilvicultural(codigoSilvicultural);
       this.consultaTS(codigoSilvicultural);
+      
+    } else if (codigoTsaterior) {
+      this.carregarTsanterior(codigoTsaterior);
     }
+    
+  
   }
 // exibir modal vai ficar para proxima
   // novoTs() {
@@ -66,9 +71,13 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   get editando() {
     return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
   }
-  // get editandoTs() {
-  //   return Boolean(this.cadTsAtualTsAnteriorSalva.cdTratamentoAnteriorPk);
-  // }
+  get formularioTs() {
+    return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
+  }
+
+  get editandoTs() {
+    return Boolean(this.cadTsAtualTsAnteriorSalva.cdTratamentoAnteriorPk);
+ }
 
 
   /// TS
@@ -88,15 +97,13 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
        this.consultaTS(page);
    }
 
- 
-
 
   adicionarTsAtual(form: FormControl) {
     this.tsService.adicionar(this.cadTsAtualTsAnteriorSalva)
       .then(() => {
         this.cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
         this.toasty.success('Cadastrado realizado com sucesso!');
-        ///ele atribui o pega o valor da cdTratamento como busca na consultaTS
+        ///Pega o valor do cdTratamento como busca na consultaTS
         this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);
       })
 
@@ -152,16 +159,16 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
     });
   }
 
-  // salvarTs(form: FormControl) {
-  //   if (this.editandoTs) {
-  //     this.confirmarAlterarTsAnterior(form);
-  //   } else {
-  //     this.adicionarTsAtual(form);
-  //   }
-  // }
+   salvarTs(form: FormControl) {
+    if (this.editandoTs) {
+      this.confirmarAlterarTsAnterior(form);
+    } else {
+     this.adicionarTsAtual(form);
+   }
+ }
 
-  carregarTsanterior(codigo: number) {
-    this.tsService.buscarPeloTsAtualiza(codigo)
+  carregarTsanterior(cod: number) {
+    this.tsService.buscarPeloTsAtualiza(cod)
      .then(cadTsAtualTsAnterior => {
         this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
      })

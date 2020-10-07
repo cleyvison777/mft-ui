@@ -1,5 +1,5 @@
+import { SituacaoService } from './../cadastro-situacaosilvicultural/situacao.service';
 import { CadTsAtualTsAnterior } from './../core/model';
-import { promise } from 'protractor';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -18,7 +18,7 @@ export class TsFiltro {
 })
 export class TsatualtsanteriorService {
   cadTsAtualTsAnterior = new CadTsAtualTsAnterior();
-
+   situacaoService: SituacaoService;
   CadTsURL = 'http://localhost:8082/cadtsatualtsanterior';
   constructor(private http: Http) { }
 
@@ -104,7 +104,7 @@ export class TsatualtsanteriorService {
     buscarPeloTsAtualiza(cdTratamentoAnteriorPk: number): Promise<CadTsAtualTsAnterior> {
       const headers = new Headers();
       headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
-      return this.http.get(`${this.CadTsURL}/ ${cdTratamentoAnteriorPk}`, { headers })
+      return this.http.get(`${this.CadTsURL}/${cdTratamentoAnteriorPk}`, { headers })
         .toPromise()
         .then(response => {
           const cadTsAtualTsAnterior = response.json() as CadTsAtualTsAnterior;
@@ -112,7 +112,7 @@ export class TsatualtsanteriorService {
         });
     }
 
-    
+
     buscarPeloTsAnterior(cdTratamento: number): Promise<CadTsAtualTsAnterior> {
       const headers = new Headers();
       headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');

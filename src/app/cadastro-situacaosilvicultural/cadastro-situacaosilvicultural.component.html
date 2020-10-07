@@ -61,7 +61,7 @@
                 pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusao(listaSilvicultural)">
               </button>
               <button pButton icon="pi pi-pencil" pTooltip="editar" tooltipPosition="top" [routerLink]="['/cadastro-situacaosilvicultural', listaSilvicultural.cdTratamento]" style="margin-right: 10px;" ></button>
-              <button pButton icon="pi pi-chevron-circle-right" class="ui-button-warning" pTooltip="Mediações Anteriores"></button>
+              <button pButton icon="pi pi-chevron-circle-right" class="ui-button-warning" [routerLink]="['/cadastro-situacaosilvicultural', listaSilvicultural.cdTratamento]"  pTooltip="Mediações Anteriores"></button>
             </td>
               </tr>
             </ng-template>
@@ -76,11 +76,11 @@
     </div>
 
 <div class="container">
-   <div *ngIf="editando">
+   <div *ngIf="formularioTs">
      <p-panel>
            <p-header>Tratamento anterior e Tratamento atual:</p-header>
-                       <form #cadtsAnterior="ngForm" (submit)="adicionarTsAtual(cadtsAnterior)">
-                          <p-fieldset legend="  Tratamento anteriores">
+                       <form #cadtsAnterior="ngForm" (submit)="salvarTs(cadtsAnterior)">
+                          <p-fieldset legend=" {{editandoTs ? 'EDITANDO ': ' '}}Tratamento anteriores">
                               <div class="ui-g-12 ui-md-12 ui-fluid">
                                 <label>Empresas:</label>
                                   <p-dropdown name="empresa"  [options]="empresas" [autoWidth]="false" 
@@ -100,7 +100,10 @@
                         <div class="ui-g-1  ui-md-1">
                             <button type="submit" pButton   label="Salvar" class="ui-button-success" [disabled]="!cadTsAtualTsAnteriorSalva.cdEmpresa.cdEmpresa"></button>
                           </div>
-
+                         
+                          <div *ngIf="editandoTs" class="ui-g-2 ui-md-2">
+                            <strong><a routerLink="/cadastro-situacaosilvicultural"><button type="button" pButton label="Sair da edição"></button></a></strong>
+                          </div>
                          
                       </p-fieldset>
                     </form>
@@ -125,7 +128,7 @@
                         <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
                           pTooltip="remover" class="ui-button-danger" tooltipPosition="left" (click)="confirmarExclusaoTS(listaTs)">
                         </button>
-                        <button pButton icon="pi pi-pencil" pTooltip="editar" tooltipPosition="top"    style="margin-right: 10px;"></button>
+                        <button pButton icon="pi pi-pencil" pTooltip="editar" tooltipPosition="top"  [routerLink]="['/cadastro-situacaosilvicultural', listaTs.cdTratamentoAnteriorPk]"  style="margin-right: 10px;"></button>
                       </td>
                   </tr>
                 </ng-template>
