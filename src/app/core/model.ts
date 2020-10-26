@@ -11,6 +11,20 @@ export class Cadempresa {
   diretorioArquivos: string;
 }
 
+export class MenuEmpresa {
+  id:number;
+  cdEmpresa: number;
+  nmEmpresa: string;
+}
+
+export class EmpresaSelecionadaExibicao{
+  nmempresa: string;
+}
+
+export class empresaSelecionada {
+  cdEmpresa: number;
+}
+
 export class Cadamostragem {
   cdAmostragem: number;
   cdEmpresa = new Cadempresa();
