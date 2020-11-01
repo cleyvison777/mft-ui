@@ -6,7 +6,8 @@
     <form #f="ngForm" autocomplete="off" (ngSubmit)="adicionar(f)">
      
       <div class="ui-g-6 ui-fluid">
-        <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder="Selecione a empresa"></p-dropdown>
+        <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder="Selecione a empresa"
+        [(ngModel)]="menuSalvar.cdEmpresa"></p-dropdown>
        </div>
       <div class="ui-g-6 ui-fluid">
         <button pButton type="submit" label="Selecionar Empresa" class="ui-button-raised ui-button-success"></button>

@@ -365,15 +365,6 @@ export class MenuComponent implements OnInit {
         ]
     },
 
-
-      {
-        label: 'Ajuda',
-        icon: 'pi pi-fw pi-question',
-        items: [
-            {label: 'Como utilizar o MOP'},
-            {label: 'Sobre...'}
-        ]
-      },
       {
           label: 'Início', icon: 'pi pi-fw pi-times',
           routerLink:'/inicio'
@@ -387,7 +378,6 @@ export class MenuComponent implements OnInit {
       .then(empresas => {
         this.empresas = empresas.map(c => ({ label: c.cdEmpresa + " - " + c.nmEmpresa, value: c.cdEmpresa }));
       })
-      //.catch(erro => this.errorHandler.handle(erro));
   }
 
   adicionar(form: FormControl){

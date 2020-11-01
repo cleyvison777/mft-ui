@@ -7,7 +7,7 @@ import { MenuEmpresa } from '../core/model';
 })
 export class MenuService {
 
-  menuempresa = 'http://localhost:8081/menuempresa';
+  menuempresa = 'http://localhost:8082/menuempresa';
 
   constructor(private http: Http) { }
 

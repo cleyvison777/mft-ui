@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 
 export class UsoEspecieFiltro {
   nmUso: string;
+  cdEmpresa: number;
   page = 0;
   size = 10;
 }
@@ -16,6 +17,22 @@ export class UsoespecieService {
 
   cadusoEspecieURL = 'http://localhost:8082/usoespecie';
   constructor(private http: Http) { }
+
+  pesquisar2(cdEmpresa: any): Promise<any> {
+
+    const params = new URLSearchParams;
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+
+    
+      params.set('cdEmpresa', cdEmpresa);
+    
+    return this.http.get(`${this.cadusoEspecieURL}?cdEmpresa=${cdEmpresa}`, { headers})
+    .toPromise()
+    .then(response => response.json().content)
+
+
+  };
   
 
   pesquisarUsoEspecie(filtro: UsoEspecieFiltro): Promise<any> {

@@ -2,13 +2,14 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { FormControl } from '@angular/forms';
 import { LazyLoadEvent } from './../../primeng/components/common/lazyloadevent.d';
-import { UsoEspecie } from './../core/model';
+import { MenuEmpresa, UsoEspecie } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
 import { ErrorHandlerService } from './../core/error-handler.service';
 import { UsoespecieService, UsoEspecieFiltro } from './usoespecie.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MenuService } from '../menu/menu.service';
 
 @Component({
   selector: 'app-cadastro-usoespecie',
@@ -21,6 +22,7 @@ export class CadastroUsoespecieComponent implements OnInit {
     { label: 'Comercial', value: 'Comercial'},
     { label: 'Não Comercial', value: 'Não Comercial'},
   ];
+  empresaSelecionada = new MenuEmpresa();
   totalRegistrosEspecie = 0;
   filtro = new UsoEspecieFiltro;
   nmUso: string;
@@ -28,10 +30,12 @@ export class CadastroUsoespecieComponent implements OnInit {
   cadEspecieUso = [];
   usoEspecieSalva = new UsoEspecie;
   empresas: [];
+  cdEmp: any;
   @ViewChild('tabela') grid;
 
   constructor(
     private cadempresaService: CadempresaService,
+    private menuService: MenuService,
     private usoespecieService: UsoespecieService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
@@ -53,6 +57,7 @@ export class CadastroUsoespecieComponent implements OnInit {
          this.carregarUsoEspecie(codigoUsoEspecie);
        }
     this.carregarEmpresas();
+    this.carregarEmpresaSelecionada();
 
   }
 
@@ -62,9 +67,26 @@ export class CadastroUsoespecieComponent implements OnInit {
     
   }
 
+  carregarEmpresaSelecionada() {
+    return this.menuService.carregarEmpresaSelecionada()
+      .then(empresaSelecionada => {
+        this.empresaSelecionada.cdEmpresa = empresaSelecionada;
+        this.pesquisar2(this.empresaSelecionada.cdEmpresa);
+        this.usoEspecieSalva.cdEmpresa.cdEmpresa = this.empresaSelecionada.cdEmpresa;
+        this.cdEmp = this.usoEspecieSalva.cdEmpresa.cdEmpresa;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  pesquisar2(cdEmpresa) {
+    this.usoespecieService.pesquisar2(cdEmpresa)
+      .then(empresaSelecionada =>  this.cadEspecieUso  = empresaSelecionada);
+  }
+
 
 pesquisandoUsoEspecie(page = 0){
   this.filtro.page = page;
+  this.filtro.cdEmpresa = this.cdEmp;
    this.usoespecieService.pesquisarUsoEspecie(this.filtro)
     .then(resultado => {
       this.totalRegistrosEspecie = resultado.total;
