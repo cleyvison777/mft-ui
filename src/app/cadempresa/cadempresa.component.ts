@@ -135,7 +135,7 @@ export class CadempresaComponent implements OnInit {
         this.toasty.success("Empresa cadastrada com sucesso!");
         form.reset();
         this.empresasSalvar = new Cadempresa();
-        this.pesquisar();
+        this.refresh();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -149,6 +149,10 @@ export class CadempresaComponent implements OnInit {
       this.pesquisar();
     })
   .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
   }
