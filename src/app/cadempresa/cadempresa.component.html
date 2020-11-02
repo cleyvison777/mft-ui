@@ -85,7 +85,7 @@
       </div>
       <div class="ui-g">
           <div class="ui-g-12 ui-md-12">
-            <p-table [value]="empresas" [paginator]="true" [rows]="30" [lazy]="true" [paginator]="true"
+            <p-table [value]="empresas" [paginator]="true" [rows]="10" [lazy]="true" [paginator]="true"
             (onLazyLoad)="aoMudarPagina($event)" #tabela [totalRecords]="tatalRegistros" [responsive]="true">
                <ng-template pTemplate="header" >
                 <tr>
@@ -96,7 +96,6 @@
                   <th>Endereço</th>
                   <th>Contato</th>
                   <th>CNPJ</th>
-                  <th>Diretório</th>
                   <th></th>
                 </tr>
                </ng-template>
@@ -109,7 +108,6 @@
                      <td>{{empresa.enderecoCompleto}}</td>
                      <td>{{empresa.txPessoacontato}}</td>
                      <td>{{empresa.cnpjEmpresa}}</td>
-                     <th>{{empresa.diretorioArquivos}}</th>
                      <td style="text-align: center;">  <a pButton icon="pi pi-pencil" pTooltip="Editar Empresa" tooltipPosition="top" [routerLink]="['/cadempresa', empresa.cdEmpresa]"></a>
                      <button pButton icon="pi pi-trash" style="margin-left: 10px" pTooltip="Excluir Empresa" tooltipPosition="top" class="ui-button-danger" (click)="confirmarExclusao(empresa)"></button>
                </tr>

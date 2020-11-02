@@ -8,7 +8,7 @@ import { Cadempresa } from 'src/app/core/model';
 export class CadempresaFiltro {
   nmEmpresa: string;
   page = 0;
-  size = 5;
+  size = 10;
 }
 
 
