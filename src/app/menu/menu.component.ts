@@ -57,7 +57,7 @@ export class MenuComponent implements OnInit {
               {
                 label: 'Lista Especie',
                 routerLink: '/cadniveldeavaliacao',
-                
+
                 items: [{
                   label: 'Mautenção da Lista Espécie',
                   icon:'pi pi-fw pi-cog',
@@ -91,7 +91,7 @@ export class MenuComponent implements OnInit {
               {
                 label: 'Equação',
                 routerLink: '/cadamostragem'
-                
+
               }
           ]
       },
@@ -118,7 +118,7 @@ export class MenuComponent implements OnInit {
               },
               {
                 label: 'Tratamento anterior e Tratamento atual:',
-                routerLink: '/cadastro-situacaosilvicultural'
+                routerLink: '/cadastro-tsatualtsanterior'
               },
               {
                 label: 'Classe de Indentificação do Fuste(CIF)',
@@ -152,15 +152,15 @@ export class MenuComponent implements OnInit {
               {
                 label: 'Digitação e Verificação',
                 icon: 'pi pi-fw pi-pencil',
-                
+
               },
               {
                 label: 'Impressão de Ficha de Campo',
                 icon: 'pi pi-fw pi-print',
                 routerLink: '/modmonitoramentotemplate',
-                
+
               }
-              
+
           ]
       },
       {
@@ -189,7 +189,7 @@ export class MenuComponent implements OnInit {
             label: 'Digitação',
             icon: 'pi pi-fw pi-pencil',
           },
-            
+
             {label: 'Impressão de Ficha de Campo',
             icon: 'pi pi-fw pi-print',
           }
@@ -201,13 +201,13 @@ export class MenuComponent implements OnInit {
           items: [
             {label: 'Consulta a Base de Dados Definida',
             icon:'pi pi-fw pi-search'
-          
+
           },
             {label: 'Painel de Controle',
             icon:'pi pi-fw pi-briefcase'
-            
+
           },
-         
+
         ]
       },
 
@@ -234,12 +234,12 @@ export class MenuComponent implements OnInit {
                   label: 'Similaridade entre Comunidades(Índisse de Sorensen)',
                   routerLink: '/modverificadoresdomodelo'
                 },
-  
+
                 {
                   label: 'Similaridades entre Classes e Tamanho(Índisse de Jaccard/Morisita-Horns)',
                   routerLink: '/modverificadoresdomodelo'
                 }
-                
+
              ],
           },
               {
@@ -263,7 +263,7 @@ export class MenuComponent implements OnInit {
                 label: 'Frequência e Distribuição das Espécies por Parcela ',
                 routerLink: '/modverificadoresdomodelo'
               },
-              
+
               {
                 label: 'Frequência e Distribuição das Espécies por Parcela',
                 routerLink: '/modverificadoresdomodelo'
@@ -295,13 +295,13 @@ export class MenuComponent implements OnInit {
             {
               label: 'Fases de Crescimento da Floresta',
               routerLink: '/cadniveldeavaliacao',
-              
+
             },
 
             {
               label: 'Classes de Identificação do Fuste',
               routerLink: '/cadamostragem'
-              
+
             },
             {
               label: 'Dinâmica da Floresta',
@@ -322,45 +322,45 @@ export class MenuComponent implements OnInit {
                 {
                   label: 'Mortalidade (Sheil) e meia-vida por Espécie',
                   routerLink: '/modverificadoresdomodelo'
-                } 
+                }
               ],
               },
               {
                 label: 'Incremento Periódico Anual',
                 routerLink: '/modverificadoresdomodelo'
-              } 
+              }
 
             ],
-              
+
             },
             {
               label: 'Análise Estatística',
               routerLink: '/cadamostragem'
-              
+
             },
             {separator: true},
             {
               label: 'Inventário Temporário',
               routerLink: '/cadamostragem'
-              
+
             },
 
             {
               label: 'Distribuição Diamétrica',
               routerLink: '/cadamostragem'
-              
+
             },
 
             {
               label: 'Distribuição de N, G e V U.A',
               routerLink: '/cadamostragem'
-              
+
             },
 
             {
               label: 'Ánalise Estática',
               routerLink: '/cadamostragem'
-              
+
             }
         ]
     },
@@ -372,7 +372,7 @@ export class MenuComponent implements OnInit {
   ];
   }
 
-  
+
   carregarEmpresas() {
     return this.cadEmpresaService.listarTodas()
       .then(empresas => {
@@ -391,21 +391,21 @@ export class MenuComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
- 
+
   carregarEmpresaSelecionada() {
     return this.menuService.carregarEmpresaSelecionadaNome()
       .then(empresaSelecionada => {
         this.empresaSelecionadaExibicao.nmempresa = empresaSelecionada;
-        
+
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  
+
 
   refresh(): void {
     window.location.reload();
   }
 
- 
+
 }

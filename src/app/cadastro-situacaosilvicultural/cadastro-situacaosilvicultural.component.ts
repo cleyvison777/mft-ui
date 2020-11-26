@@ -45,19 +45,19 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
     this.CarregarSilviculturaldropdown();
 
     const codigoSilvicultural = this.route.snapshot.params['codigo'];
-    //coloquei cod se não pois a busca pelo codigo iria falhar 
+    //coloquei cod se não pois a busca pelo codigo iria falhar
     const codigoTsaterior = this.route.snapshot.params['cod'];
 
     if (codigoSilvicultural) {
 
       this.carregarSilvicultural(codigoSilvicultural);
       this.consultaTS(codigoSilvicultural);
-      
+
     } else if (codigoTsaterior) {
       this.carregarTsanterior(codigoTsaterior);
     }
-    
-  
+
+
   }
 // exibir modal vai ficar para proxima
   // novoTs() {
@@ -97,6 +97,16 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
        this.consultaTS(page);
    }
 
+
+
+  consultaTSS(cadTratamento: number) {
+    // this.filtroTS.page = page;
+     this.tsService.buscarPeloTs(cadTratamento)
+       .then(resultado => {
+        this.listaTs = resultado.listaTs;
+      })
+    .catch(erro => this.errorHandler.handle(erro));
+   }
 
   adicionarTsAtual(form: FormControl) {
     this.tsService.adicionar(this.cadTsAtualTsAnteriorSalva)
@@ -271,7 +281,7 @@ aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
         this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
       })
       .catch(erro => this.errorHandler.handle(erro));
-  
+
   }
 
   salvar(form: FormControl) {

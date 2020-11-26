@@ -287,5 +287,6 @@ export class CadTsAtualTsAnterior {
   cdTratamentoAnterior = new CadTratamentoSilvicultural();
   cdEmpresa = new Cadempresa();
   cdTratamentotual = new CadTratamentoSilvicultural();
+  cadTratamento = new CadTratamentoSilvicultural();
 }
 
