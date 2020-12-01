@@ -15,6 +15,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   templateUrl: './cadastro-tsatualtsanterior.component.html',
   styleUrls: ['./cadastro-tsatualtsanterior.component.css']
 })
+
 export class CadastroTsatualtsanteriorComponent implements OnInit {
   empresas = [];
   listaTs = [];
@@ -23,6 +24,7 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
   cadTratamentoSilviculturalSalva = new CadTratamentoSilvicultural();
   cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
   @ViewChild('tabela') grid;
+
 
   constructor(
     private cadEmpresaService: CadempresaService,
@@ -46,9 +48,8 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
  }
 
   // consultaTS//
-  consultaTS(cadTratamento: number) {
-    // this.filtroTS.page = page;
-     this.tsService.buscarPeloTs(cadTratamento)
+  consultaTS(cdTratamentoAnterior: number) {
+     this.tsService.buscarPeloTs(cdTratamentoAnterior)
        .then(resultado => {
         this.listaTs = resultado.listaTs;
       })
@@ -108,7 +109,7 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
     .then(cadTsAtualTsAnterior => {
       this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
       this.toasty.success('Atualização realizada com sucesso!');
-      form.reset(form);
+     this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo'])
     })
     .catch(erro => this.errorHandler.handle(erro));
 

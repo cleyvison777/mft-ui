@@ -51,155 +51,17 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
     if (codigoSilvicultural) {
 
       this.carregarSilvicultural(codigoSilvicultural);
-      this.consultaTS(codigoSilvicultural);
 
-    } else if (codigoTsaterior) {
-      this.carregarTsanterior(codigoTsaterior);
     }
 
 
   }
-// exibir modal vai ficar para proxima
-  // novoTs() {
-  //   this.exibirFormularioTS = true;
-  // }
-  // AtualizaTs() {
-  //   this.exibirFormularioAtualizaTS = true;
 
-  // }
-////////
   get editando() {
     return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
   }
-  get formularioTs() {
-    return Boolean(this.cadTratamentoSilviculturalSalva.cdTratamento);
-  }
-
-  get editandoTs() {
-    return Boolean(this.cadTsAtualTsAnteriorSalva.cdTratamentoAnteriorPk);
- }
 
 
-  /// TS
-
-  // consultaTS//
-   consultaTS(cdTratamentoAnterior: number) {
-     // this.filtroTS.page = page;
-      this.tsService.buscarPeloTs(cdTratamentoAnterior)
-        .then(resultado => {
-         this.listaTs = resultado.listaTs;
-       })
-     .catch(erro => this.errorHandler.handle(erro));
-    }
-
-    aoMudarPaginaTS(event: LazyLoadEvent) {
-       const page = event.first / event.rows;
-       this.consultaTS(page);
-   }
-
-
-
-  consultaTSS(cadTratamento: number) {
-    // this.filtroTS.page = page;
-     this.tsService.buscarPeloTs(cadTratamento)
-       .then(resultado => {
-        this.listaTs = resultado.listaTs;
-      })
-    .catch(erro => this.errorHandler.handle(erro));
-   }
-
-  adicionarTsAtual(form: FormControl) {
-    this.tsService.adicionar(this.cadTsAtualTsAnteriorSalva)
-      .then(() => {
-        this.cadTsAtualTsAnteriorSalva = new CadTsAtualTsAnterior();
-        this.toasty.success('Cadastrado realizado com sucesso!');
-        ///Pega o valor do cdTratamento como busca na consultaTS
-        this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);
-      })
-
-      .catch(erro => this.errorHandler.handle(erro));
-
-  }
-
-  // excluirTS
-
-  excluirTsAnterior(listaTs: any) {
-   this.tsService.excluir(listaTs.cdTratamentoAnteriorPk)
-    .then(() => {
-      if (this.grid.first === 0) {
-        this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);
-            } else {
-     this.grid.first = 0;
-     this.consultaTS(this.carregarSilvicultural =  this.route.snapshot.params['codigo']);      }
-      this.toasty.success('Situação Silvicultural excluída com sucesso!');
-    })
-    .catch(erro => this.errorHandler.handle(erro));
-
-  }
-
-
-  confirmarExclusaoTS(listaTs: any) {
-    this.confirmation.confirm({
-      message: 'Tem certeza que deseja excluir?',
-      accept: () => {
-        this.excluirTsAnterior(listaTs);
-      }
-
-    });
-  }
-
-  atualizarTsAterior(form: FormControl) {
-    this.tsService.atualizar(this.cadTsAtualTsAnteriorSalva)
-     .then(cadTsAtualTsAnterior => {
-       this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
-       this.toasty.success('Atualização realizada com sucesso!');
-       form.reset(form);
-     })
-     .catch(erro => this.errorHandler.handle(erro));
-
-  }
-
-   // confirmação para alterar TS!
-   confirmarAlterarTsAnterior(cadTsAtualTsAnterior: any) {
-    this.confirmation.confirm({
-      message: 'Tem certeza que deseja alterar?',
-      accept: () => {
-        this.atualizarTsAterior(cadTsAtualTsAnterior);
-      }
-    });
-  }
-
-   salvarTs(form: FormControl) {
-    if (this.editandoTs) {
-      this.confirmarAlterarTsAnterior(form);
-    } else {
-     this.adicionarTsAtual(form);
-   }
- }
-
-  carregarTsanterior(cod: number) {
-    this.tsService.buscarPeloTsAtualiza(cod)
-     .then(cadTsAtualTsAnterior => {
-        this.cadTsAtualTsAnteriorSalva = cadTsAtualTsAnterior;
-     })
-     .catch(erro => this.errorHandler.handle(erro));
-  }
-
-  carregarEmpresas() {
-    return this.cadEmpresaService.listarTodas()
-      .then(empresas => {
-        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + ' - ' + c.nmEmpresa, value: c.cdEmpresa }));
-      })
-      .catch(erro => this.errorHandler.handle(erro));
-  }
-
-  CarregarSilviculturaldropdown() {
-    return this.situacaoService.listarSilvicultural()
-      .then(listaTsSalva => {
-        this.listaTsSalva = listaTsSalva.map(c => ({ label: c.cdTratamento + ' - ' + c.nmTratamento, value: c.cdTratamento }));
-      })
-      .catch(erro => this.errorHandler.handle(erro));
-  }
 
 
 ////////////////////////////////
@@ -291,6 +153,25 @@ aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
       this.adicionarTratamentoSilvicultural(form);
     }
   }
+
+
+
+  carregarEmpresas() {
+    return this.cadEmpresaService.listarTodas()
+      .then(empresas => {
+        this.empresas = empresas.map(c => ({ label: c.cdEmpresa + ' - ' + c.nmEmpresa, value: c.cdEmpresa }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  CarregarSilviculturaldropdown() {
+    return this.situacaoService.listarSilvicultural()
+      .then(listaTsSalva => {
+        this.listaTsSalva = listaTsSalva.map(c => ({ label: c.cdTratamento + ' - ' + c.nmTratamento, value: c.cdTratamento }));
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
 }
 
 
