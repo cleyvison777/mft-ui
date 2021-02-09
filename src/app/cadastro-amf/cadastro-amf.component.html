@@ -11,16 +11,10 @@
 
           <p-fieldset legend="AMF">
             <div class="ui-g">
-              <div class="ui-g-3 ui-fluid">
-                <label>Empresa:</label>
-                <p-dropdown name="empresa" [options]="empresas" [autoWidth]="false" placeholder= "Selecione a empresa" 
-                [(ngModel)]="cadAmf.cdEmpresa.cdEmpresa" required></p-dropdown>
-            
-              </div>
               <div class="ui-g-5 ui-md-5 ui-fluid">
                 <label>Nome: </label>
                 <input type="text" pInputText name="nmArea" [(ngModel)]="cadAmf.nmArea" required>
-               
+
 
               </div>
 
@@ -160,7 +154,7 @@
                 <div class="ui-g-10">
                   <div class="ui-g-3 ui-fluid">
                     <label>Nome: </label>
-                    <input type="text" pInputText name="mnResponsavel" [(ngModel)]="cadAmf.mnResponsavel"> 
+                    <input type="text" pInputText name="mnResponsavel" [(ngModel)]="cadAmf.mnResponsavel">
                   </div>
 
                   <div class="ui-g-3 ui-fluid">
@@ -201,8 +195,8 @@
                 <p-fieldset legend="Lista Especies">
                 <div class="ui-fluid ui-g-4 ui-md-4" style="margin-right:60px;">
                   <label>Lista de Especie: </label>
-                  <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie" 
-                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp" filter="true" required></p-dropdown> 
+                  <p-dropdown name="especies" [options]="especies" [autoWidth]="false" placeholder= "Selecione a Especie"
+                [(ngModel)]="cadAmf.cdListaEsp.cdListaEsp" filter="true" required></p-dropdown>
                 </div>
                   <div style="padding-bottom: 10px;">
                     <p-checkbox name="lgMudaContada"   label="Muda contada" [(ngModel)]="cadAmf.lgMudaContada" binary="true">
@@ -237,13 +231,13 @@
                               <input type="text" pInputText name="nmArea" [(ngModel)]="filtro.nmArea" placeholder="Pesquisar">
                           </div>
                       </div>
-      
+
                   </div>
               </form>
           </div>
         </div>
 
-        <div class="ui-g">        
+        <div class="ui-g">
           <p-table [value]="amf"  [paginator]="true"  [rows]="filtro.size" [responsive]="true" [lazy]="true"
            [totalRecords]="totalRegistrosAMF" (onLazyLoad)="aoMudarPaginaAMF($event)" #tabela>
               <ng-template pTemplate="header">
@@ -253,7 +247,7 @@
                     <th>Estado</th>
                     <th>Municipio</th>
                     <th></th>
-        
+
                   </tr>
               </ng-template>
               <ng-template pTemplate="body" let-area>
@@ -268,13 +262,13 @@
               </tr>
              </ng-template>
           </p-table>
-         
+
        </div>
       </p-fieldset>
-        
-    
+
+
       </p-card>
- 
+
     <!-------------------AMF-FIM--------------->
     </p-tabPanel>
     <!--------------Parcela-->
@@ -449,7 +443,7 @@
 
       </p-fieldset>
 
-      
+
     </p-tabPanel>
     <p-tabPanel header="Header 3">
       Content 3

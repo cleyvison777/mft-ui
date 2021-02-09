@@ -19,9 +19,28 @@ export class CadeAmfFiltro {
 export class AmfService {
 
 
+
+
+
 //localiza o registro
   cadAmfURL = 'http://localhost:8082/cadamf';
   constructor(private http: Http) { }
+
+
+
+  pesquisar2(cdEmpresa: any): Promise<any> {
+
+    const params = new URLSearchParams;
+    const headers = new Headers;
+    headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
+      params.set('cdEmpresa', cdEmpresa);
+        return this.http.get(`${this.cadAmfURL}?cdEmpresa=${cdEmpresa}`, { headers})
+        .toPromise()
+        .then(response => response.json().content)
+
+
+  };
+
   //Faz a consulta
   consultar(filtro: CadeAmfFiltro): Promise<any> {
     const params = new URLSearchParams();
@@ -96,11 +115,4 @@ export class AmfService {
     .toPromise()
     .then(() => null);
    }
-}
-
-
-
-
-
-
-
+  }

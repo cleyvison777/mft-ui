@@ -43,10 +43,10 @@ export class CadastroSituacaosilviculturalComponent implements OnInit {
   ngOnInit() {
     this.carregarEmpresas();
     this.CarregarSilviculturaldropdown();
+    this. carregarTS();
 
     const codigoSilvicultural = this.route.snapshot.params['codigo'];
     //coloquei cod se não pois a busca pelo codigo iria falhar
-    const codigoTsaterior = this.route.snapshot.params['cod'];
 
     if (codigoSilvicultural) {
 
@@ -137,7 +137,7 @@ aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
       }
     });
   }
-  carregarSilvicultural(codigo: number, ) {
+  carregarSilvicultural(codigo: number ) {
     this.situacaoService.buscarPeloCogigoSilvicultural(codigo)
       .then(cadTratamentoSilvicultural => {
         this.cadTratamentoSilviculturalSalva = cadTratamentoSilvicultural;
@@ -145,6 +145,10 @@ aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
       .catch(erro => this.errorHandler.handle(erro));
 
   }
+
+
+
+
 
   salvar(form: FormControl) {
     if (this.editando) {
@@ -172,7 +176,14 @@ aoMudarPaginaSilvicultal(event: LazyLoadEvent) {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
+  carregarTS(){
+    return this.tsService.listarTodasTS()
+     .then(listaTs => {
+       this.listaTs = listaTs.map(c => ({label: c.cdTratamentoAnterior, value: c.cdTratamentoAnterior}))
+     })
+     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+
 }
-
-
 

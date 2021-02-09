@@ -11,13 +11,13 @@
           <button type="submit" pButton  label="Salvar" class="ui-button-success" [disabled]="!familiaSalva.nmFamilia" ></button>
         </div>
         <div *ngIf="editando" class="ui-g-2 ui-md-2 ui-fluid">
-          
+
           <button type="button" pButton label="Sair da edição" routerLink="/cadastro-familia"></button>
         </div>
       </p-fieldset>
-    </form> 
+    </form>
         <p-fieldset legend="Dados Cadastrais">
-          <div class="ui-g-12 ui-md-12">  
+          <div class="ui-g-12 ui-md-12">
             <form  autocomplete="off" (ngSubmit)="pesquisarFamilia()">
               <div class="ui-g-12 ui-fluid">
                   <label style="display: block">Pesquisar Grupo Ecológico: </label>
@@ -32,31 +32,31 @@
           </form>
       </div>
 
-      <div class="ui-g-12 ui-md-12">            
-        <p-table [value]="cadastrofamilia"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
+      <div class="ui-g-12 ui-md-12">
+        <p-table [value]="familia"  [paginator]="true"   [rows]="filtro.size" [responsive]="true" [lazy]="true"
         [totalRecords]="totalRegistrosFamilia" (onLazyLoad)="aoMudarPaginaFamilia($event)" #tabela>
             <ng-template pTemplate="header" >
                 <tr>
-                
+
                   <th>Codigo</th>
                   <th>Grupo Ecológico</th>
                   <th></th>
-                  
+
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-cadastrofamilia>
                 <tr class="hovergenero">
                   <td>{{cadastrofamilia.cdFamilia}}</td>
                   <td>{{cadastrofamilia.nmFamilia}}</td>
-                
-                  <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;" 
+
+                  <td style="text-align: center;"><button pButton icon="pi pi-trash" style="margin-right: 10px;"
                     pTooltip="remover" class="ui-button-danger" tooltipPosition="left"(click)="confirmarExclusaoFamilia(cadastrofamilia)">
                   </button>
                   <button pButton icon="pi pi-pencil" pTooltip="editar" [routerLink]="['/cadastro-familia', cadastrofamilia.cdFamilia]"></button></td>
             </tr>
           </ng-template>
         </p-table>
-      
+
       </div>
 
         </p-fieldset>

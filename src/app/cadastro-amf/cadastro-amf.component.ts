@@ -1,10 +1,11 @@
+import { MenuService } from './../menu/menu.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListaEspecieService } from './../lista-especie/lista-especie.service';
 import { ConfirmationService } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { FormControl } from '@angular/forms';
-import { CadAmf, CadListaEspecie } from './../core/model';
+import { CadAmf, CadListaEspecie, MenuEmpresa } from './../core/model';
 import { AmfService, CadeAmfFiltro} from './amf.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorHandlerService } from '../core/error-handler.service';
@@ -20,8 +21,10 @@ totalRegistrosAMF = 0;
 amf = [];
 empresas = [];
 especies = [];
+cdEmp: any;
 filtro = new CadeAmfFiltro();
 cadAmf = new CadAmf();
+empresaSelecionada = new MenuEmpresa();
 
 @ViewChild('tabela') grid;
 
@@ -29,6 +32,7 @@ cadAmf = new CadAmf();
   constructor(
     private amfService: AmfService,
     private cadEmpresaService: CadempresaService,
+    private menuService: MenuService,
     private listaEspecieService: ListaEspecieService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
@@ -42,12 +46,13 @@ cadAmf = new CadAmf();
     this.carregarListaEpecie();
     this.cadAmf.lgMudaContada = false;
     this.cadAmf.lgPalmeiraContada = false;
-    
+    this.carregarEmpresaSelecionada();
+
     const codigoAmf = this.route.snapshot.params['codigo'];
     //se houver um id entra no metodo de carregar valores
     if (codigoAmf) {
        this.carregarAmf(codigoAmf);
-       
+
     }
 
   }
@@ -164,6 +169,22 @@ return this.listaEspecieService.listarTodasEspecie()
         this.empresas = empresas.map(c => ({ label: c.cdEmpresa + " - " + c.nmEmpresa, value: c.cdEmpresa }));
       })
       .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  pesquisar2(cdEmpresa) {
+    this.amfService.pesquisar2(cdEmpresa)
+      .then(empresaSelecionada =>  this.amf  = empresaSelecionada);
+  }
+
+  carregarEmpresaSelecionada(){
+    return this.menuService.carregarEmpresaSelecionada()
+     .then(empresaSelecionada => {
+       this.empresaSelecionada.cdEmpresa = empresaSelecionada;
+       this.pesquisar2(this.empresaSelecionada.cdEmpresa);
+       this.cadAmf.cdEmpresa.cdEmpresa = this.empresaSelecionada.cdEmpresa
+
+     })
+     .catch(erro => this.errorHandler.handle(erro));
   }
 
 }

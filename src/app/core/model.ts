@@ -279,7 +279,7 @@ export class CadTratamentoSilvicultural {
   cdTratamento: number;
   cdEmpresa = new Cadempresa();
   nmTratamento: string;
-  cadTsAtualTsAnterior = new Array<CadTsAtualTsAnterior>();
+  cdTratamentoAnterior = new Array<CadTsAtualTsAnterior>();
 }
 
 export class CadTsAtualTsAnterior {
@@ -287,6 +287,5 @@ export class CadTsAtualTsAnterior {
   cdTratamentoAnterior = new CadTratamentoSilvicultural();
   cdEmpresa = new Cadempresa();
   cdTratamentotual = new CadTratamentoSilvicultural();
-  cadTratamento = new CadTratamentoSilvicultural();
 }
 

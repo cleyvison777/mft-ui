@@ -1,5 +1,6 @@
+import { MenuService } from './../menu/menu.service';
 import { FormControl } from '@angular/forms';
-import { CadCategoriaProtecao } from './../core/model';
+import { CadCategoriaProtecao, empresaSelecionada, MenuEmpresa } from './../core/model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/primeng';
 import { ToastyService } from 'ng2-toasty';
@@ -17,13 +18,16 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
   totalRegistrosCategoriaProtecao = 0;
   listaCategoriaProtecao = [];
   empresas = [];
+  cdEmp: any;
   cadCategoriaProtecao = new CadCategoriaProtecao;
+  empresaSelecionada = new MenuEmpresa();
   filtroCategoria = new CategoriaFiltro();
   @ViewChild('tabela') grid;
 
 
   constructor(
     private cadEmpresaService: CadempresaService,
+    private menuService: MenuService,
     private categoriaProtecaoService: CategoriaProtecaoService,
     private errorHandler: ErrorHandlerService,
     private toasty: ToastyService,
@@ -33,7 +37,7 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
 
   ngOnInit() {
     this.carregarEmpresas();
-
+    this.carregarEmpresaSelecionada();
     const codigoCategoriaProtecao = this.route.snapshot.params['codigo'];
     if (codigoCategoriaProtecao) {
       this.carregarCategoriaProtecao(codigoCategoriaProtecao);
@@ -138,6 +142,22 @@ export class CadastroCategoriaProtecaoComponent implements OnInit {
       this.adicionarCategoriaProtecao(form);
     }
 
+  }
+
+  pesquisarEmpresas(cdEmpresa) {
+    this.categoriaProtecaoService.pesquisarEmpresa(cdEmpresa)
+     .then(empresaSelecionada => this.listaCategoriaProtecao = empresaSelecionada);
+  }
+
+  carregarEmpresaSelecionada(){
+    return this.menuService.carregarEmpresaSelecionada()
+     .then(empresaSelecionada => {
+       this.empresaSelecionada.cdEmpresa = empresaSelecionada;
+       this.pesquisarEmpresas(this.empresaSelecionada.cdEmpresa);
+       this.cadCategoriaProtecao.cdEmpresa.cdEmpresa = this.empresaSelecionada.cdEmpresa
+
+     })
+     .catch(erro => this.errorHandler.handle(erro));
   }
 
 }

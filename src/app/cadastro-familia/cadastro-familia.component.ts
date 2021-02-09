@@ -16,7 +16,7 @@ export class CadastroFamiliaComponent implements OnInit {
  totalRegistrosFamilia = 0;
  filtro = new CadastroFamiliaFiltro();
  nmFamilia: string;
- cadastrofamilia = [];
+ familia = [];
  familiaSalva = new CadFamilia;
  @ViewChild('tabela') grid;
 
@@ -48,7 +48,7 @@ pesquisarFamilia(page = 0) {
  this.familiaService.pesquisarFamilia(this.filtro)
   .then(resultado => {
      this.totalRegistrosFamilia = resultado.total;
-     this.cadastrofamilia = resultado.cadastrofamilia;
+     this.familia = resultado.cadastrofamilia;
   })
   .catch(erro => this.errorHandler.handle(erro));
      }
@@ -67,7 +67,7 @@ pesquisarFamilia(page = 0) {
         })
         .catch(erro => this.errorHandler.handle(erro));
     }
-    
+
     adicionandoFamilia(form: FormControl) {
       this.familiaService.adicionarFamilia(this.familiaSalva)
        .then(() => {
@@ -99,7 +99,7 @@ pesquisarFamilia(page = 0) {
         }
       });
     }
-     
+
     salvar(form: FormControl) {
 
       if(this.editando) {
@@ -129,7 +129,7 @@ pesquisarFamilia(page = 0) {
       });
     }
 
-    
+
 //Carregar Valores
 CarregarGenero(codigo: number) {
  this.familiaService.buscarPeloCadigo(codigo)

@@ -9,6 +9,8 @@ import { TsatualtsanteriorService } from './tsatualtsanterior.service';
 import { SituacaoService } from './../cadastro-situacaosilvicultural/situacao.service';
 import { CadempresaService } from './../cadempresa/cadempresa.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { resetComponentState } from '@angular/core/src/render3/instructions';
+import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @Component({
   selector: 'app-cadastro-tsatualtsanterior',
@@ -52,6 +54,7 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
      this.tsService.buscarPeloTs(cdTratamentoAnterior)
        .then(resultado => {
         this.listaTs = resultado.listaTs;
+
       })
     .catch(erro => this.errorHandler.handle(erro));
    }
@@ -164,8 +167,6 @@ export class CadastroTsatualtsanteriorComponent implements OnInit {
     })
     .catch(erro => this.errorHandler.handle(erro));
 
-}
+     }
 
-
-////////////////////////////////
 }

@@ -17,7 +17,7 @@ export class GeneroService {
 generoURL = 'http://localhost:8082/genero';
   constructor(private http: Http) { }
 
-  //consultar 
+  //consultar
    consultar(filtro: GeneroFiltro): Promise<any> {
        const params = new URLSearchParams();
        const headers = new Headers;
@@ -72,9 +72,8 @@ atualizar(genero: Genero): Promise<Genero> {
        .then(response => {
          const generoAltera = response.json() as Genero;
             return generoAltera;
-});
-
-  }
+   });
+ }
 buscarPeloCodigoGenero(cdGenero: number): Promise<Genero>{
   const headers = new Headers();
   headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
@@ -84,13 +83,13 @@ buscarPeloCodigoGenero(cdGenero: number): Promise<Genero>{
       const genero = response.json() as Genero;
        return genero;
     });
-     }
+  }
 //buscar pelo godigo para atualizar
      listarTodosGeneros(): Promise<any> {
       const headers = new Headers;
       headers.append('Authorization', 'Basic YWRtaW46YWRtaW4=');
       headers.append('Content-Type', 'application/json');
-         
+
         return this.http.get(this.generoURL, { headers })
         .toPromise()
         .then(response => response.json().content);

@@ -6,7 +6,7 @@ CREATE DATABASE "mftdb"
        LC_COLLATE = 'Portuguese_Brazil.1252'
        LC_CTYPE = 'Portuguese_Brazil.1252'
        CONNECTION LIMIT = -1;
-      
+
 COMMENT ON DATABASE "mftdb"
   IS 'Banco de dados MFT';
 
@@ -30,7 +30,7 @@ insert into menu_empresa (cdempresa) values (1);
 
 
 
-create table d05_lista_especie( 
+create table d05_lista_especie(
 d05_cdlistaesp bigserial not null primary key,
 d05_cdempresa bigserial,
 d05_nmlistaesp varchar(100)
@@ -94,7 +94,7 @@ CREATE TABLE d01_familia (
 d01_cdfamilia BIGSERIAL NOT NULL PRIMARY KEY,
 d01_nmfamilia VARCHAR(50));
 
- insert into d01_familia (d01_nmfamilia) values 
+ insert into d01_familia (d01_nmfamilia) values
 ('Acanthaceae'),
 ('Anacardiaceae'),
 ('Anisophylleaceae'),
@@ -976,7 +976,7 @@ d03_cdlistaesp	bigserial,
 d03_cdgenero	bigserial,
 d03_cdfamilia	bigserial,
 d03_cdespeciemestra	bigserial,
-d03_cdgrupoecologico bigserial,	
+d03_cdgrupoecologico bigserial,
 d03_cdcategoriaprotecao	bigserial,
 d03_nmespecie	varchar(100),
 d03_nmautor	varchar(100),
@@ -1019,7 +1019,7 @@ ALTER TABLE r37_especie_uso
 ADD CONSTRAINT FK_r37_especie_uso_d03_especie
 FOREIGN KEY (r37_cdespecie)
 REFERENCES d03_especie(d03_cdespecie)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 create table r38_especie_classe_tamanho(
 r38_cdclassetamanho bigserial not null primary key,
@@ -1033,14 +1033,14 @@ r38_crescimentoanualmaximomm Integer);
 
 create table d08_equacao (
 d08_cdequacao bigserial not null primary key,
-d08_cdempresa bigserial, 
+d08_cdempresa bigserial,
 d08_nmequacao varchar(50),
 d08_equacao varchar(3000),
 d08_txobservacaoequacao varchar(100),
 d08_imequacao oid
 );
 
-create table d10_classe_tamanho_individuo ( 
+create table d10_classe_tamanho_individuo (
 d10_cdclassetamanho bigserial not null primary key,
 d10_nmclassetamanho varchar(50)
 );
@@ -1057,7 +1057,7 @@ insert into d10_classe_tamanho_individuo (d10_nmclassetamanho) values ('PALMEIRA
 
 
 create table d18_medicao(
-d18_cdmedicao bigserial not null primary key, 
+d18_cdmedicao bigserial not null primary key,
 d18_cdempresa bigserial,
 d18_cdarea bigserial,
 d18_dtiniciomedicao timestamp,
@@ -1068,13 +1068,13 @@ ALTER TABLE d18_medicao
 ADD CONSTRAINT FK_d18_cdempresa
 FOREIGN KEY (d18_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 ALTER TABLE d18_medicao
 ADD CONSTRAINT FK_d18_cdarea
 FOREIGN KEY (d18_cdarea)
 REFERENCES d20_area(d20_cdarea)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 
 create table r33_area_classe_tamanho(
@@ -1104,14 +1104,14 @@ ALTER TABLE r33_area_classe_tamanho
 ADD CONSTRAINT FK_r33_area_classe_tamanho
 FOREIGN KEY (r33_cdclassetamanho)
 REFERENCES d10_classe_tamanho_individuo(d10_cdclassetamanho)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 
 CREATE TABLE d22_tipo_parcela(
 d22_cdtipoparcela bigserial NOT NULL PRIMARY KEY,
-d22_cdempresa	bigserial, 
-d22_nmtipoparcela	VARCHAR(100),	
-d22_lgestudocrescimento	boolean);	
+d22_cdempresa	bigserial,
+d22_nmtipoparcela	VARCHAR(100),
+d22_lgestudocrescimento	boolean);
 
 ALTER TABLE d22_tipo_parcela
 ADD CONSTRAINT FK_d22_cdempresa
@@ -1131,44 +1131,44 @@ insert into d22_tipo_parcela(d22_cdempresa, d22_nmtipoparcela, d22_lgestudocresc
 CREATE TABLE d21_parcela(
 d21_cdparcela	bigserial NOT NULL PRIMARY KEY,
 d21_cdempresa	bigserial,
-d21_cdarea	bigserial, 
-d21_cdtipoparcela	bigserial,	
+d21_cdarea	bigserial,
+d21_cdtipoparcela	bigserial,
 d21_txobservacaoparcela	VARCHAR(4000),
-d21_latitudeponto1grau	Integer,	
-d21_latitudeponto1minuto	Integer,	
+d21_latitudeponto1grau	Integer,
+d21_latitudeponto1minuto	Integer,
 d21_latitudeponto1orientacao	VARCHAR(10),
-d21_longitudeponto1grau	Integer,	
-d21_longitudeponto1minuto	Integer,	
-d21_longitudeponto1orientacao	VARCHAR(10),	
-d21_latitudeponto2grau	Integer,	
-d21_latitudeponto2minuto	Integer,	
-d21_latitudeponto2orientacao	VARCHAR(10),	
-d21_longitudeponto2grau	Integer,	
+d21_longitudeponto1grau	Integer,
+d21_longitudeponto1minuto	Integer,
+d21_longitudeponto1orientacao	VARCHAR(10),
+d21_latitudeponto2grau	Integer,
+d21_latitudeponto2minuto	Integer,
+d21_latitudeponto2orientacao	VARCHAR(10),
+d21_longitudeponto2grau	Integer,
 d21_longitudeponto2minuto	Integer	,
-d21_longitudeponto2orientacao	VARCHAR(10),	
-d21_latitudeponto3grau	Integer,	
-d21_latitudeponto3minuto	Integer,	
-d21_latitudeponto3orientacao	VARCHAR(10),	
-d21_longitudeponto3grau	Integer,	
-d21_longitudeponto3minuto	Integer,	
-d21_longitudeponto3orientacao	VARCHAR(10),	
-d21_latitudeponto4grau	Integer,	
-d21_latitudeponto4minuto	Integer,	
-d21_latitudeponto4orientacao VARCHAR(10),	
-d21_longitudeponto4grau	Integer,	
-d21_longitudeponto4minuto	Integer,	
-d21_longitudeponto4orientacao	VARCHAR(10),	
-d21_lgtestemunha	Integer);	
+d21_longitudeponto2orientacao	VARCHAR(10),
+d21_latitudeponto3grau	Integer,
+d21_latitudeponto3minuto	Integer,
+d21_latitudeponto3orientacao	VARCHAR(10),
+d21_longitudeponto3grau	Integer,
+d21_longitudeponto3minuto	Integer,
+d21_longitudeponto3orientacao	VARCHAR(10),
+d21_latitudeponto4grau	Integer,
+d21_latitudeponto4minuto	Integer,
+d21_latitudeponto4orientacao VARCHAR(10),
+d21_longitudeponto4grau	Integer,
+d21_longitudeponto4minuto	Integer,
+d21_longitudeponto4orientacao	VARCHAR(10),
+d21_lgtestemunha	Integer);
 
 
-	
+
 ALTER TABLE d21_parcela
 ADD CONSTRAINT FK_d21_cdempresa
 FOREIGN KEY (d21_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
 ON DELETE CASCADE;
 
-ALTER TABLE d21_parcela 
+ALTER TABLE d21_parcela
 ADD CONSTRAINT FK_d21_cdtipoparcela
 FOREIGN KEY (d21_cdtipoparcela)
 REFERENCES d22_tipo_parcela(d22_cdtipoparcela)
@@ -1198,35 +1198,35 @@ ALTER TABLE r47_medicao_subparcela
 ADD CONSTRAINT FK_r47_cdempresa
 FOREIGN KEY (r47_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 ALTER TABLE r47_medicao_subparcela
 ADD CONSTRAINT FK_r47_cdarea
 FOREIGN KEY (r47_cdarea)
 REFERENCES d20_area(d20_cdarea)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 
 ALTER TABLE r47_medicao_subparcela
 ADD CONSTRAINT FK_r47_cdparcela
 FOREIGN KEY (r47_cdparcela)
-REFERENCES d21_parcela(d21_cdparcela)        
-ON DELETE CASCADE; 
+REFERENCES d21_parcela(d21_cdparcela)
+ON DELETE CASCADE;
 
 
 ALTER TABLE r47_medicao_subparcela
 ADD CONSTRAINT FK_r47_cdmedicao
 FOREIGN KEY (r47_cdmedicao)
 REFERENCES d18_medicao(d18_cdmedicao)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 
 CREATE TABLE d29_subparcela(
 d29_cdsubparcela  bigserial NOT NULL PRIMARY key,
-d29_cdempresa	bigserial,	
+d29_cdempresa	bigserial,
 d29_cdarea	  bigserial,
 d29_cdparcela	bigserial);
-		
+
 
 
 ALTER TABLE d29_subparcela
@@ -1259,11 +1259,11 @@ CREATE TABLE p23_arvore(
 	p23_cdclassetamanho bigserial,
 	p23_cdcif bigserial,
 	p23_cddano bigserial,
-	p23_cdpodridao bigserial, 
+	p23_cdpodridao bigserial,
 	p23_cdiluminacao bigserial,
 	p23_cdforma bigserial,
 	p23_cdcipo bigserial,
-	p23_cdtratamento bigserial,  
+	p23_cdtratamento bigserial,
 	p23_nrindividuo integer,
 	p23_nrfuste integer,
 	diametromm integer,
@@ -1272,13 +1272,13 @@ CREATE TABLE p23_arvore(
 	p23_lgmudancapdm integer,
 	p23_volumetmp float,
 	p23_areabasaltmp float);
-	
+
 ALTER TABLE p23_arvore
 ADD CONSTRAINT FK_p23_cdempresa_d13_cdempresa
 FOREIGN KEY (p23_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
 ON DELETE CASCADE;
-	
+
 create table d09_categoria_protecao(
 d09_cdcategoriaprotecao bigserial not null primary key,
 d09_cdempresa bigserial,
@@ -1294,14 +1294,14 @@ ALTER TABLE d03_especie
 ADD CONSTRAINT FK_d03_especie_d09_categoria_protecao
 FOREIGN KEY (d03_cdcategoriaprotecao)
 REFERENCES d09_categoria_protecao(d09_cdcategoriaprotecao)
-ON DELETE CASCADE; 
-		
+ON DELETE CASCADE;
+
 
 ALTER TABLE d09_categoria_protecao
 ADD CONSTRAINT FK_d13_cdempresa_d09_categoria_protecao
 FOREIGN KEY (d09_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 create table d36_tratamento_silvicultural(
 d36_cdtratamento bigserial not null primary key,
@@ -1312,8 +1312,8 @@ ALTER TABLE d36_tratamento_silvicultural
 ADD CONSTRAINT FK_d36_tratamento_silvicultural_d13_cdempresa
 FOREIGN KEY (d36_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
-ON DELETE CASCADE; 
- 
+ON DELETE CASCADE;
+
 insert into d36_tratamento_silvicultural (d36_cdempresa, d36_nmtratamento) values (1, 'ÁRVORE ANELADA');
 insert into d36_tratamento_silvicultural (d36_cdempresa, d36_nmtratamento) values (1, 'ÁRVORE ANELADA E TRATADA COM APLICAÇÃO DE ARBORICIDA');
 insert into d36_tratamento_silvicultural (d36_cdempresa, d36_nmtratamento) values (1, 'ÁRVORE BENEFICIADA POR TRATAMENTO SILVICULTURAL');
@@ -1332,16 +1332,29 @@ ALTER TABLE r35_ts_atual_ts_anterior
 ADD constraint FK_r35_ts_atual_ts_anterior_d36_tratamento_silvicultural
 FOREIGN KEY (r35_cdtratamentoanterior)
 REFERENCES d36_tratamento_silvicultural(d36_cdtratamento)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 ALTER TABLE r35_ts_atual_ts_anterior
 ADD CONSTRAINT FK_r35_ts_atual_ts_anterior_d13_cdempresa
 FOREIGN KEY (r35_cdempresa)
 REFERENCES d13_empresa(d13_cdempresa)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
 
 ALTER TABLE r35_ts_atual_ts_anterior
 ADD constraint FK_r35_ts_atual_ts_anterior_d36_tratamento_silvicultural01
 FOREIGN KEY (r35_cdtratamentoatual)
 REFERENCES d36_tratamento_silvicultural(d36_cdtratamento)
-ON DELETE CASCADE; 
+ON DELETE CASCADE;
+
+create table d30_classe_floresta(
+d30_cdclassefloresta bigserial not null primary key,
+d30_cdempresa bigserial,
+d30_nmclassefloresta varchar(50),
+d30_imfigura varchar(150)
+);
+
+ALTER TABLE d30_classe_floresta
+ADD CONSTRAINT FK_d02_genero_d01_familia
+FOREIGN KEY (d30_cdempresa)
+REFERENCES d13_empresa(d13_cdempresa)
+ON DELETE CASCADE;
