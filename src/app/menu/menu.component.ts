@@ -105,7 +105,7 @@ export class MenuComponent implements OnInit {
               },
               {
                 label: 'Classe Floresta',
-                routerLink: '/associarverificador'
+                routerLink: '/cadastro-floresta'
               },
               {
                 label: 'Classe de Tamanho Individuo',

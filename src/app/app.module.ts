@@ -1,3 +1,7 @@
+import { PesquisaFlorestaComponent } from './classe-floresta/pesquisa-floresta/pesquisa-floresta.component';
+import { FlorestaService } from './classe-floresta/floresta.service';
+import { CadastroFlorestaComponent } from './classe-floresta/cadastro-floresta/cadastro-floresta.component';
+import { ClasseFlorestaModule } from './classe-floresta/classe-floresta.module';
 import { TsatualtsanteriorService } from './cadastro-tsatualtsanterior/tsatualtsanterior.service';
 import { SituacaoService } from './cadastro-situacaosilvicultural/situacao.service';
 import { ClasseTamanhoIndividoService } from './cadastro-classtamanhoindividuo/classe-tamanho-individo.service';
@@ -62,7 +66,7 @@ import { NodeService } from 'src/service/nodeservice';
 import { UnidadelocalsublocalComponent } from './unidadelocalsublocal/unidadelocalsublocal.component';
 import { CadniveldeavaliacaoService } from './cadniveldeavaliacao/cadniveldeavaliacao.service';
 import { ErrorHandlerService } from './core/error-handler.service';
-
+import {LightboxModule} from 'primeng/components/lightbox/lightbox';
 import { VerificadorMService } from './verificador-m/verificador-m.service';
 import { VerificadorMEditandoComponent } from './verificador-m/verificador-m-editando/verificador-m-editando.component';
 import { VerificadorMEditandoService } from './verificador-m/verificador-m-editando/verificador-m-editando.service';
@@ -104,7 +108,7 @@ import { TipoParcelaComponent } from './tipo-parcela/tipo-parcela.component';
 import { CadastroClasstamanhoindividuoComponent } from './cadastro-classtamanhoindividuo/cadastro-classtamanhoindividuo.component';
 import { CadastroSituacaosilviculturalComponent } from './cadastro-situacaosilvicultural/cadastro-situacaosilvicultural.component';
 import { CadastroTsatualtsanteriorComponent } from './cadastro-tsatualtsanterior/cadastro-tsatualtsanterior.component';
-
+import { MessageModule } from 'primeng/message';
 
 
 const routes: Routes = [
@@ -147,7 +151,7 @@ const routes: Routes = [
   { path: 'appmonitoramento/:codigo', component:AppmonitoramentoComponent},
   { path: 'appavaliacao', component:AppavaliacaoComponent},
   { path: 'appavaliacao/:codigo', component: AppavaliacaoComponent},
-  
+
   { path: 'cadastro-genero', component: CadastroGeneroComponent},
   { path: 'cadastro-genero/:codigo', component: CadastroGeneroComponent},
 
@@ -156,16 +160,16 @@ const routes: Routes = [
 
    { path: 'cadastro-familia', component: CadastroFamiliaComponent},
    { path: 'cadastro-familia/:codigo', component: CadastroFamiliaComponent},
-  
+
   { path: 'cadastro-grupo-ecologico', component: CadastroGrupoEcologicoComponent},
   { path: 'cadastro-grupo-ecologico/:codigo', component: CadastroGrupoEcologicoComponent},
-   
+
   { path: 'cadastro-categoria-protecao', component: CadastroCategoriaProtecaoComponent},
   { path: 'cadastro-categoria-protecao/:codigo', component: CadastroCategoriaProtecaoComponent},
 
   { path: 'cadastro-usoespecie', component: CadastroUsoespecieComponent},
   { path: 'cadastro-usoespecie/:codigo', component: CadastroUsoespecieComponent},
-  
+
   { path: 'lista-especie', component: ListaEspecieComponent},
   { path: 'lista-especie/:codigo', component: ListaEspecieComponent},
 
@@ -183,6 +187,9 @@ const routes: Routes = [
 
   { path: 'cadastro-tsatualtsanterior', component: CadastroTsatualtsanteriorComponent},
   { path: 'cadastro-tsatualtsanterior/:codigo', component: CadastroTsatualtsanteriorComponent},
+
+  { path: 'cadastro-floresta', component: CadastroFlorestaComponent},
+  { path: 'cadastro-floresta/:codigo', component: CadastroFlorestaComponent},
 
   {path: 'cadastro-arvore', component: CadastroArvoreComponent},
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -230,6 +237,8 @@ const routes: Routes = [
     CadastroClasstamanhoindividuoComponent,
     CadastroSituacaosilviculturalComponent,
     CadastroTsatualtsanteriorComponent,
+    CadastroFlorestaComponent,
+    PesquisaFlorestaComponent
 
 
   ],
@@ -263,7 +272,9 @@ const routes: Routes = [
     FieldsetModule,
     PanelModule,
     SplitButtonModule,
-    MultiSelectModule
+    MultiSelectModule,
+    LightboxModule,
+    MessageModule
   ],
   providers: [
     NodeService,
@@ -299,7 +310,8 @@ const routes: Routes = [
     TipoParcelaService,
     ClasseTamanhoIndividoService,
     SituacaoService,
-    TsatualtsanteriorService
+    TsatualtsanteriorService,
+    FlorestaService,
 
   ],
   bootstrap: [AppComponent]
